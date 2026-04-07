@@ -2,8 +2,8 @@
  * Lê valores do Google Sheets e monta DashboardBundle (espelha scripts/dashboard_bundle_builder.py).
  * Só para Node / serverless — não importar no código do browser.
  */
-import { GoogleAuth } from 'google-auth-library'
-import type { DashboardBundle, EventoRow, FrotaMeta, StatusExecucao, TipoEquipamento } from '../../src/types/dashboard'
+import { JWT } from 'google-auth-library'
+import type { DashboardBundle, EventoRow, FrotaMeta, StatusExecucao, TipoEquipamento } from './sheetTypes'
 
 const SHEET_TRIES = ['dados brutos dashboard', 'Página1', 'Pagina1'] as const
 
@@ -189,22 +189,37 @@ function escapeSheetTitleForRange(title: string): string {
 }
 
 function parseServiceAccountJson(raw: string): { client_email: string; private_key: string } {
-  const creds = JSON.parse(raw) as { client_email: string; private_key: string }
-  if (typeof creds.private_key === 'string') {
-    creds.private_key = creds.private_key.replace(/\\n/g, '\n')
+  let t = raw.trim()
+  if (t.charCodeAt(0) === 0xfeff) t = t.slice(1)
+  let creds: { client_email?: string; private_key?: string }
+  try {
+    creds = JSON.parse(t) as { client_email?: string; private_key?: string }
+  } catch (e) {
+    throw new Error(
+      'GOOGLE_SERVICE_ACCOUNT_JSON inválido. Na Vercel: Settings → Environment Variables → cola o ficheiro .json completo (tipo, project_id, private_key, client_email). Erro: ' +
+        (e instanceof Error ? e.message : String(e)),
+    )
   }
-  return creds
+  if (!creds.client_email || !creds.private_key) {
+    throw new Error(
+      'JSON da conta incompleto: precisa de client_email e private_key. Verifica se colaste o JSON inteiro nas variáveis da Vercel.',
+    )
+  }
+  const privateKey =
+    typeof creds.private_key === 'string' ? creds.private_key.replace(/\\n/g, '\n') : creds.private_key
+  return { client_email: creds.client_email, private_key: privateKey }
 }
 
 async function authHeaders(credentialsJson: string): Promise<Record<string, string>> {
-  const auth = new GoogleAuth({
-    credentials: parseServiceAccountJson(credentialsJson),
+  const creds = parseServiceAccountJson(credentialsJson)
+  const client = new JWT({
+    email: creds.client_email,
+    key: creds.private_key,
     scopes: [READ_SCOPE],
   })
-  const client = await auth.getClient()
   const at = await client.getAccessToken()
   const token = typeof at === 'string' ? at : at?.token
-  if (!token) throw new Error('Falha ao obter token do Google')
+  if (!token) throw new Error('Falha ao obter token do Google (access token vazio).')
   return { Authorization: `Bearer ${token}` }
 }
 

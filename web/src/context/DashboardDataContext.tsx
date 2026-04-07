@@ -44,8 +44,18 @@ const DashboardCtx = createContext<Ctx | null>(null)
 
 async function fetchBundle(): Promise<DashboardBundle> {
   const res = await fetch(DASHBOARD_DATA_URL, { cache: 'no-store' })
-  if (!res.ok) throw new Error(`Falha ao carregar dados (${res.status})`)
-  const data = (await res.json()) as unknown
+  const bodyText = await res.text()
+  if (!res.ok) {
+    let detail = bodyText.slice(0, 600)
+    try {
+      const j = JSON.parse(bodyText) as { error?: string }
+      if (j?.error) detail = j.error
+    } catch {
+      /* corpo não é JSON — ex. HTML de erro */
+    }
+    throw new Error(`Falha ao carregar dados (${res.status}): ${detail}`)
+  }
+  const data = JSON.parse(bodyText) as unknown
   if (
     data &&
     typeof data === 'object' &&

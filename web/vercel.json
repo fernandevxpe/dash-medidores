@@ -3,5 +3,10 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "rewrites": [{ "source": "/favicon.ico", "destination": "/favicon.svg" }]
+  "rewrites": [{ "source": "/favicon.ico", "destination": "/favicon.svg" }],
+  "functions": {
+    "api/dashboard-bundle.ts": {
+      "maxDuration": 60
+    }
+  }
 }
