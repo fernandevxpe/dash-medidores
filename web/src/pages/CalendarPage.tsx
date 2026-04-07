@@ -62,7 +62,7 @@ export function CalendarPage() {
   }
 
   const dias = bundle?.config.diasMedicaoPadrao ?? 8
-  const eventos = bundle?.eventos ?? []
+  const eventos = useMemo(() => (bundle ? bundle.eventos : []), [bundle])
 
   const listaPrevisao = useMemo(() => {
     if (!bundle) return []

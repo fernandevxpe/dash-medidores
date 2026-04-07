@@ -101,7 +101,9 @@ export function CalendarOperational({
   const [draftExtras, setDraftExtras] = useState(diasExtras)
 
   useEffect(() => {
-    if (selectedDayKey) setDraftExtras(diasExtras)
+    if (!selectedDayKey) return
+    const id = requestAnimationFrame(() => setDraftExtras(diasExtras))
+    return () => cancelAnimationFrame(id)
   }, [selectedDayKey, diasExtras])
 
   useEffect(() => {

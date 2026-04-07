@@ -150,6 +150,8 @@ export function DashboardDataProvider({ children }: { children: ReactNode }) {
   return <DashboardCtx.Provider value={value}>{children}</DashboardCtx.Provider>
 }
 
+/** Hook exportado juntamente com o provider (padrão típico de contexto). */
+// eslint-disable-next-line react-refresh/only-export-components -- hook + provider no mesmo ficheiro
 export function useDashboardData() {
   const ctx = useContext(DashboardCtx)
   if (!ctx) throw new Error('useDashboardData outside provider')

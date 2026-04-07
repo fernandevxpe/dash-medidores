@@ -2,7 +2,7 @@
  * Lê valores do Google Sheets e monta DashboardBundle (espelha scripts/dashboard_bundle_builder.py).
  * Só para Node / serverless — não importar no código do browser.
  */
-import { JWT } from 'google-auth-library'
+import { getGoogleAccessTokenFromServiceAccount } from './googleAccessToken'
 import type { DashboardBundle, EventoRow, FrotaMeta, StatusExecucao, TipoEquipamento } from './sheetTypes'
 
 const SHEET_TRIES = ['dados brutos dashboard', 'Página1', 'Pagina1'] as const
@@ -212,14 +212,11 @@ function parseServiceAccountJson(raw: string): { client_email: string; private_k
 
 async function authHeaders(credentialsJson: string): Promise<Record<string, string>> {
   const creds = parseServiceAccountJson(credentialsJson)
-  const client = new JWT({
-    email: creds.client_email,
-    key: creds.private_key,
-    scopes: [READ_SCOPE],
+  const token = await getGoogleAccessTokenFromServiceAccount({
+    client_email: creds.client_email,
+    private_key: creds.private_key,
+    scope: READ_SCOPE,
   })
-  const at = await client.getAccessToken()
-  const token = typeof at === 'string' ? at : at?.token
-  if (!token) throw new Error('Falha ao obter token do Google (access token vazio).')
   return { Authorization: `Bearer ${token}` }
 }
 
