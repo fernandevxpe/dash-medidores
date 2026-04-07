@@ -1,0 +1,69 @@
+# Atualiza web/public/data/dashboard-bundle.json a partir do Google Sheets e faz commit.
+# Requisitos no repositório GitHub:
+#   Settings → Secrets → Actions → New repository secret
+#     GCP_SA_JSON = conteúdo completo do JSON da conta de serviço (uma linha ou multilinha)
+#   Settings → Variables → Actions (opcional):
+#     GOOGLE_SHEETS_SPREADSHEET_ID = ID da planilha (senão usa o valor em env abaixo)
+#
+# O site em produção precisa de redeploy ao receber o push (ex.: Vercel/Netlify com deploy no branch main).
+#
+# Intervalo (UTC): */5 = a cada 5 min (padrão). Para 1 min: */1 * * * * —
+# o GitHub pode atrasar filas em picos; em repos privados consome minutos da quota.
+
+name: Sync Google Sheet → dashboard JSON
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-google-sheet
+  cancel-in-progress: true
+
+env:
+  # Valor padrão se a variable GOOGLE_SHEETS_SPREADSHEET_ID não existir no repo
+  DEFAULT_SHEET_ID: "1b__ZMvvF4JM6v2vSPF-2iIfItZTOgrlASixP5yafKW4"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências Python
+        run: pip install -r scripts/requirements-sheets.txt
+
+      - name: Exportar planilha → dashboard-bundle.json
+        env:
+          GCP_SA_JSON: ${{ secrets.GCP_SA_JSON }}
+          GOOGLE_SHEETS_SPREADSHEET_ID: ${{ vars.GOOGLE_SHEETS_SPREADSHEET_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GCP_SA_JSON:-}" ]; then
+            echo "::error::Defina o secret GCP_SA_JSON (JSON da conta de serviço Google)."
+            exit 1
+          fi
+          printf '%s' "$GCP_SA_JSON" > "$RUNNER_TEMP/gcp-sa.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/gcp-sa.json"
+          export GOOGLE_SHEETS_SPREADSHEET_ID="${GOOGLE_SHEETS_SPREADSHEET_ID:-$DEFAULT_SHEET_ID}"
+          python scripts/export_bundle_from_sheet.py
+
+      - name: Commit e push se houver alteração
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add web/public/data/dashboard-bundle.json
+          if git diff --staged --quiet; then
+            echo "Sem alterações na planilha desde a última sincronização."
+            exit 0
+          fi
+          git commit -m "chore(data): sync dashboard-bundle from Google Sheet"
+          git push

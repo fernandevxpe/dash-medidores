@@ -1,0 +1,9 @@
+{
+  "name": "dash-medidores",
+  "private": true,
+  "description": "Dashboard operacional medidores / analisadores XPE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fernandoxpe/dash-medidores.git"
+  }
+}

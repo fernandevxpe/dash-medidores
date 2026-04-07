@@ -1,0 +1,1801 @@
+{
+  "geradoEm": "2026-04-07T17:56:54Z",
+  "fontePlanilha": "Google Sheets (1b__ZMvv…)",
+  "config": {
+    "diasMedicaoPadrao": 8,
+    "timezone": "America/Recife",
+    "mapaLocalizacaoParaAnalisador": {
+      "CDM1": "01",
+      "CDM2": "02",
+      "CDM3": "03",
+      "CDM4": "04",
+      "CDM5": "05",
+      "CDM6": "06",
+      "CDM7": "07",
+      "CDM8": "08",
+      "COND": "COND",
+      "GERAL": "GERAL",
+      "XPE": "XPE"
+    },
+    "regraClassificacaoId": "xp… = medidor; analisador_N ou só dígitos = analisador",
+    "regraEventos": "Coluna Status_execucao: INSTALAÇÃO / MANUTENÇÃO / DESINSTALAÇÃO"
+  },
+  "eventos": [
+    {
+      "idMedidor": "ANALISADOR 03",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-12T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Muro Alto",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b9ddc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-12T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Muro Alto",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c11f8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-13T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Tulipe Sud - Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b865c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-14T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Tulipe Sud - Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bd964",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-14T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Entrega Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c2218",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-14T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c81b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-14T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Entrega Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cf8b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-14T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Tulipe Sud - Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e1c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-14T00:00:00",
+      "localizacao": "CDM8",
+      "codigoAnalisador": "08",
+      "cliente": "Entrega Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-14T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Entrega Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-14T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Entrega Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dbfd0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-14T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Tulipe Sud - Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-14T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-14T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f3c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-14T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f84",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-14T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Tulipe Sud - Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b9ddc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-20T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Cap D'Antibes",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR 03",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-02-24T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Muro Alto",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b714c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-24T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Porto dos Corais",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b8c28",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-24T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Porto dos Corais",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b9ddc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-02-24T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Muro Alto",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cb0d4",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-24T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Porto dos Corais",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d5c00",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-24T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Porto dos Corais",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-25T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Éden Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfce0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-25T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Entrega Verano",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR 02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR 04",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b865c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bd964",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Entrega Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bd964",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfff8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c11f8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c2218",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c22c0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c81b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Entrega Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c81b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37ca004",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cf8b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e1c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM8",
+      "codigoAnalisador": "08",
+      "cliente": "Entrega Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e1c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Entrega Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Entrega Torre Tulipe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dbfd0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f3c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-28T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR 03",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-04T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Edifício Chanel",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b714c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-04T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Porto dos Corais",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b714c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-04T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Edifício Chanel",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b7bd8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-04T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Edifício Chanel",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b8c28",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-04T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Porto dos Corais",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b8c28",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-04T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Edifício Chanel",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cb0d4",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-04T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Porto dos Corais",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cffdc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-04T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Edifício Chanel",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d5c00",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-04T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Porto dos Corais",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f64",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-04T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Edifício Chanel",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR 01",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-06T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Ébano Reserva São Lourenço",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bd3c8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-06T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Ébano Reserva São Lourenço",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d5c00",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-06T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Ébano Reserva São Lourenço",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR 02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR 02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR 04",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b865c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b865c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bd964",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bd964",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfff8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfff8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c0128",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c11f8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c11f8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c2218",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c2218",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c22c0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c22c0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c81b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c81b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37ca004",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37ca004",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cf8b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cf8b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM8",
+      "codigoAnalisador": "08",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e1c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e1c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dbfd0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Charmant Nord",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237ecc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f3c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f3c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM8",
+      "codigoAnalisador": "08",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f84",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR 03",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-12T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Edifício Chanel",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b714c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-12T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Edifício Chanel",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b7bd8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-12T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Edifício Chanel",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b7bd8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-12T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Condominio do Edificio Maria Nice",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b8c28",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-12T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Edifício Chanel",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cffdc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-12T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Edifício Chanel",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f64",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-12T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Edifício Chanel",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f64",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-12T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Condominio Do Edificio Maria Nice",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR 01",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-13T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Ébano Reserva São Lourenço",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR 01",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-13T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Cidade Do Recife",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b8c28",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-13T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Cidade Do Recife",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bd3c8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-13T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Ébano Reserva São Lourenço",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cffdc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-13T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Cidade Do Recife",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d5c00",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-13T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Ébano Reserva São Lourenço",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR 02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b865c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bd964",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfff8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfff8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c0128",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c11f8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c2218",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c22c0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c81b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c81b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37ca004",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cafe0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM8",
+      "codigoAnalisador": "08",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cf8b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM8",
+      "codigoAnalisador": "08",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e1c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e1c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237ecc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f3c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM8",
+      "codigoAnalisador": "08",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f84",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-17T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Brise Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR 02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-23T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Condominio Do Venâncio Barbosa",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b8c28",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-23T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Condominio Do Venâncio Barbosa",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bae38",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-23T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "condominio do venâncio barbosa",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37ca004",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-23T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Condominio Do Venâncio Barbosa",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cffdc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-23T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Condominio Do Venâncio Barbosa",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f3c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-23T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Condominio Do Venâncio Barbosa",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f84",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-23T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Condominio Do Venâncio Barbosa",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfce0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-24T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Edf Morada Apipucos",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-26T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfff8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-26T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfff8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-26T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c81b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-26T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cafe0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-26T00:00:00",
+      "localizacao": "CDM8",
+      "codigoAnalisador": "08",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e1c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-26T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-26T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-26T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-26T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Torre Rosee No Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b865c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Condomínio Jardim Das Orquídeas",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bd964",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Condomínio Jardim Das Orquídeas",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c2218",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Condomínio Jardim Das Orquídeas",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cb0d4",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Condomínio Jardim Das Orquídeas",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d31dc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Condomínio Jardim Das Orquídeas",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d5c00",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Condomínio Jardim Das Orquídeas",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237ecc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Condomínio Jardim Das Orquídeas",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-04-02T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jardin Sud Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfff8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-04-02T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Jardin Sud Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cafe0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-04-02T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Jardin Sud Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e1c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-04-02T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Jardin Sud Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-04-02T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Jardin Sud Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-04-02T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Jardin Sud Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-04-02T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Jardin Sud Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "analisador_3",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "manutencao",
+      "data": "2026-04-06T00:00:00",
+      "localizacao": "XPE",
+      "codigoAnalisador": "XPE",
+      "cliente": "xpe",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfce0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-04-06T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Edf Morada Apipucos",
+      "instalador": null
+    }
+  ],
+  "frota": {
+    "totalMedidoresObservados": 33,
+    "totalAnalisadoresOficial": 5,
+    "idsMedidoresObservados": [
+      "xp000000a0a3b37b714c",
+      "xp000000a0a3b37b7bd8",
+      "xp000000a0a3b37b865c",
+      "xp000000a0a3b37b8c28",
+      "xp000000a0a3b37b9ddc",
+      "xp000000a0a3b37bae38",
+      "xp000000a0a3b37bc504",
+      "xp000000a0a3b37bd3c8",
+      "xp000000a0a3b37bd964",
+      "xp000000a0a3b37bfce0",
+      "xp000000a0a3b37bfff8",
+      "xp000000a0a3b37c0128",
+      "xp000000a0a3b37c11f8",
+      "xp000000a0a3b37c2218",
+      "xp000000a0a3b37c22c0",
+      "xp000000a0a3b37c81b8",
+      "xp000000a0a3b37ca004",
+      "xp000000a0a3b37cafe0",
+      "xp000000a0a3b37cb0d4",
+      "xp000000a0a3b37cf8b8",
+      "xp000000a0a3b37cffdc",
+      "xp000000a0a3b37d1e1c",
+      "xp000000a0a3b37d216c",
+      "xp000000a0a3b37d31dc",
+      "xp000000a0a3b37d5c00",
+      "xp000000a0a3b37d6d74",
+      "xp000000a0a3b37dbfd0",
+      "xp000000a0a3b37dc0ac",
+      "xp000000fcb467237ecc",
+      "xp000000fcb467237f20",
+      "xp000000fcb467237f3c",
+      "xp000000fcb467237f64",
+      "xp000000fcb467237f84"
+    ],
+    "idsAnalisadoresObservados": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "comentario": "Fonte: aba de eventos (legado 6 colunas ou Google 5 colunas); estado em campo derivado do histórico."
+  }
+}
