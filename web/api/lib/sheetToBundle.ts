@@ -2,8 +2,8 @@
  * Lê valores do Google Sheets e monta DashboardBundle (espelha scripts/dashboard_bundle_builder.py).
  * Só para Node / serverless — não importar no código do browser.
  */
-import { getGoogleAccessTokenFromServiceAccount } from './googleAccessToken'
-import type { DashboardBundle, EventoRow, FrotaMeta, StatusExecucao, TipoEquipamento } from './sheetTypes'
+import { getGoogleAccessTokenFromServiceAccount } from './googleAccessToken.js'
+import type { DashboardBundle, EventoRow, FrotaMeta, StatusExecucao, TipoEquipamento } from './sheetTypes.js'
 
 const SHEET_TRIES = ['dados brutos dashboard', 'Página1', 'Pagina1'] as const
 

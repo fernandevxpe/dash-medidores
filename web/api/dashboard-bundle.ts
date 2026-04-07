@@ -1,4 +1,4 @@
-import { buildLiveDashboardBundle } from './lib/sheetToBundle'
+import { buildLiveDashboardBundle } from './lib/sheetToBundle.js'
 
 const jsonHeaders = {
   'Content-Type': 'application/json; charset=utf-8',

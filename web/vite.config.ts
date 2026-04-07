@@ -38,7 +38,7 @@ export default defineConfig(({ mode }) => {
               const sa = resolveServiceAccountJson(env)
               if (sa) process.env.GOOGLE_SERVICE_ACCOUNT_JSON = sa
               process.env.GOOGLE_SHEETS_SPREADSHEET_ID = env.GOOGLE_SHEETS_SPREADSHEET_ID
-              const { buildLiveDashboardBundle } = await import('./api/lib/sheetToBundle')
+              const { buildLiveDashboardBundle } = await import('./api/lib/sheetToBundle.js')
               const bundle = await buildLiveDashboardBundle()
               res.setHeader('Content-Type', 'application/json; charset=utf-8')
               res.setHeader('Cache-Control', 'no-store')
