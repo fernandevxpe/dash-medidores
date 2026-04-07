@@ -12,10 +12,20 @@ import { filterEventsByRange } from '../analytics/metrics'
 
 const STORAGE_KEY = 'xpe-dashboard-bundle-cache'
 
-/** Dados: JSON estático em public ou API live (/api/dashboard-bundle no dev/Vercel). */
+/**
+ * Em produção, o default é a API que lê o Google na hora. Sem isto, o site ficaria
+ * preso ao JSON estático em public/data (só muda com novo deploy).
+ * Em dev, default é o snapshot local para funcionar sem credenciais.
+ */
 const DASHBOARD_DATA_URL =
-  import.meta.env.VITE_DASHBOARD_DATA_URL ?? '/data/dashboard-bundle.json'
-const POLL_MS = Math.max(0, Number(import.meta.env.VITE_DASHBOARD_POLL_MS || 0))
+  import.meta.env.VITE_DASHBOARD_DATA_URL ??
+  (import.meta.env.PROD ? '/api/dashboard-bundle' : '/data/dashboard-bundle.json')
+
+/** Poll em produção default 60s se não definires VITE_DASHBOARD_POLL_MS na Vercel. */
+const POLL_MS = Math.max(
+  0,
+  Number(import.meta.env.VITE_DASHBOARD_POLL_MS ?? (import.meta.env.PROD ? 60000 : 0)),
+)
 
 type LoadState = 'idle' | 'loading' | 'ready' | 'error'
 
@@ -72,7 +82,10 @@ export function DashboardDataProvider({ children }: { children: ReactNode }) {
         if (silent) setError(null)
       })
       .catch((e: Error) => {
-        if (silent) return
+        if (silent) {
+          console.warn('[dashboard] Falha ao atualizar dados em segundo plano:', e.message)
+          return
+        }
         try {
           const raw = localStorage.getItem(STORAGE_KEY)
           if (raw) {
