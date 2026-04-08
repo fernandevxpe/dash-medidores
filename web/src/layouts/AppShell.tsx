@@ -4,9 +4,10 @@ const links = [
   { to: '/', label: 'Painel' },
   { to: '/clientes', label: 'Clientes' },
   { to: '/tempo', label: 'Temporal' },
-  { to: '/status', label: 'Status' },
   { to: '/equipamentos', label: 'Equipamentos' },
+  { to: '/indicadores', label: 'Indicadores' },
   { to: '/calendario', label: 'Calendário' },
+  { to: '/status', label: 'Status' },
   { to: '/apresentacao', label: 'Apresentação' },
 ]
 

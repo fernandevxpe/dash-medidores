@@ -8,6 +8,7 @@ import { EquipmentPage } from './pages/EquipmentPage'
 import { CalendarPage } from './pages/CalendarPage'
 import { StatusPage } from './pages/StatusPage'
 import { PresentationPage } from './pages/PresentationPage'
+import { IndicatorsPage } from './pages/IndicatorsPage'
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
             <Route path="/clientes" element={<ClientsPage />} />
             <Route path="/tempo" element={<TimePage />} />
             <Route path="/equipamentos" element={<EquipmentPage />} />
+            <Route path="/indicadores" element={<IndicatorsPage />} />
             <Route path="/calendario" element={<CalendarPage />} />
             <Route path="/status" element={<StatusPage />} />
           </Route>

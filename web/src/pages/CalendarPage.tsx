@@ -77,6 +77,12 @@ export function CalendarPage() {
       })
   }, [bundle, eventos, dias, diasExtras, filtroLista])
 
+  const resumoPrevisao = useMemo(() => {
+    const med = listaPrevisao.filter((p) => p.tipo === 'medidor').length
+    const an = listaPrevisao.filter((p) => p.tipo === 'analisador').length
+    return { med, an, total: listaPrevisao.length }
+  }, [listaPrevisao])
+
   if (loadState !== 'ready' || !bundle) {
     return <div className="py-20 text-center text-xpe-muted">Carregando…</div>
   }
@@ -128,6 +134,20 @@ export function CalendarPage() {
           </div>
         }
       >
+        <div className="mb-3 grid gap-2 sm:grid-cols-3">
+          <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-xs">
+            <p className="uppercase text-zinc-400">Total previsto</p>
+            <p className="text-lg font-semibold text-white">{resumoPrevisao.total}</p>
+          </div>
+          <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-xs">
+            <p className="uppercase text-zinc-400">Medidores previstos</p>
+            <p className="text-lg font-semibold text-xpe-neon">{resumoPrevisao.med}</p>
+          </div>
+          <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-xs">
+            <p className="uppercase text-zinc-400">Analisadores previstos</p>
+            <p className="text-lg font-semibold text-violet-300">{resumoPrevisao.an}</p>
+          </div>
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px] text-left text-sm">
             <thead>

@@ -19,20 +19,16 @@ import {
   resumoPrazoMedicao,
   tipoEquipamentoDe,
   trafficForCapacity,
-  trafficForUnknownShare,
-  unknownLocationShare,
   ultimasDesinstalacoes,
   ultimasInstalacoes,
 } from '../analytics/metrics'
-import { format, parseISO } from 'date-fns'
 
 export function OverviewPage() {
-  const { bundle, loadState, error, eventosFiltrados, rangeStart, rangeEnd, setRange } = useDashboardData()
+  const { bundle, loadState, error, eventosFiltrados } = useDashboardData()
 
   const derived = useMemo(() => {
     if (!bundle) return null
     const cap = capacityMetrics(bundle)
-    const unk = unknownLocationShare(eventosFiltrados)
     const md = medidorStatusDistribuicao(bundle)
     const medidorSeg = [
       { key: 'inst', label: 'Em uso (instalado)', value: md.instalado, color: '#39ff9c' },
@@ -59,7 +55,6 @@ export function OverviewPage() {
     const prazoMes = bucketMesCiclosConcluidosPrazo(bundle)
     return {
       cap,
-      unk,
       medidorSeg,
       analSeg,
       mesDual,
@@ -85,7 +80,6 @@ export function OverviewPage() {
 
   const {
     cap,
-    unk,
     medidorSeg,
     analSeg,
     mesDual,
@@ -106,47 +100,9 @@ export function OverviewPage() {
         </div>
       )}
 
-      {bundle.fontePlanilha && (
-        <p className="text-center text-[11px] text-zinc-500">
-          Fonte: <span className="text-zinc-300">{bundle.fontePlanilha}</span>
-        </p>
-      )}
-
-      <div className="flex flex-col gap-3 rounded-2xl border border-xpe-border bg-xpe-surface/50 p-4 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-widest text-xpe-muted">Filtro de período</p>
-          <p className="mt-1 text-sm text-zinc-400">
-            Afeta gráficos e tabelas por data (KPIs de estoque usam sempre o histórico completo).
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <label className="flex flex-col text-[10px] uppercase text-zinc-500">
-            Início
-            <input
-              type="date"
-              className="mt-1 rounded-lg border border-xpe-border bg-xpe-bg px-2 py-1.5 text-sm text-white"
-              value={rangeStart ? format(rangeStart, 'yyyy-MM-dd') : ''}
-              onChange={(e) => setRange(e.target.value ? parseISO(e.target.value) : null, rangeEnd)}
-            />
-          </label>
-          <label className="flex flex-col text-[10px] uppercase text-zinc-500">
-            Fim
-            <input
-              type="date"
-              className="mt-1 rounded-lg border border-xpe-border bg-xpe-bg px-2 py-1.5 text-sm text-white"
-              value={rangeEnd ? format(rangeEnd, 'yyyy-MM-dd') : ''}
-              onChange={(e) => setRange(rangeStart, e.target.value ? parseISO(e.target.value) : null)}
-            />
-          </label>
-          <button
-            type="button"
-            className="self-end rounded-lg border border-xpe-border px-3 py-2 text-xs text-zinc-300 hover:bg-white/5"
-            onClick={() => setRange(null, null)}
-          >
-            Limpar
-          </button>
-        </div>
-      </div>
+      <p className="text-center text-[11px] text-zinc-500">
+        Última atualização recebida: <span className="text-zinc-300">{bundle.geradoEm}</span>
+      </p>
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <KpiTile
@@ -185,12 +141,6 @@ export function OverviewPage() {
               %
             </>
           }
-        />
-        <KpiTile
-          label="Qualidade de localização"
-          value={`${unk.toFixed(1)}%`}
-          hint='Eventos sem local ou "Desconhecido"'
-          traffic={trafficForUnknownShare(unk)}
         />
       </div>
 
@@ -252,14 +202,14 @@ export function OverviewPage() {
 
       <Card
         title="Cliente (obra) · equipamentos em instalações"
-        subtitle="Verde = cliente com slot ativo hoje (histórico completo) · Roxo = só histórico no período filtrado"
+        subtitle="Verde = cliente com slot ativo hoje (histórico completo) · Roxo = somente histórico"
         className="overflow-hidden"
       >
         <GroupedClientChart data={clientes} />
       </Card>
 
       <div className="grid gap-4 lg:grid-cols-3">
-        <Card title="Volume por dia" subtitle="Instalações e desinstalações (período filtrado)">
+        <Card title="Volume por dia" subtitle="Instalações e desinstalações (histórico atual)">
           <BarVolumeDual
             data={diaDual.map((d) => ({
               label: d.dia,
@@ -342,7 +292,7 @@ export function OverviewPage() {
           </div>
         </Card>
 
-        <Card title="Últimas desinstalações" subtitle="Eventos DESINSTALAÇÃO mais recentes no período filtrado">
+        <Card title="Últimas desinstalações" subtitle="Eventos DESINSTALAÇÃO mais recentes do histórico">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[560px] text-left text-xs sm:text-sm">
               <thead>

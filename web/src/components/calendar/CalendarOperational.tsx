@@ -186,7 +186,9 @@ export function CalendarOperational({
     const al = aDes.get(selectedDayKey)?.size ?? 0
     const mc = medidoresUtilizandoFimDia(eventos, selectedDayKey)
     const ac = analisadoresUtilizandoFimDia(eventos, selectedDayKey)
-    return { inst, des, prev, mn, ml, an, al, mc, ac }
+    const prevMed = prev.filter((p) => p.tipo === 'medidor').length
+    const prevAn = prev.filter((p) => p.tipo === 'analisador').length
+    return { inst, des, prev, prevMed, prevAn, mn, ml, an, al, mc, ac }
   }, [selectedDayKey, eventos, previsoesRascunhoLista, stats, mode])
 
   const days = useMemo(() => {
@@ -555,6 +557,10 @@ export function CalendarOperational({
                       <li className="text-zinc-500">Nenhuma previsão nesta data (vista {MODE_LABEL[mode]}).</li>
                     )}
                   </ul>
+                  <p className="mt-2 text-[11px] text-zinc-400">
+                    Medidores previstos: <strong className="text-zinc-200">{detalheDia.prevMed}</strong> · Analisadores
+                    previstos: <strong className="text-zinc-200">{detalheDia.prevAn}</strong>
+                  </p>
                 </div>
                 <div className="lg:col-span-2 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-xs text-zinc-400">
                   {mode === 'junto' && (

@@ -35,12 +35,12 @@ export function BarVolumeDual({
           <CartesianGrid strokeDasharray="3 6" stroke="rgba(168,85,247,0.12)" vertical={false} />
           <XAxis
             dataKey={xKey}
-            tick={{ fill: '#a1a1aa', fontSize: 10 }}
+            tick={{ fill: '#f4f4f5', fontSize: 10 }}
             axisLine={{ stroke: 'rgba(168,85,247,0.2)' }}
             tickLine={false}
             interval="preserveStartEnd"
           />
-          <YAxis tick={{ fill: '#a1a1aa', fontSize: 10 }} axisLine={false} tickLine={false} allowDecimals={false} />
+          <YAxis tick={{ fill: '#f4f4f5', fontSize: 10 }} axisLine={false} tickLine={false} allowDecimals={false} />
           <Tooltip
             cursor={{ fill: 'rgba(168,85,247,0.08)' }}
             contentStyle={{
@@ -50,7 +50,7 @@ export function BarVolumeDual({
               color: '#f4f4f5',
             }}
           />
-          <Legend wrapperStyle={{ fontSize: 12 }} />
+          <Legend wrapperStyle={{ fontSize: 12, color: '#f4f4f5' }} />
           <Bar dataKey={keyInst} name={nameInst} fill={colorInst} radius={[4, 4, 0, 0]} maxBarSize={28} />
           <Bar dataKey={keyDes} name={nameDes} fill={colorDes} radius={[4, 4, 0, 0]} maxBarSize={28} />
         </BarChart>

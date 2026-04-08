@@ -26,14 +26,14 @@ export function SegmentedStatusBar({
             key={s.key}
             className="flex items-center justify-between gap-2 rounded-lg border border-white/5 bg-white/[0.02] px-3 py-2 text-sm"
           >
-            <span className="flex min-w-0 items-center gap-2 text-zinc-200">
+            <span className="flex min-w-0 items-center gap-2 text-zinc-100">
               <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: s.color }} />
               <span className="truncate">{s.label}</span>
             </span>
             <span className="shrink-0 font-mono text-xs text-zinc-300">
               <span className="font-semibold text-white">{s.value}</span>
-              <span className="text-zinc-500"> · </span>
-              <span className="text-xpe-neon-dim">{((s.value / total) * 100).toFixed(1)}%</span>
+              <span className="text-zinc-300"> · </span>
+              <span className="text-xpe-neon">{((s.value / total) * 100).toFixed(1)}%</span>
             </span>
           </li>
         ))}

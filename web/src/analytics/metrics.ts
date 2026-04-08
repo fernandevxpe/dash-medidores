@@ -495,6 +495,175 @@ export function eventosPorMedidor(eventos: EventoRow[], id: string) {
   return eventos.filter((e) => e.idMedidor === id).sort((a, b) => eventTime(b) - eventTime(a))
 }
 
+export interface IntervaloTemporalEquipamento {
+  tipo: 'medicao' | 'ociosidade'
+  aberto: boolean
+  inicio: string
+  fim: string
+  duracaoMs: number
+  duracaoDias: number
+  localizacaoInicio: string | null
+  localizacaoFim: string | null
+}
+
+export interface HistoricoTemporalEquipamento {
+  id: string
+  tipo: TipoEquipamento
+  intervalosMedicao: IntervaloTemporalEquipamento[]
+  intervalosOciosidade: IntervaloTemporalEquipamento[]
+  mediaMedicaoDias: number
+  mediaOciosidadeDias: number
+  taxaUso: number
+  totalMedicaoMs: number
+  totalOciosidadeMs: number
+  ciclosMedicaoFechados: number
+  ciclosOciosidadeFechados: number
+  ciclosMedicaoAbertos: number
+  ciclosOciosidadeAbertos: number
+}
+
+export interface IndicadoresTemporaisGlobais {
+  tipo: Exclude<TipoEquipamento, 'desconhecido'>
+  quantidadeEquipamentos: number
+  emUso: number
+  disponiveis: number
+  manutencao: number
+  totalMedicaoMs: number
+  totalOciosidadeMs: number
+  mediaMedicaoDias: number
+  mediaOciosidadeDias: number
+  taxaUso: number
+}
+
+function clampNonNegative(ms: number): number {
+  return Number.isFinite(ms) ? Math.max(0, ms) : 0
+}
+
+function mediaDias(intervalos: IntervaloTemporalEquipamento[]): number {
+  if (intervalos.length === 0) return 0
+  const soma = intervalos.reduce((acc, x) => acc + x.duracaoDias, 0)
+  return soma / intervalos.length
+}
+
+function makeIntervalo(
+  tipo: 'medicao' | 'ociosidade',
+  aberto: boolean,
+  inicio: EventoRow,
+  fim: EventoRow | null,
+  agoraIso: string,
+): IntervaloTemporalEquipamento {
+  const inicioMs = new Date(inicio.data).getTime()
+  const fimIso = fim?.data ?? agoraIso
+  const fimMs = new Date(fimIso).getTime()
+  const duracaoMs = clampNonNegative(fimMs - inicioMs)
+  return {
+    tipo,
+    aberto,
+    inicio: inicio.data,
+    fim: fimIso,
+    duracaoMs,
+    duracaoDias: duracaoMs / 86_400_000,
+    localizacaoInicio: inicio.localizacao ?? null,
+    localizacaoFim: fim?.localizacao ?? null,
+  }
+}
+
+export function historicoTemporalPorEquipamento(
+  eventos: EventoRow[],
+  id: string,
+  agoraMs: number = Date.now(),
+): HistoricoTemporalEquipamento {
+  const linha = eventos
+    .filter((e) => e.idMedidor === id)
+    .sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime())
+  const agoraIso = new Date(agoraMs).toISOString()
+  const tipo = linha.length > 0 ? tipoEquipamentoDe(linha[linha.length - 1]!) : inferTipoFromIdMedidor(id)
+  const intervalosMedicao: IntervaloTemporalEquipamento[] = []
+  const intervalosOciosidade: IntervaloTemporalEquipamento[] = []
+  let ultimaInstalacao: EventoRow | null = null
+  let ultimaDesinstalacao: EventoRow | null = null
+  for (const e of linha) {
+    if (isInstalacao(e)) {
+      if (ultimaDesinstalacao) {
+        intervalosOciosidade.push(makeIntervalo('ociosidade', false, ultimaDesinstalacao, e, agoraIso))
+      }
+      ultimaInstalacao = e
+      ultimaDesinstalacao = null
+      continue
+    }
+    if (isDesinstalacao(e)) {
+      if (ultimaInstalacao) {
+        intervalosMedicao.push(makeIntervalo('medicao', false, ultimaInstalacao, e, agoraIso))
+      }
+      ultimaDesinstalacao = e
+      ultimaInstalacao = null
+    }
+  }
+  if (ultimaInstalacao) intervalosMedicao.push(makeIntervalo('medicao', true, ultimaInstalacao, null, agoraIso))
+  if (ultimaDesinstalacao)
+    intervalosOciosidade.push(makeIntervalo('ociosidade', true, ultimaDesinstalacao, null, agoraIso))
+
+  const totalMedicaoMs = intervalosMedicao.reduce((acc, x) => acc + x.duracaoMs, 0)
+  const totalOciosidadeMs = intervalosOciosidade.reduce((acc, x) => acc + x.duracaoMs, 0)
+  const denom = totalMedicaoMs + totalOciosidadeMs
+  return {
+    id,
+    tipo,
+    intervalosMedicao,
+    intervalosOciosidade,
+    mediaMedicaoDias: mediaDias(intervalosMedicao),
+    mediaOciosidadeDias: mediaDias(intervalosOciosidade),
+    taxaUso: denom > 0 ? totalMedicaoMs / denom : 0,
+    totalMedicaoMs,
+    totalOciosidadeMs,
+    ciclosMedicaoFechados: intervalosMedicao.filter((x) => !x.aberto).length,
+    ciclosOciosidadeFechados: intervalosOciosidade.filter((x) => !x.aberto).length,
+    ciclosMedicaoAbertos: intervalosMedicao.filter((x) => x.aberto).length,
+    ciclosOciosidadeAbertos: intervalosOciosidade.filter((x) => x.aberto).length,
+  }
+}
+
+export function historicosTemporaisDaFrota(
+  bundle: DashboardBundle,
+  agoraMs: number = Date.now(),
+): HistoricoTemporalEquipamento[] {
+  const ids = new Set<string>()
+  for (const id of bundle.frota.idsMedidoresObservados ?? []) ids.add(id)
+  for (const idNum of bundle.frota.idsAnalisadoresObservados ?? []) ids.add(`analisador_${parseInt(idNum, 10)}`)
+  for (const e of bundle.eventos) ids.add(e.idMedidor)
+  return [...ids].map((id) => historicoTemporalPorEquipamento(bundle.eventos, id, agoraMs))
+}
+
+export function indicadoresTemporaisGlobais(bundle: DashboardBundle): {
+  medidores: IndicadoresTemporaisGlobais
+  analisadores: IndicadoresTemporaisGlobais
+} {
+  const cap = capacityMetrics(bundle)
+  const hs = historicosTemporaisDaFrota(bundle)
+  const med = hs.filter((h) => h.tipo === 'medidor')
+  const an = hs.filter((h) => h.tipo === 'analisador')
+  const mk = (tipo: 'medidor' | 'analisador', lista: HistoricoTemporalEquipamento[]): IndicadoresTemporaisGlobais => {
+    const totalMedicaoMs = lista.reduce((acc, h) => acc + h.totalMedicaoMs, 0)
+    const totalOciosidadeMs = lista.reduce((acc, h) => acc + h.totalOciosidadeMs, 0)
+    const denom = totalMedicaoMs + totalOciosidadeMs
+    return {
+      tipo,
+      quantidadeEquipamentos: lista.length,
+      emUso: tipo === 'medidor' ? cap.instalados : cap.analisadoresInstalados,
+      disponiveis: tipo === 'medidor' ? cap.disponiveis : cap.analisadoresLivres,
+      manutencao: tipo === 'medidor' ? cap.manutencaoMedidores : cap.analisadoresManutencao,
+      totalMedicaoMs,
+      totalOciosidadeMs,
+      mediaMedicaoDias:
+        lista.length > 0 ? lista.reduce((acc, h) => acc + h.mediaMedicaoDias, 0) / lista.length : 0,
+      mediaOciosidadeDias:
+        lista.length > 0 ? lista.reduce((acc, h) => acc + h.mediaOciosidadeDias, 0) / lista.length : 0,
+      taxaUso: denom > 0 ? totalMedicaoMs / denom : 0,
+    }
+  }
+  return { medidores: mk('medidor', med), analisadores: mk('analisador', an) }
+}
+
 export function ultimoEventoPorId(eventos: EventoRow[], id: string): EventoRow | undefined {
   const evs = eventos.filter((e) => e.idMedidor === id)
   if (evs.length === 0) return undefined
