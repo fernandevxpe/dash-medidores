@@ -8,6 +8,12 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+import {
+  chartLegendWrapperStyle,
+  chartTooltipContentStyle,
+  chartTooltipItemStyle,
+  chartTooltipLabelStyle,
+} from './chartTheme'
 
 export function BarVolumeDual({
   data,
@@ -43,14 +49,14 @@ export function BarVolumeDual({
           <YAxis tick={{ fill: '#f4f4f5', fontSize: 10 }} axisLine={false} tickLine={false} allowDecimals={false} />
           <Tooltip
             cursor={{ fill: 'rgba(168,85,247,0.08)' }}
-            contentStyle={{
-              background: '#120b1f',
-              border: '1px solid rgba(168,85,247,0.35)',
-              borderRadius: 12,
-              color: '#f4f4f5',
-            }}
+            contentStyle={chartTooltipContentStyle}
+            itemStyle={chartTooltipItemStyle}
+            labelStyle={chartTooltipLabelStyle}
           />
-          <Legend wrapperStyle={{ fontSize: 12, color: '#f4f4f5' }} />
+          <Legend
+            wrapperStyle={{ ...chartLegendWrapperStyle, fontSize: 12 }}
+            formatter={(value) => <span className="text-zinc-300">{value}</span>}
+          />
           <Bar dataKey={keyInst} name={nameInst} fill={colorInst} radius={[4, 4, 0, 0]} maxBarSize={28} />
           <Bar dataKey={keyDes} name={nameDes} fill={colorDes} radius={[4, 4, 0, 0]} maxBarSize={28} />
         </BarChart>

@@ -47,7 +47,33 @@ function intervaloTipoClass(t: IntervaloTemporalEquipamento['tipo']) {
   if (t === 'manutencao') return 'text-amber-300'
   return 'text-violet-300'
 }
+
+type BarRow = { name: string; value: number; fill?: string }
+
+function TooltipBarFrota({
+  active,
+  payload,
+}: {
+  active?: boolean
+  payload?: Array<{ payload?: BarRow }>
+}) {
+  if (!active || !payload?.[0]?.payload) return null
+  const row = payload[0].payload
+  const c = row.fill ?? '#39ff9c'
+  return (
+    <div className="rounded-xl border border-white/15 bg-[#120b1f] px-3 py-2 text-xs shadow-lg">
+      <p className="mb-1 text-zinc-400">{row.name}</p>
+      <p className="text-zinc-100">
+        <span className="font-medium" style={{ color: c }}>
+          Quantidade
+        </span>
+        <span className="ml-1.5 font-semibold tabular-nums">{row.value}</span>
+      </p>
+    </div>
+  )
+}
 import { SegmentedStatusBar } from '../components/charts/SegmentedStatusBar'
+import { chartTooltipContentStyle, chartTooltipItemStyle, chartTooltipLabelStyle } from '../components/charts/chartTheme'
 import { AnalyzerUtilizationSection } from '../components/equipment/AnalyzerUtilizationSection'
 
 function previsaoParaEquipamento(
@@ -286,7 +312,12 @@ export function EquipmentPage() {
                     axisLine={false}
                     tickLine={false}
                   />
-                  <Tooltip contentStyle={{ background: '#120b1f', border: '1px solid rgba(168,85,247,0.35)', color: '#fff' }} />
+                  <Tooltip
+                    content={<TooltipBarFrota />}
+                    contentStyle={chartTooltipContentStyle}
+                    itemStyle={chartTooltipItemStyle}
+                    labelStyle={chartTooltipLabelStyle}
+                  />
                   <Bar dataKey="value" radius={[0, 6, 6, 0]} maxBarSize={24}>
                     {medidorBars.map((_, i) => (
                       <Cell key={i} fill={medidorBars[i]!.fill} />
@@ -305,7 +336,12 @@ export function EquipmentPage() {
                   <CartesianGrid strokeDasharray="3 6" stroke="rgba(168,85,247,0.12)" vertical={false} />
                   <XAxis dataKey="name" tick={{ fill: '#f4f4f5', fontSize: 11 }} interval={0} />
                   <YAxis tick={{ fill: '#f4f4f5', fontSize: 11 }} allowDecimals={false} />
-                  <Tooltip contentStyle={{ background: '#120b1f', border: '1px solid rgba(168,85,247,0.35)', color: '#fff' }} />
+                  <Tooltip
+                    content={<TooltipBarFrota />}
+                    contentStyle={chartTooltipContentStyle}
+                    itemStyle={chartTooltipItemStyle}
+                    labelStyle={chartTooltipLabelStyle}
+                  />
                   <Bar dataKey="value" radius={[6, 6, 0, 0]} maxBarSize={44}>
                     {analBars.map((_, i) => (
                       <Cell key={i} fill={analBars[i]!.fill} />

@@ -1,4 +1,5 @@
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
+import { chartTooltipContentStyle, chartTooltipItemStyle, chartTooltipLabelStyle } from './chartTheme'
 
 const COLORS_M = ['#39ff9c', '#a855f7', '#fbbf24', '#fb7185', '#38bdf8']
 
@@ -30,12 +31,9 @@ export function StatusDonut({
             ))}
           </Pie>
           <Tooltip
-            contentStyle={{
-              background: '#120b1f',
-              border: '1px solid rgba(168,85,247,0.35)',
-              borderRadius: 12,
-              color: '#f4f4f5',
-            }}
+            contentStyle={chartTooltipContentStyle}
+            itemStyle={chartTooltipItemStyle}
+            labelStyle={chartTooltipLabelStyle}
             formatter={(v, _n, p) => {
               const n = typeof v === 'number' ? v : Number(v)
               const name = (p?.payload as { name?: string } | undefined)?.name ?? ''

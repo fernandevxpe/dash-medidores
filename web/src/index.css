@@ -17,6 +17,14 @@
   --color-xpe-muted: #9ca3af;
 }
 
+/* Recharts: texto da legenda padrão herdava preto no tema escuro */
+@layer components {
+  .recharts-wrapper .recharts-default-legend .recharts-legend-item-text {
+    color: #d4d4d8 !important;
+    fill: #d4d4d8 !important;
+  }
+}
+
 @layer base {
   html {
     @apply antialiased;

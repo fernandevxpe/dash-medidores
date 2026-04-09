@@ -8,6 +8,12 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+import {
+  chartLegendWrapperStyle,
+  chartTooltipContentStyle,
+  chartTooltipItemStyle,
+  chartTooltipLabelStyle,
+} from './chartTheme'
 
 /** Ciclos concluídos por mês da desinstalação: dentro vs fora do prazo (N dias). */
 export function BarPrazoCiclos({
@@ -35,14 +41,14 @@ export function BarPrazoCiclos({
           <YAxis tick={{ fill: '#a1a1aa', fontSize: 10 }} axisLine={false} tickLine={false} allowDecimals={false} />
           <Tooltip
             cursor={{ fill: 'rgba(168,85,247,0.08)' }}
-            contentStyle={{
-              background: '#120b1f',
-              border: '1px solid rgba(168,85,247,0.35)',
-              borderRadius: 12,
-              color: '#f4f4f5',
-            }}
+            contentStyle={chartTooltipContentStyle}
+            itemStyle={chartTooltipItemStyle}
+            labelStyle={chartTooltipLabelStyle}
           />
-          <Legend wrapperStyle={{ fontSize: 12 }} />
+          <Legend
+            wrapperStyle={{ ...chartLegendWrapperStyle, fontSize: 12 }}
+            formatter={(value) => <span className="text-zinc-300">{value}</span>}
+          />
           <Bar
             dataKey="dentro"
             name={`≤ ${diasPrazo} dias`}

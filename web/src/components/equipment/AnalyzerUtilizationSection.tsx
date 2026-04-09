@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { format } from 'date-fns'
 import {
   Activity,
@@ -14,17 +14,26 @@ import {
   Timer,
   Wrench,
 } from 'lucide-react'
-import { Area, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { Area, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import type { DashboardBundle } from '../../types/dashboard'
 import type { IndicadoresTemporaisGlobais } from '../../analytics/metrics'
 import {
+  analisadoresSinteticos,
   colunaSerieAnalisador,
   metricasDetalhadasPorAnalisador,
   serieDiariaAnalisadoresUtilizacao,
   totaisAgregadosMetricasAnalisadores,
 } from '../../analytics/metrics'
+import {
+  chartTooltipContentStyle,
+  chartTooltipItemStyle,
+  chartTooltipLabelStyle,
+} from '../charts/chartTheme'
 import { Card } from '../ui/Card'
 import { IndicatorMiniCard } from '../ui/IndicatorMiniCard'
+
+const STICKY_TH = 'sticky z-20 border-b border-white/10 bg-[#120b1f] px-2 py-2'
+const STICKY_TD = 'sticky z-10 border-b border-white/5 bg-[#120b1f] px-2 py-1.5'
 
 function defaultSelecaoAnalisadores(chaves: string[]) {
   const s = new Set<string>()
@@ -47,6 +56,12 @@ const CORES_ANALISADOR = [
   '#818cf8',
 ]
 
+const CAP_SERIES = [
+  { key: 'emCampoFrota', label: 'Em campo', color: '#a855f7' },
+  { key: 'totalCatalogo', label: 'Catálogo (ref.)', color: '#64748b' },
+  { key: 'pctEmCampoFrota', label: '% em campo', color: '#39ff9c' },
+] as const
+
 type Props = {
   bundle: DashboardBundle
   globaisAnalisadores: IndicadoresTemporaisGlobais
@@ -67,6 +82,60 @@ function fmtDia(iso: string | null) {
   }
 }
 
+function EstadoAnalisadorBadge({ status }: { status: string }) {
+  const cls =
+    status === 'instalado'
+      ? 'border-emerald-500/45 bg-emerald-500/15 text-emerald-300'
+      : status === 'manutencao'
+        ? 'border-amber-500/45 bg-amber-500/15 text-amber-200'
+        : 'border-violet-500/45 bg-violet-500/15 text-violet-200'
+  const label = status === 'instalado' ? 'Em uso' : status === 'manutencao' ? 'Manutenção' : 'Disponível'
+  return (
+    <span
+      className={`inline-block whitespace-nowrap rounded-md border px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide ${cls}`}
+    >
+      {label}
+    </span>
+  )
+}
+
+function LegendToggleRow({
+  entries,
+  hidden,
+  onToggle,
+  hint,
+}: {
+  entries: readonly { key: string; label: string; color: string }[]
+  hidden: Set<string>
+  onToggle: (key: string) => void
+  hint?: string
+}) {
+  return (
+    <div className="mt-2 space-y-1">
+      <ul className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-[11px]">
+        {entries.map((e) => {
+          const off = hidden.has(e.key)
+          return (
+            <li key={e.key}>
+              <button
+                type="button"
+                onClick={() => onToggle(e.key)}
+                className={`flex items-center gap-1.5 rounded-md px-1 py-0.5 transition-opacity hover:bg-white/5 ${
+                  off ? 'opacity-40 line-through' : 'text-zinc-200'
+                }`}
+              >
+                <span className="h-2.5 w-2.5 shrink-0 rounded-sm" style={{ background: e.color }} />
+                {e.label}
+              </button>
+            </li>
+          )
+        })}
+      </ul>
+      {hint ? <p className="text-center text-[10px] text-zinc-500">{hint}</p> : null}
+    </div>
+  )
+}
+
 export function AnalyzerUtilizationSection({ bundle, globaisAnalisadores, cap }: Props) {
   const [asOfMs] = useState(() => Date.now())
   const { chavesAnalisador, rows } = useMemo(
@@ -75,9 +144,27 @@ export function AnalyzerUtilizationSection({ bundle, globaisAnalisadores, cap }:
   )
   const metricas = useMemo(() => metricasDetalhadasPorAnalisador(bundle, asOfMs), [bundle, asOfMs])
   const totais = useMemo(() => totaisAgregadosMetricasAnalisadores(metricas), [metricas])
+  const estadoPorId = useMemo(() => {
+    const m = new Map<string, string>()
+    for (const a of analisadoresSinteticos(bundle)) {
+      m.set(a.id, a.status)
+    }
+    return m
+  }, [bundle])
+
+  const [hiddenCap, setHiddenCap] = useState<Set<string>>(() => new Set())
+  const toggleCap = useCallback((key: string) => {
+    setHiddenCap((prev) => {
+      const n = new Set(prev)
+      if (n.has(key)) n.delete(key)
+      else n.add(key)
+      return n
+    })
+  }, [])
 
   type ModoLinhas = 'auto' | Set<string>
   const [modoLinhas, setModoLinhas] = useState<ModoLinhas>('auto')
+  const [hiddenLines, setHiddenLines] = useState<Set<string>>(() => new Set())
 
   const selecionadosParaLinhas = useMemo(() => {
     if (modoLinhas === 'auto') return defaultSelecaoAnalisadores(chavesAnalisador)
@@ -87,6 +174,34 @@ export function AnalyzerUtilizationSection({ bundle, globaisAnalisadores, cap }:
     }
     return n
   }, [modoLinhas, chavesAnalisador])
+
+  const lineLegendEntries = useMemo(
+    () =>
+      [...selecionadosParaLinhas].map((id, i) => ({
+        key: colunaSerieAnalisador(id),
+        label: `#${id}`,
+        color: CORES_ANALISADOR[i % CORES_ANALISADOR.length]!,
+      })),
+    [selecionadosParaLinhas],
+  )
+
+  const validLineKeys = useMemo(() => new Set(lineLegendEntries.map((e) => e.key)), [lineLegendEntries])
+  const hiddenLinesActive = useMemo(() => {
+    const n = new Set<string>()
+    for (const k of hiddenLines) {
+      if (validLineKeys.has(k)) n.add(k)
+    }
+    return n
+  }, [hiddenLines, validLineKeys])
+
+  const toggleLine = useCallback((key: string) => {
+    setHiddenLines((prev) => {
+      const n = new Set(prev)
+      if (n.has(key)) n.delete(key)
+      else n.add(key)
+      return n
+    })
+  }, [])
 
   function alternarAnalisadorLinha(id: string) {
     setModoLinhas((prev) => {
@@ -257,53 +372,61 @@ export function AnalyzerUtilizationSection({ bundle, globaisAnalisadores, cap }:
                   label={{ value: '% catálogo', angle: 90, position: 'insideRight', fill: '#71717a', fontSize: 10 }}
                 />
                 <Tooltip
-                  contentStyle={{
-                    background: '#120b1f',
-                    border: '1px solid rgba(168,85,247,0.35)',
-                    color: '#fff',
-                    fontSize: 11,
-                  }}
+                  contentStyle={chartTooltipContentStyle}
+                  itemStyle={chartTooltipItemStyle}
+                  labelStyle={chartTooltipLabelStyle}
                   formatter={(v, name) => {
                     if (name === 'pctEmCampoFrota' && v != null) return [`${Number(v).toFixed(1)}%`, '% em campo']
                     return [v as string | number, String(name)]
                   }}
                   labelFormatter={(l) => `Dia ${l}`}
                 />
-                <Legend wrapperStyle={{ fontSize: 11 }} />
-                <Area
-                  yAxisId="n"
-                  type="monotone"
-                  dataKey="emCampoFrota"
-                  name="Em campo"
-                  fill="rgba(168,85,247,0.25)"
-                  stroke="#a855f7"
-                  strokeWidth={1.5}
-                />
-                <Line
-                  yAxisId="n"
-                  type="monotone"
-                  dataKey="totalCatalogo"
-                  name="Catálogo (ref.)"
-                  stroke="#64748b"
-                  strokeDasharray="4 4"
-                  dot={false}
-                  strokeWidth={1}
-                />
-                <Line
-                  yAxisId="pct"
-                  type="monotone"
-                  dataKey="pctEmCampoFrota"
-                  name="% em campo"
-                  stroke="#39ff9c"
-                  dot={false}
-                  strokeWidth={1.2}
-                />
+                {!hiddenCap.has('emCampoFrota') && (
+                  <Area
+                    yAxisId="n"
+                    type="monotone"
+                    dataKey="emCampoFrota"
+                    name="Em campo"
+                    fill="rgba(168,85,247,0.25)"
+                    stroke="#a855f7"
+                    strokeWidth={1.5}
+                  />
+                )}
+                {!hiddenCap.has('totalCatalogo') && (
+                  <Line
+                    yAxisId="n"
+                    type="monotone"
+                    dataKey="totalCatalogo"
+                    name="Catálogo (ref.)"
+                    stroke="#64748b"
+                    strokeDasharray="4 4"
+                    dot={false}
+                    strokeWidth={1}
+                  />
+                )}
+                {!hiddenCap.has('pctEmCampoFrota') && (
+                  <Line
+                    yAxisId="pct"
+                    type="monotone"
+                    dataKey="pctEmCampoFrota"
+                    name="% em campo"
+                    stroke="#39ff9c"
+                    dot={false}
+                    strokeWidth={1.2}
+                  />
+                )}
               </ComposedChart>
             </ResponsiveContainer>
           </div>
+          <LegendToggleRow
+            entries={CAP_SERIES}
+            hidden={hiddenCap}
+            onToggle={toggleCap}
+            hint="Clique na legenda para ocultar ou voltar a mostrar cada série."
+          />
           <p className="mt-1 text-[11px] text-zinc-500">
-            Área: unidades em campo. Linha tracejada: tamanho nominal do catálogo. Linha verde: % em campo sobre
-            analisadores que já tinham 1.ª instalação até aquele dia.
+            Área: unidades em campo. Linha tracejada: catálogo nominal. Verde: % em campo sobre analisadores já
+            instalados até aquele dia.
           </p>
         </div>
 
@@ -352,30 +475,36 @@ export function AnalyzerUtilizationSection({ bundle, globaisAnalisadores, cap }:
                   tickFormatter={(v) => (v === 1 ? 'Campo' : 'Livre')}
                 />
                 <Tooltip
-                  contentStyle={{
-                    background: '#120b1f',
-                    border: '1px solid rgba(168,85,247,0.35)',
-                    color: '#fff',
-                    fontSize: 11,
-                  }}
+                  contentStyle={chartTooltipContentStyle}
+                  itemStyle={chartTooltipItemStyle}
+                  labelStyle={chartTooltipLabelStyle}
                 />
-                <Legend wrapperStyle={{ fontSize: 10 }} />
-                {[...selecionadosParaLinhas].map((id, i) => (
-                  <Line
-                    key={id}
-                    type="stepAfter"
-                    dataKey={colunaSerieAnalisador(id)}
-                    name={`#${id}`}
-                    stroke={CORES_ANALISADOR[i % CORES_ANALISADOR.length]}
-                    dot={false}
-                    strokeWidth={1.8}
-                    connectNulls={false}
-                    isAnimationActive={rows.length < 400}
-                  />
-                ))}
+                {[...selecionadosParaLinhas].map((id, i) => {
+                  const dk = colunaSerieAnalisador(id)
+                  if (hiddenLinesActive.has(dk)) return null
+                  return (
+                    <Line
+                      key={id}
+                      type="stepAfter"
+                      dataKey={dk}
+                      name={`#${id}`}
+                      stroke={CORES_ANALISADOR[i % CORES_ANALISADOR.length]}
+                      dot={false}
+                      strokeWidth={1.8}
+                      connectNulls={false}
+                      isAnimationActive={rows.length < 400}
+                    />
+                  )
+                })}
               </ComposedChart>
             </ResponsiveContainer>
           </div>
+          <LegendToggleRow
+            entries={lineLegendEntries}
+            hidden={hiddenLinesActive}
+            onToggle={toggleLine}
+            hint="Clique na legenda para ocultar ou mostrar a linha do analisador."
+          />
           {selecionadosParaLinhas.size === 0 && (
             <p className="mt-1 text-xs text-amber-200/90">Selecione pelo menos um analisador para ver as linhas.</p>
           )}
@@ -383,49 +512,76 @@ export function AnalyzerUtilizationSection({ bundle, globaisAnalisadores, cap }:
 
         <div>
           <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">
-            Tabela · 1.ª instalação, ciclos e calendário
+            Tabela · indicadores operacionais e registos
           </p>
           <div className="overflow-x-auto rounded-xl border border-white/10">
-            <table className="w-full min-w-[1280px] text-left text-[11px]">
+            <table className="w-full min-w-[1180px] text-left text-[11px]">
               <thead>
-                <tr className="border-b border-white/10 bg-white/[0.03] text-[10px] uppercase tracking-wider text-zinc-500">
-                  <th className="px-2 py-2">ID</th>
-                  <th className="px-2 py-2">1.ª instalação</th>
-                  <th className="px-2 py-2">Último evento</th>
-                  <th className="px-2 py-2"># ev.</th>
-                  <th className="px-2 py-2">Dias med. (ciclos)</th>
-                  <th className="px-2 py-2">Dias manut.</th>
-                  <th className="px-2 py-2">Dias ocios. (ciclos)</th>
-                  <th className="px-2 py-2">Taxa uso</th>
-                  <th className="px-2 py-2">Méd. med.</th>
-                  <th className="px-2 py-2">Méd. manut.</th>
-                  <th className="px-2 py-2">Méd. ocios.</th>
-                  <th className="px-2 py-2">Dias campo (cal.)</th>
-                  <th className="px-2 py-2">Dias livre (cal.)</th>
-                  <th className="px-2 py-2">% tempo campo</th>
+                <tr className="text-[10px] uppercase tracking-wider text-zinc-500">
+                  <th className={`${STICKY_TH} left-0 min-w-[6.5rem] shadow-[4px_0_12px_-4px_rgba(0,0,0,0.65)]`}>
+                    ID
+                  </th>
+                  <th
+                    className={`${STICKY_TH} left-[6.5rem] min-w-[5.75rem] shadow-[4px_0_12px_-4px_rgba(0,0,0,0.65)]`}
+                  >
+                    Estado hoje
+                  </th>
+                  <th className="border-b border-white/10 bg-white/[0.03] px-2 py-2">Ciclos medição</th>
+                  <th className="border-b border-white/10 bg-white/[0.03] px-2 py-2">Ciclos ocios.</th>
+                  <th className="border-b border-white/10 bg-white/[0.03] px-2 py-2">Méd. d. ocioso</th>
+                  <th className="border-b border-white/10 bg-white/[0.03] px-2 py-2">Taxa uso</th>
+                  <th className="border-b border-white/10 bg-white/[0.03] px-2 py-2">Dias manut. (Σ)</th>
+                  <th className="border-b border-white/10 bg-white/[0.03] px-2 py-2">Dias campo (cal.)</th>
+                  <th className="border-b border-white/10 bg-white/[0.03] px-2 py-2">Dias livre (cal.)</th>
+                  <th className="border-b border-white/10 bg-white/[0.03] px-2 py-2">% tempo campo</th>
+                  <th className="border-b border-white/10 bg-white/[0.03] px-2 py-2"># eventos</th>
+                  <th className="border-b border-white/10 bg-white/[0.03] px-2 py-2">1.ª instalação</th>
+                  <th className="border-b border-white/10 bg-white/[0.03] px-2 py-2">Último evento</th>
                 </tr>
               </thead>
               <tbody>
-                {metricas.map((r) => (
-                  <tr key={r.idCanon} className="border-b border-white/5 hover:bg-white/[0.02]">
-                    <td className="px-2 py-1.5 font-mono text-violet-300">{r.idDisplay}</td>
-                    <td className="px-2 py-1.5 whitespace-nowrap text-zinc-300">{fmtDia(r.primeiraInstalacaoIso)}</td>
-                    <td className="px-2 py-1.5 whitespace-nowrap text-zinc-300">{fmtDia(r.ultimoRegistroIso)}</td>
-                    <td className="px-2 py-1.5">{r.totalEventos}</td>
-                    <td className="px-2 py-1.5">{r.diasMedicaoCiclos.toFixed(1)}</td>
-                    <td className="px-2 py-1.5 text-amber-200/90">{r.diasManutencaoCiclos.toFixed(1)}</td>
-                    <td className="px-2 py-1.5">{r.diasOciosidadeCiclos.toFixed(1)}</td>
-                    <td className="px-2 py-1.5">{(r.taxaUsoCiclos * 100).toFixed(1)}%</td>
-                    <td className="px-2 py-1.5">{r.mediaMedicaoDias.toFixed(1)}</td>
-                    <td className="px-2 py-1.5">{r.mediaManutencaoDias.toFixed(1)}</td>
-                    <td className="px-2 py-1.5">{r.mediaOciosidadeDias.toFixed(1)}</td>
-                    <td className="px-2 py-1.5 text-xpe-neon-dim">{r.diasEmCampoCalendario}</td>
-                    <td className="px-2 py-1.5 text-zinc-400">{r.diasDisponivelCalendario}</td>
-                    <td className="px-2 py-1.5 font-medium text-zinc-200">
-                      {r.pctTempoEmCampoCalendario.toFixed(1)}%
-                    </td>
-                  </tr>
-                ))}
+                {metricas.map((r) => {
+                  const st = estadoPorId.get(r.idDisplay) ?? 'disponivel'
+                  const cMed = r.ciclosMedicaoFechados + r.ciclosMedicaoAbertos
+                  const cOcio = r.ciclosOciosidadeFechados + r.ciclosOciosidadeAbertos
+                  return (
+                    <tr key={r.idCanon} className="hover:bg-white/[0.02]">
+                      <td
+                        className={`${STICKY_TD} left-0 min-w-[6.5rem] font-mono text-violet-300 shadow-[4px_0_12px_-4px_rgba(0,0,0,0.65)]`}
+                      >
+                        {r.idDisplay}
+                      </td>
+                      <td
+                        className={`${STICKY_TD} left-[6.5rem] min-w-[5.75rem] shadow-[4px_0_12px_-4px_rgba(0,0,0,0.65)]`}
+                      >
+                        <EstadoAnalisadorBadge status={st} />
+                      </td>
+                      <td className="border-b border-white/5 tabular-nums text-zinc-200">{cMed}</td>
+                      <td className="border-b border-white/5 tabular-nums text-zinc-200">{cOcio}</td>
+                      <td className="border-b border-white/5 tabular-nums text-zinc-300">
+                        {r.mediaOciosidadeDias.toFixed(1)} d
+                      </td>
+                      <td className="border-b border-white/5 tabular-nums font-medium text-zinc-100">
+                        {(r.taxaUsoCiclos * 100).toFixed(1)}%
+                      </td>
+                      <td className="border-b border-white/5 tabular-nums text-amber-200/90">
+                        {r.diasManutencaoCiclos.toFixed(1)}
+                      </td>
+                      <td className="border-b border-white/5 tabular-nums text-xpe-neon-dim">{r.diasEmCampoCalendario}</td>
+                      <td className="border-b border-white/5 tabular-nums text-zinc-400">{r.diasDisponivelCalendario}</td>
+                      <td className="border-b border-white/5 tabular-nums font-medium text-zinc-200">
+                        {r.pctTempoEmCampoCalendario.toFixed(1)}%
+                      </td>
+                      <td className="border-b border-white/5 tabular-nums text-zinc-400">{r.totalEventos}</td>
+                      <td className="border-b border-white/5 whitespace-nowrap text-zinc-400">
+                        {fmtDia(r.primeiraInstalacaoIso)}
+                      </td>
+                      <td className="border-b border-white/5 whitespace-nowrap text-zinc-400">
+                        {fmtDia(r.ultimoRegistroIso)}
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
           </div>

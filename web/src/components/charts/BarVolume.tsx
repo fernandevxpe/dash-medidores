@@ -8,6 +8,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+import { chartTooltipContentStyle, chartTooltipItemStyle, chartTooltipLabelStyle } from './chartTheme'
 
 export function BarVolume({
   data,
@@ -38,12 +39,9 @@ export function BarVolume({
           <YAxis tick={{ fill: '#a1a1aa', fontSize: 10 }} axisLine={false} tickLine={false} />
           <Tooltip
             cursor={{ fill: 'rgba(168,85,247,0.08)' }}
-            contentStyle={{
-              background: '#120b1f',
-              border: '1px solid rgba(168,85,247,0.35)',
-              borderRadius: 12,
-              color: '#f4f4f5',
-            }}
+            contentStyle={chartTooltipContentStyle}
+            itemStyle={chartTooltipItemStyle}
+            labelStyle={chartTooltipLabelStyle}
           />
           <Bar dataKey={dataKey} fill={color} radius={[6, 6, 0, 0]} maxBarSize={36}>
             {useCells
