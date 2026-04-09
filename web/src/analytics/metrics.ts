@@ -1498,3 +1498,344 @@ export function totaisAgregadosMetricasAnalisadores(m: MetricaDetalhadaAnalisado
     totalEventos: m.reduce((a, x) => a + x.totalEventos, 0),
   }
 }
+
+export type DiaInstalacaoDesinstalacaoRow = {
+  dia: string
+  instalacoes: number
+  desinstalacoes: number
+}
+
+export function bucketDayInstalacaoDesinstalacaoPorTipo(
+  eventos: EventoRow[],
+  tipo: 'medidor' | 'analisador',
+): DiaInstalacaoDesinstalacaoRow[] {
+  const filtrados = eventos.filter((e) => tipoEquipamentoDe(e) === tipo)
+  return bucketDayInstalacaoDesinstalacao(filtrados)
+}
+
+export function bucketIsoWeekInstalacaoDesinstalacaoPorTipo(
+  eventos: EventoRow[],
+  tipo: 'medidor' | 'analisador',
+) {
+  const filtrados = eventos.filter((e) => tipoEquipamentoDe(e) === tipo)
+  return bucketIsoWeekInstalacaoDesinstalacao(filtrados)
+}
+
+export interface PicosVolumeInstalacaoDesinstalacao {
+  maxInstalacoes: number
+  diaMaxInstalacoes: string | null
+  maxDesinstalacoes: number
+  diaMaxDesinstalacoes: string | null
+  maxVolumeTotal: number
+  diaMaxVolumeTotal: string | null
+}
+
+export function picosVolumeInstalacaoDesinstalacao(
+  rows: DiaInstalacaoDesinstalacaoRow[],
+): PicosVolumeInstalacaoDesinstalacao {
+  let maxInst = 0
+  let diaInst: string | null = null
+  let maxDes = 0
+  let diaDes: string | null = null
+  let maxTot = 0
+  let diaTot: string | null = null
+  for (const r of rows) {
+    if (r.instalacoes > maxInst) {
+      maxInst = r.instalacoes
+      diaInst = r.dia
+    }
+    if (r.desinstalacoes > maxDes) {
+      maxDes = r.desinstalacoes
+      diaDes = r.dia
+    }
+    const t = r.instalacoes + r.desinstalacoes
+    if (t > maxTot) {
+      maxTot = t
+      diaTot = r.dia
+    }
+  }
+  return {
+    maxInstalacoes: maxInst,
+    diaMaxInstalacoes: diaInst,
+    maxDesinstalacoes: maxDes,
+    diaMaxDesinstalacoes: diaDes,
+    maxVolumeTotal: maxTot,
+    diaMaxVolumeTotal: diaTot,
+  }
+}
+
+export interface ComparacaoVolumeSemanasIso {
+  semanasRecentes: number
+  semanasAnteriores: number
+  recenteInst: number
+  recenteDes: number
+  recenteTotal: number
+  anteriorInst: number
+  anteriorDes: number
+  anteriorTotal: number
+  variacaoPctTotal: number | null
+}
+
+export function comparacaoUltimasSemanasIso(
+  rows: { semana: string; instalacoes: number; desinstalacoes: number }[],
+  semanasRecentes: number,
+  semanasAnteriores: number,
+): ComparacaoVolumeSemanasIso {
+  const sorted = [...rows].sort((a, b) => a.semana.localeCompare(b.semana))
+  const recent = sorted.slice(-semanasRecentes)
+  const anterior = sorted.slice(-(semanasRecentes + semanasAnteriores), -semanasRecentes)
+  const sum = (arr: typeof recent) =>
+    arr.reduce(
+      (acc, x) => ({
+        inst: acc.inst + x.instalacoes,
+        des: acc.des + x.desinstalacoes,
+      }),
+      { inst: 0, des: 0 },
+    )
+  const r = sum(recent)
+  const p = sum(anterior)
+  const recenteTotal = r.inst + r.des
+  const anteriorTotal = p.inst + p.des
+  const variacaoPctTotal =
+    anteriorTotal > 0 ? ((recenteTotal - anteriorTotal) / anteriorTotal) * 100 : recenteTotal > 0 ? 100 : null
+  return {
+    semanasRecentes,
+    semanasAnteriores,
+    recenteInst: r.inst,
+    recenteDes: r.des,
+    recenteTotal,
+    anteriorInst: p.inst,
+    anteriorDes: p.des,
+    anteriorTotal,
+    variacaoPctTotal,
+  }
+}
+
+export type CriterioRankingAnalisador = 'taxaUsoCiclos' | 'pctTempoEmCampoCalendario'
+
+function valorCriterioAnalisador(m: MetricaDetalhadaAnalisador, criterio: CriterioRankingAnalisador): number {
+  return criterio === 'taxaUsoCiclos' ? m.taxaUsoCiclos : m.pctTempoEmCampoCalendario / 100
+}
+
+export function rankingAnalisadoresPorUtilizacao(
+  metricas: MetricaDetalhadaAnalisador[],
+  criterio: CriterioRankingAnalisador,
+  topN: number,
+): { melhores: MetricaDetalhadaAnalisador[]; piores: MetricaDetalhadaAnalisador[] } {
+  const eligible = metricas.filter((m) => {
+    if (criterio === 'taxaUsoCiclos') {
+      return m.diasMedicaoCiclos + m.diasOciosidadeCiclos >= 1
+    }
+    const vida = m.diasEmCampoCalendario + m.diasDisponivelCalendario
+    return m.primeiraInstalacaoIso != null && vida >= 1
+  })
+  if (eligible.length === 0) return { melhores: [], piores: [] }
+  const sortedDesc = [...eligible].sort(
+    (a, b) => valorCriterioAnalisador(b, criterio) - valorCriterioAnalisador(a, criterio),
+  )
+  const sortedAsc = [...eligible].sort(
+    (a, b) => valorCriterioAnalisador(a, criterio) - valorCriterioAnalisador(b, criterio),
+  )
+  return {
+    melhores: sortedDesc.slice(0, topN),
+    piores: sortedAsc.slice(0, topN),
+  }
+}
+
+const MS_MIN_MEDIDOR_RANKING = 7 * 86_400_000
+
+export function rankingMedidoresPorTaxaUso(
+  historicos: HistoricoTemporalEquipamento[],
+  minMedicaoOciosidadeMs: number = MS_MIN_MEDIDOR_RANKING,
+  topN: number = 5,
+): { melhores: HistoricoTemporalEquipamento[]; piores: HistoricoTemporalEquipamento[] } {
+  const eligible = historicos.filter(
+    (h) => h.tipo === 'medidor' && h.totalMedicaoMs + h.totalOciosidadeMs >= minMedicaoOciosidadeMs,
+  )
+  if (eligible.length === 0) return { melhores: [], piores: [] }
+  const sortedDesc = [...eligible].sort((a, b) => b.taxaUso - a.taxaUso)
+  const sortedAsc = [...eligible].sort((a, b) => a.taxaUso - b.taxaUso)
+  return {
+    melhores: sortedDesc.slice(0, topN),
+    piores: sortedAsc.slice(0, topN),
+  }
+}
+
+export interface ResumoCapacidadeTecnicaMedidores {
+  tetoUnidades: number
+  emCampo: number
+  folgaUnidades: number
+  pctOcupacao: number
+  pctFolgaAteTeto: number
+}
+
+export interface ResumoCapacidadeTecnicaAnalisadores {
+  tetoUnidades: number
+  emCampo: number
+  folgaUnidades: number
+  pctOcupacao: number
+  pctFolgaAteTeto: number
+}
+
+export interface ResumoCapacidadeTecnica {
+  medidores: ResumoCapacidadeTecnicaMedidores
+  analisadores: ResumoCapacidadeTecnicaAnalisadores
+}
+
+export function resumoCapacidadeTecnica(cap: ReturnType<typeof capacityMetrics>): ResumoCapacidadeTecnica {
+  return {
+    medidores: {
+      tetoUnidades: cap.totalMedidores,
+      emCampo: cap.instaladosCampo,
+      folgaUnidades: Math.max(0, cap.totalMedidores - cap.instaladosCampo),
+      pctOcupacao: cap.pctCapacidadeMedidor,
+      pctFolgaAteTeto: Math.max(0, 100 - cap.pctCapacidadeMedidor),
+    },
+    analisadores: {
+      tetoUnidades: cap.totalAnalisadoresCatalogo,
+      emCampo: cap.analisadoresEmUso,
+      folgaUnidades: Math.max(0, cap.totalAnalisadoresCatalogo - cap.analisadoresEmUso),
+      pctOcupacao: cap.pctCapacidadeAnalisador,
+      pctFolgaAteTeto: Math.max(0, 100 - cap.pctCapacidadeAnalisador),
+    },
+  }
+}
+
+export type SeveridadeInsight = 'positivo' | 'atencao' | 'critico'
+
+export interface InsightOportunidade {
+  titulo: string
+  detalhe: string
+  severidade: SeveridadeInsight
+}
+
+export interface DadosAgregadosOportunidades {
+  cap: ReturnType<typeof capacityMetrics>
+  totaisAnalisadores: ReturnType<typeof totaisAgregadosMetricasAnalisadores>
+  nMedidoresRanked: number
+  nAnalisadoresRanked: number
+  picosMedidor: PicosVolumeInstalacaoDesinstalacao
+  picosAnalisador: PicosVolumeInstalacaoDesinstalacao
+  comparacaoMedidor: ComparacaoVolumeSemanasIso
+  comparacaoAnalisador: ComparacaoVolumeSemanasIso
+  unknownShare: number
+  disponiveisLongaOciosidade: number
+  resumoPrazo: ReturnType<typeof resumoPrazoMedicao>
+}
+
+const LIMIAR_OCUPACAO_BAIXA = 35
+const LIMIAR_OCUPACAO_ALTA = 75
+const LIMIAR_UNKNOWN_CRITICO = 15
+const LIMIAR_UNKNOWN_ATENCAO = 5
+const DIAS_DISPONIVEL_LONGO = 45
+const TAXA_HISTORICA_BAIXA_PCT = 25
+
+export function gerarInsightsOportunidades(d: DadosAgregadosOportunidades): InsightOportunidade[] {
+  const out: InsightOportunidade[] = []
+
+  if (d.cap.pctCapacidadeAnalisador >= LIMIAR_OCUPACAO_ALTA) {
+    out.push({
+      titulo: 'Analisadores com forte ocupação',
+      detalhe: `Cerca de ${d.cap.pctCapacidadeAnalisador.toFixed(1)}% do catálogo está em campo (instalação ou manutenção). Monitorizar folga para não bloquear novas obras.`,
+      severidade: 'positivo',
+    })
+  } else if (d.cap.pctCapacidadeAnalisador < LIMIAR_OCUPACAO_BAIXA) {
+    out.push({
+      titulo: 'Folga relevante no catálogo de analisadores',
+      detalhe: `Ocupação em ${d.cap.pctCapacidadeAnalisador.toFixed(1)}% — há espaço técnico para alocar mais analisadores em campo, se a procura operacional existir.`,
+      severidade: 'atencao',
+    })
+  }
+
+  if (d.cap.pctCapacidadeMedidor >= LIMIAR_OCUPACAO_ALTA) {
+    out.push({
+      titulo: 'Medidores muito carregados em campo',
+      detalhe: `${d.cap.pctCapacidadeMedidor.toFixed(1)}% da frota observada em instalação ou manutenção. Avaliar cadência de desinstalação e capacidade de equipe.`,
+      severidade: 'atencao',
+    })
+  } else if (d.cap.pctCapacidadeMedidor < LIMIAR_OCUPACAO_BAIXA) {
+    out.push({
+      titulo: 'Capacidade instalável de medidores',
+      detalhe: `Apenas ${d.cap.pctCapacidadeMedidor.toFixed(1)}% dos medidores em campo — oportunidade de intensificar utilização dentro do teto da frota.`,
+      severidade: 'positivo',
+    })
+  }
+
+  if (d.unknownShare >= LIMIAR_UNKNOWN_CRITICO) {
+    out.push({
+      titulo: 'Muitos eventos sem localização fiável',
+      detalhe: `${d.unknownShare.toFixed(1)}% dos eventos com localização desconhecida ou vazia — prejudica análise de gargalos por obra.`,
+      severidade: 'critico',
+    })
+  } else if (d.unknownShare > LIMIAR_UNKNOWN_ATENCAO) {
+    out.push({
+      titulo: 'Localização em parte dos eventos',
+      detalhe: `${d.unknownShare.toFixed(1)}% sem localização clara na planilha — reforçar preenchimento melhora o painel de oportunidades.`,
+      severidade: 'atencao',
+    })
+  }
+
+  if (d.resumoPrazo.pendentesDesinstalar > 0) {
+    out.push({
+      titulo: 'Ciclos de medição acima do prazo',
+      detalhe: `${d.resumoPrazo.pendentesDesinstalar} ciclo(s) aberto(s) fora do prazo de ${d.resumoPrazo.diasPadrao} dias — priorizar desinstalações planejadas.`,
+      severidade: 'critico',
+    })
+  }
+
+  if (d.disponiveisLongaOciosidade > 0) {
+    out.push({
+      titulo: 'Equipamentos parados há muito tempo',
+      detalhe: `${d.disponiveisLongaOciosidade} equipamento(s) disponível(is) há mais de ${DIAS_DISPONIVEL_LONGO} dias com taxa histórica de uso abaixo de ${TAXA_HISTORICA_BAIXA_PCT}% — candidatos a realocar ou rever necessidade na frota.`,
+      severidade: 'atencao',
+    })
+  }
+
+  const vMed = d.comparacaoMedidor.variacaoPctTotal
+  if (vMed != null && Math.abs(vMed) >= 15) {
+    out.push({
+      titulo: `Volume de movimentações (medidores) ${vMed > 0 ? 'subiu' : 'caiu'}`,
+      detalhe: `Últimas ${d.comparacaoMedidor.semanasRecentes} semanas vs ${d.comparacaoMedidor.semanasAnteriores} anteriores: variação de ${vMed > 0 ? '+' : ''}${vMed.toFixed(0)}% no total inst.+desinst.`,
+      severidade: 'atencao',
+    })
+  }
+
+  const vAn = d.comparacaoAnalisador.variacaoPctTotal
+  if (vAn != null && Math.abs(vAn) >= 15) {
+    out.push({
+      titulo: `Volume de movimentações (analisadores) ${vAn > 0 ? 'subiu' : 'caiu'}`,
+      detalhe: `Últimas ${d.comparacaoAnalisador.semanasRecentes} semanas vs ${d.comparacaoAnalisador.semanasAnteriores} anteriores: variação de ${vAn > 0 ? '+' : ''}${vAn.toFixed(0)}% no total inst.+desinst.`,
+      severidade: 'atencao',
+    })
+  }
+
+  if (d.totaisAnalisadores.quantidade > 0 && d.totaisAnalisadores.mediaTaxaUsoCiclosPorEquipamento < 0.35) {
+    out.push({
+      titulo: 'Utilização temporal média baixa nos analisadores',
+      detalhe: `Taxa de uso (ciclos) média por equipamento ~${(d.totaisAnalisadores.mediaTaxaUsoCiclosPorEquipamento * 100).toFixed(0)}% — há margem para maximizar tempo em medição vs ociosidade.`,
+      severidade: 'atencao',
+    })
+  }
+
+  if (d.nMedidoresRanked >= 3 && d.nAnalisadoresRanked >= 2) {
+    out.push({
+      titulo: 'Rankings por equipamento',
+      detalhe: `Compare os melhores e piores indicadores abaixo (${d.nMedidoresRanked} medidores e ${d.nAnalisadoresRanked} analisadores com histórico suficiente) para replicar práticas ou agir nos outliers.`,
+      severidade: 'positivo',
+    })
+  }
+
+  return out
+}
+
+/** Equipamentos disponíveis há muito tempo com taxa histórica baixa (oportunidade de ação). */
+export function contagemDisponiveisLongaBaixaUtilizacao(
+  lista: EquipamentoDisponivelMetrica[],
+  minDiasDisponivel: number = DIAS_DISPONIVEL_LONGO,
+  maxTaxaHistoricaPct: number = TAXA_HISTORICA_BAIXA_PCT,
+): number {
+  return lista.filter(
+    (x) =>
+      (x.diasDisponivel ?? 0) >= minDiasDisponivel && x.taxaUtilizacaoPct < maxTaxaHistoricaPct,
+  ).length
+}

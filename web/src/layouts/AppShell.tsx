@@ -6,6 +6,7 @@ const links = [
   { to: '/tempo', label: 'Histórico' },
   { to: '/equipamentos', label: 'Equipamentos' },
   { to: '/indicadores', label: 'Indicadores' },
+  { to: '/oportunidades', label: 'Oportunidades' },
   { to: '/calendario', label: 'Calendário' },
   { to: '/apresentacao', label: 'Apresentação' },
 ]

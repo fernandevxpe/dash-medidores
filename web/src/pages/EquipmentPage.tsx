@@ -1,10 +1,13 @@
 import { Fragment, useMemo, useState } from 'react'
 import {
   Activity,
+  BarChart3,
   Boxes,
   CircleDashed,
   Gauge,
   Hourglass,
+  Layers,
+  Percent,
   Timer,
   Wrench,
 } from 'lucide-react'
@@ -230,6 +233,22 @@ export function EquipmentPage() {
     [analBars],
   )
 
+  const medidorIndicadoresExtras = useMemo(() => {
+    const m = globaisTempo?.medidores
+    if (!m) {
+      return { pctEmUso: '0.0', pctDisponiveis: '0.0', somaDiasMedicao: '0', somaDiasOciosidade: '0' }
+    }
+    const q = m.quantidadeEquipamentos
+    const pct = (n: number) => (q > 0 ? ((n / q) * 100).toFixed(1) : '0.0')
+    const msParaDias = (ms: number) => (ms / 86_400_000).toFixed(0)
+    return {
+      pctEmUso: pct(m.emUso),
+      pctDisponiveis: pct(m.disponiveis),
+      somaDiasMedicao: msParaDias(m.totalMedicaoMs),
+      somaDiasOciosidade: msParaDias(m.totalOciosidadeMs),
+    }
+  }, [globaisTempo])
+
   if (loadState !== 'ready' || !bundle || !globaisTempo || !cap) {
     return <div className="py-20 text-center text-xpe-muted">Carregando…</div>
   }
@@ -237,7 +256,7 @@ export function EquipmentPage() {
   return (
     <div className="space-y-5">
       <Card title="Indicadores globais · Medidores" subtitle="Uso, disponibilidade e tempos médios de ciclo">
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           <IndicatorMiniCard
             icon={Boxes}
             accent="neon"
@@ -263,32 +282,52 @@ export function EquipmentPage() {
             value={String(globaisTempo.medidores.manutencao)}
           />
           <IndicatorMiniCard
+            icon={Percent}
+            accent="neon"
+            label="% equip. em uso"
+            value={`${medidorIndicadoresExtras.pctEmUso}%`}
+          />
+          <IndicatorMiniCard
+            icon={Percent}
+            accent="neutral"
+            label="% disponíveis"
+            value={`${medidorIndicadoresExtras.pctDisponiveis}%`}
+          />
+          <IndicatorMiniCard
             icon={Timer}
             accent="sky"
             label="Média medição"
             value={`${globaisTempo.medidores.mediaMedicaoDias.toFixed(1)} d`}
-            foot="instalação até desinstalação"
           />
           <IndicatorMiniCard
             icon={Hourglass}
             accent="violet"
             label="Média ociosidade"
             value={`${globaisTempo.medidores.mediaOciosidadeDias.toFixed(1)} d`}
-            foot="só após 1.ª desinst.; desde 1.ª instalação; manutenção excluída"
           />
           <IndicatorMiniCard
             icon={Wrench}
             accent="amber"
             label="Média manutenção"
             value={`${globaisTempo.medidores.mediaManutencaoDias.toFixed(1)} d`}
-            foot="fora de medição e ociosidade"
           />
           <IndicatorMiniCard
             icon={Gauge}
             accent="neon"
             label="Taxa de uso"
             value={`${(globaisTempo.medidores.taxaUso * 100).toFixed(1)}%`}
-            foot="medição / (medição + ociosidade)"
+          />
+          <IndicatorMiniCard
+            icon={Layers}
+            accent="sky"
+            label="Σ dias medição"
+            value={`${medidorIndicadoresExtras.somaDiasMedicao} d`}
+          />
+          <IndicatorMiniCard
+            icon={BarChart3}
+            accent="violet"
+            label="Σ dias ociosidade"
+            value={`${medidorIndicadoresExtras.somaDiasOciosidade} d`}
           />
         </div>
       </Card>
@@ -530,28 +569,24 @@ export function EquipmentPage() {
                   accent="sky"
                   label="Média medição"
                   value={`${timelineMetricas.mediaMedicaoDias.toFixed(1)} d`}
-                  foot="até manutenção ou desinstalação"
                 />
                 <IndicatorMiniCard
                   icon={Wrench}
                   accent="amber"
                   label="Média manutenção"
                   value={`${timelineMetricas.mediaManutencaoDias.toFixed(1)} d`}
-                  foot="fora de medição e ociosidade"
                 />
                 <IndicatorMiniCard
                   icon={Hourglass}
                   accent="violet"
                   label="Média ociosidade"
                   value={`${timelineMetricas.mediaOciosidadeDias.toFixed(1)} d`}
-                  foot="após 1.ª desinstalação"
                 />
                 <IndicatorMiniCard
                   icon={Gauge}
                   accent="neon"
                   label="Taxa de uso"
                   value={`${(timelineMetricas.taxaUso * 100).toFixed(1)}%`}
-                  foot="medição / (medição + ociosidade)"
                 />
               </div>
             )}

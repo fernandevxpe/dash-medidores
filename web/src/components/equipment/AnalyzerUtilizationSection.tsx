@@ -225,8 +225,8 @@ export function AnalyzerUtilizationSection({ bundle, globaisAnalisadores, cap }:
 
   return (
     <Card
-      title="Análise detalhada · Utilização dos analisadores"
-      subtitle="Capacidade operacional ao longo do tempo, estado diário por equipamento e tabela de métricas (ciclos vs. calendário)"
+      title="Análise detalhada - Operação Analisadores"
+      subtitle="Capacidade operacional x Tempo"
     >
       <p className="mb-3 text-xs text-zinc-500">
         Catálogo: {cap.totalAnalisadoresCatalogo} unidades · Hoje: {cap.analisadoresInstalados} em uso,{' '}
@@ -234,7 +234,7 @@ export function AnalyzerUtilizationSection({ bundle, globaisAnalisadores, cap }:
       </p>
 
       <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">Indicadores globais</p>
-      <div className="mb-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8">
+      <div className="mb-5 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <IndicatorMiniCard
           icon={Boxes}
           accent="violet"
@@ -264,60 +264,53 @@ export function AnalyzerUtilizationSection({ bundle, globaisAnalisadores, cap }:
           accent="sky"
           label="Média medição"
           value={`${globaisAnalisadores.mediaMedicaoDias.toFixed(1)} d`}
-          foot="instalação até manutenção ou desinstalação"
         />
         <IndicatorMiniCard
           icon={Hourglass}
           accent="violet"
           label="Média ociosidade"
           value={`${globaisAnalisadores.mediaOciosidadeDias.toFixed(1)} d`}
-          foot="só após 1.ª desinst.; desde 1.ª instalação; manutenção excluída"
         />
         <IndicatorMiniCard
           icon={Wrench}
           accent="amber"
           label="Média manutenção"
           value={`${globaisAnalisadores.mediaManutencaoDias.toFixed(1)} d`}
-          foot="fora de medição e ociosidade"
         />
         <IndicatorMiniCard
           icon={Gauge}
           accent="violet"
           label="Taxa de uso"
           value={`${(globaisAnalisadores.taxaUso * 100).toFixed(1)}%`}
-          foot="medição / (medição + ociosidade)"
         />
       </div>
 
       <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">
         Indicadores da análise (somas e série diária)
       </p>
-      <div className="mb-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8">
+      <div className="mb-4 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <IndicatorMiniCard
           icon={Layers}
           accent="violet"
-          label="Taxa uso (ciclos) · ponderada"
+          label="Taxa uso média"
           value={`${(totais.taxaUsoCiclosPonderada * 100).toFixed(1)}%`}
-          foot="Σ dias medição / (Σ medição + Σ ociosidade)"
         />
         <IndicatorMiniCard
           icon={Percent}
           accent="violet"
-          label="Média taxa uso (ciclos) / eq."
+          label="Taxa uso média"
           value={`${(totais.mediaTaxaUsoCiclosPorEquipamento * 100).toFixed(1)}%`}
-          foot="média simples entre analisadores"
         />
         <IndicatorMiniCard
           icon={Calendar}
           accent="sky"
-          label="Média % tempo em campo"
+          label="% tempo campo méd."
           value={`${totais.mediaPctTempoEmCampoCalendario.toFixed(1)}%`}
-          foot="média dos % dias 1 ao fim do dia"
         />
         <IndicatorMiniCard
           icon={Timer}
           accent="neutral"
-          label="Σ dias medição (ciclos)"
+          label="Σ dias medição"
           value={`${totais.somaDiasMedicaoCiclos.toFixed(0)} d`}
         />
         <IndicatorMiniCard
@@ -329,9 +322,8 @@ export function AnalyzerUtilizationSection({ bundle, globaisAnalisadores, cap }:
         <IndicatorMiniCard
           icon={Wrench}
           accent="amber"
-          label="Σ dias manutenção (ciclos)"
+          label="Σ dias manut."
           value={`${totais.somaDiasManutencaoCiclos.toFixed(0)} d`}
-          foot="fora de medição e ociosidade"
         />
         <IndicatorMiniCard
           icon={BarChart3}
@@ -342,7 +334,7 @@ export function AnalyzerUtilizationSection({ bundle, globaisAnalisadores, cap }:
         <IndicatorMiniCard
           icon={Calendar}
           accent="sky"
-          label="Série · dias cobertos"
+          label="Dias analisados"
           value={String(rows.length)}
         />
       </div>
@@ -424,10 +416,6 @@ export function AnalyzerUtilizationSection({ bundle, globaisAnalisadores, cap }:
             onToggle={toggleCap}
             hint="Clique na legenda para ocultar ou voltar a mostrar cada série."
           />
-          <p className="mt-1 text-[11px] text-zinc-500">
-            Área: unidades em campo. Linha tracejada: catálogo nominal. Verde: % em campo sobre analisadores já
-            instalados até aquele dia.
-          </p>
         </div>
 
         <div>
