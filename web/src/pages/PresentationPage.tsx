@@ -325,13 +325,11 @@ export function PresentationPage() {
               label="Medidores em campo"
               value={`${cap.instaladosCampo}`}
               traffic={trafficForCapacity(cap.pctCapacidadeMedidor)}
-              foot={`${cap.instalados} uso + ${cap.manutencaoMedidores} manut. · ${cap.pctCapacidadeMedidor.toFixed(0)}% frota`}
             />
             <KpiTile
               label="Analisadores em campo"
               value={`${cap.analisadoresEmUso}/${cap.totalAnalisadoresCatalogo}`}
               traffic={trafficForCapacity(cap.pctCapacidadeAnalisador)}
-              foot={`${cap.analisadoresLivres} livres`}
             />
             <KpiTile
               label="Qualidade local"

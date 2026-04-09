@@ -35,15 +35,13 @@ function Item({
   label,
   value,
   accent = 'neutral',
-  foot,
 }: {
   icon: LucideIcon
   label: string
   value: string
   accent?: IndicatorAccent
-  foot?: string
 }) {
-  return <IndicatorMiniCard icon={icon} label={label} value={value} accent={accent} foot={foot} />
+  return <IndicatorMiniCard icon={icon} label={label} value={value} accent={accent} />
 }
 
 const NOMES_MESES_PT = [
@@ -174,14 +172,12 @@ export function IndicatorsPage() {
                 accent="sky"
                 label="Total equipamentos (referência)"
                 value={String(d.cap.totalEquipamentosFrota)}
-                foot="medidores + catálogo analisadores"
               />
               <Item
                 icon={MapPin}
                 accent="neutral"
                 label="Clientes com histórico"
                 value={String(d.nClientes)}
-                foot="obras com equipamento registado"
               />
             </div>
           </section>
@@ -209,7 +205,6 @@ export function IndicatorsPage() {
                       ).toFixed(1)}%`
                     : '—'
                 }
-                foot="sobre medidores observados"
               />
             </div>
           </section>
@@ -301,7 +296,6 @@ export function IndicatorsPage() {
                 accent="sky"
                 label="Pico diário (últimos 7 dias)"
                 value={String(d.picoSemanal)}
-                foot="soma inst. + desinst. num mesmo dia"
               />
               <Item
                 icon={TrendingUp}
@@ -350,7 +344,6 @@ export function IndicatorsPage() {
                 accent="neutral"
                 label="Ciclos abertos (estimativa)"
                 value={String(d.prazo.totalCiclosAbertos)}
-                foot="ver resumo na área de equipamentos"
               />
             </div>
           </section>

@@ -197,7 +197,6 @@ export function OverviewPage() {
           value={`${cap.instalados} / ${cap.totalMedidores}`}
           hint={`${pct(cap.instalados, cap.totalMedidores)}% da frota`}
           traffic={trafficForCapacity(cap.pctCapacidadeMedidor)}
-          foot={`Em campo (uso + manut.): ${cap.instaladosCampo} · ${cap.pctCapacidadeMedidor.toFixed(1)}%`}
         />
         <KpiTile
           icon={Wrench}
@@ -221,7 +220,6 @@ export function OverviewPage() {
           value={`${cap.analisadoresInstalados} / ${cap.totalAnalisadoresCatalogo}`}
           hint={`${pct(cap.analisadoresInstalados, cap.totalAnalisadoresCatalogo)}% do catálogo`}
           traffic={trafficForCapacity(cap.pctCapacidadeAnalisador)}
-          foot={`Em campo: ${cap.analisadoresEmUso} · ${cap.pctCapacidadeAnalisador.toFixed(1)}%`}
         />
         <KpiTile
           icon={Wrench}

@@ -9,14 +9,12 @@ export function KpiTile({
   value,
   hint,
   traffic,
-  foot,
 }: {
   icon?: LucideIcon
   label: string
   value: ReactNode
   hint?: string
   traffic?: TrafficLevel
-  foot?: ReactNode
 }) {
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-xpe-border bg-gradient-to-br from-xpe-surface2/90 to-xpe-surface/90 p-4 sm:p-5">
@@ -45,7 +43,6 @@ export function KpiTile({
           <TrafficBar level={traffic} />
         </div>
       )}
-      {foot && <div className="relative mt-3 text-[11px] text-zinc-500">{foot}</div>}
     </div>
   )
 }

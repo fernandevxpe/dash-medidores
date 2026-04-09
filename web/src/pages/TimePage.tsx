@@ -12,7 +12,6 @@ import {
   bucketMonthInstalacaoDesinstalacao,
   bucketWeekOfMonth,
   capacityMetrics,
-  ciclosMedicao,
   resumoPrazoMedicao,
 } from '../analytics/metrics'
 
@@ -28,11 +27,6 @@ export function TimePage() {
     const semIso = bucketIsoWeekInstalacaoDesinstalacao(eventosFiltrados)
     const mes = bucketMonthInstalacaoDesinstalacao(eventosFiltrados)
     const semMes = bucketWeekOfMonth(eventosFiltrados)
-    const ciclosHist = ciclosMedicao(eventosFiltrados, bundle.config.diasMedicaoPadrao)
-    const concl = ciclosHist.filter((c) => c.concluido)
-    const diasConcl = concl.map((c) => c.diasDuracao)
-    const mediaFiltrado =
-      diasConcl.length > 0 ? diasConcl.reduce((a, b) => a + b, 0) / diasConcl.length : 0
     return {
       cap,
       prazo,
@@ -41,9 +35,6 @@ export function TimePage() {
       semIso,
       mes,
       semMes,
-      mediaFiltrado,
-      ciclosConcluidosFiltrado: concl.length,
-      ciclosAbertosFiltrado: ciclosHist.filter((c) => !c.concluido).length,
     }
   }, [bundle, eventosFiltrados])
 
@@ -51,18 +42,7 @@ export function TimePage() {
     return <div className="py-20 text-center text-xpe-muted">Carregando…</div>
   }
 
-  const {
-    cap,
-    prazo,
-    prazoMes,
-    diaDual,
-    semIso,
-    mes,
-    semMes,
-    mediaFiltrado,
-    ciclosConcluidosFiltrado,
-    ciclosAbertosFiltrado,
-  } = derived
+  const { cap, prazo, prazoMes, diaDual, semIso, mes, semMes } = derived
 
   return (
     <div className="space-y-5">
@@ -71,24 +51,20 @@ export function TimePage() {
           label="Média dias (ciclo concluído)"
           hint="Global · instalação → desinstalação"
           value={`${prazo.mediaDiasCicloConcluido.toFixed(1)} d`}
-          foot={`No filtro atual: ${mediaFiltrado.toFixed(1)} d (${ciclosConcluidosFiltrado} ciclos fechados)`}
         />
         <KpiTile
           label="Faltam desinstalar (fora do prazo)"
           hint="Ciclos abertos com &gt; N dias desde a instalação"
           value={prazo.pendentesDesinstalar}
-          foot={`Abertos no total: ${prazo.totalCiclosAbertos} · No recorte: ${ciclosAbertosFiltrado}`}
         />
         <KpiTile
           label="Disponíveis para instalar (medidores)"
           hint="Frota sem slot ativo hoje"
           value={cap.disponiveis}
-          foot={`${cap.totalMedidores > 0 ? ((cap.disponiveis / cap.totalMedidores) * 100).toFixed(1) : '0'}% da frota`}
         />
         <KpiTile
           label="Analisadores livres"
           value={cap.analisadoresLivres}
-          foot={`${cap.totalAnalisadoresCatalogo > 0 ? ((cap.analisadoresLivres / cap.totalAnalisadoresCatalogo) * 100).toFixed(1) : '0'}% do catálogo`}
         />
       </div>
 

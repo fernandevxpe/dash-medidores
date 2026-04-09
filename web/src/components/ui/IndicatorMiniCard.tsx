@@ -17,13 +17,11 @@ export function IndicatorMiniCard({
   icon: Icon,
   label,
   value,
-  foot,
   accent = 'neutral',
 }: {
   icon: LucideIcon
   label: string
   value: string
-  foot?: string
   accent?: IndicatorAccent
 }) {
   return (
@@ -38,7 +36,6 @@ export function IndicatorMiniCard({
         <div className="min-w-0 flex-1">
           <p className="text-[10px] uppercase tracking-wide text-zinc-500">{label}</p>
           <p className="mt-0.5 text-lg font-semibold tabular-nums tracking-tight text-white">{value}</p>
-          {foot ? <p className="mt-1 text-[11px] leading-snug text-zinc-500">{foot}</p> : null}
         </div>
       </div>
     </div>
