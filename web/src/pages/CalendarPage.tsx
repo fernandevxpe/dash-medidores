@@ -4,7 +4,7 @@ import { ptBR } from 'date-fns/locale/pt-BR'
 import { useDashboardData } from '../context/DashboardDataContext'
 import { Card } from '../components/ui/Card'
 import { CalendarOperational, type CalendarViewMode } from '../components/calendar/CalendarOperational'
-import { previsoesDesinstalacaoCiclosAbertos } from '../analytics/metrics'
+import { calendarFleetContext, previsoesDesinstalacaoCiclosAbertos } from '../analytics/metrics'
 
 const MODE_LS = 'xpe-calendar-view-mode'
 const EXTRA_LS = 'xpe-previsao-dias-extras'
@@ -63,6 +63,7 @@ export function CalendarPage() {
 
   const dias = bundle?.config.diasMedicaoPadrao ?? 8
   const eventos = useMemo(() => (bundle ? bundle.eventos : []), [bundle])
+  const fleet = useMemo(() => (bundle ? calendarFleetContext(bundle) : { medidorIds: [] as string[], analisadorCanonIds: [] as string[] }), [bundle])
 
   const listaPrevisao = useMemo(() => {
     if (!bundle) return []
@@ -95,6 +96,7 @@ export function CalendarPage() {
       >
         <CalendarOperational
           eventos={eventos}
+          fleet={fleet}
           diasMedicao={dias}
           diasExtras={diasExtras}
           onDiasExtrasChange={setExtrasPersist}

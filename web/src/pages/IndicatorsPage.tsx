@@ -1,5 +1,20 @@
 import { useMemo } from 'react'
+import type { LucideIcon } from 'lucide-react'
+import {
+  Activity,
+  Boxes,
+  FlaskConical,
+  Gauge,
+  GitBranch,
+  Hourglass,
+  Timer,
+  TrendingUp,
+  Users,
+  Wrench,
+  Zap,
+} from 'lucide-react'
 import { Card } from '../components/ui/Card'
+import { IndicatorMiniCard, type IndicatorAccent } from '../components/ui/IndicatorMiniCard'
 import { useDashboardData } from '../context/DashboardDataContext'
 import {
   bucketDayInstalacaoDesinstalacao,
@@ -10,13 +25,18 @@ import {
   analisadorStatusDistribuicao,
 } from '../analytics/metrics'
 
-function Item({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2">
-      <p className="text-[10px] uppercase tracking-wide text-zinc-400">{label}</p>
-      <p className="mt-1 text-xl font-semibold text-white">{value}</p>
-    </div>
-  )
+function Item({
+  icon,
+  label,
+  value,
+  accent = 'neutral',
+}: {
+  icon: LucideIcon
+  label: string
+  value: string
+  accent?: IndicatorAccent
+}) {
+  return <IndicatorMiniCard icon={icon} label={label} value={value} accent={accent} />
 }
 
 export function IndicatorsPage() {
@@ -46,28 +66,77 @@ export function IndicatorsPage() {
     <div className="space-y-5">
       <Card title="Painel de indicadores" subtitle="Visão numérica consolidada de operação, uso e performance">
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-          <Item label="Equipamentos medidores" value={String(d.tempo.medidores.quantidadeEquipamentos)} />
-          <Item label="Equipamentos analisadores" value={String(d.tempo.analisadores.quantidadeEquipamentos)} />
-          <Item label="Serviços realizados" value={String(d.servicos)} />
-          <Item label="Pico diário (últ. 7 dias)" value={String(d.picoSemanal)} />
-          <Item label="Taxa uso medidores" value={`${(d.tempo.medidores.taxaUso * 100).toFixed(1)}%`} />
-          <Item label="Taxa uso analisadores" value={`${(d.tempo.analisadores.taxaUso * 100).toFixed(1)}%`} />
-          <Item label="Média medição medidores" value={`${d.tempo.medidores.mediaMedicaoDias.toFixed(1)} d`} />
           <Item
+            icon={Boxes}
+            accent="neon"
+            label="Equipamentos medidores"
+            value={String(d.tempo.medidores.quantidadeEquipamentos)}
+          />
+          <Item
+            icon={FlaskConical}
+            accent="violet"
+            label="Equipamentos analisadores"
+            value={String(d.tempo.analisadores.quantidadeEquipamentos)}
+          />
+          <Item icon={Zap} accent="amber" label="Serviços realizados" value={String(d.servicos)} />
+          <Item
+            icon={TrendingUp}
+            accent="sky"
+            label="Pico diário (últ. 7 dias)"
+            value={String(d.picoSemanal)}
+          />
+          <Item
+            icon={Gauge}
+            accent="neon"
+            label="Taxa uso medidores"
+            value={`${(d.tempo.medidores.taxaUso * 100).toFixed(1)}%`}
+          />
+          <Item
+            icon={Gauge}
+            accent="violet"
+            label="Taxa uso analisadores"
+            value={`${(d.tempo.analisadores.taxaUso * 100).toFixed(1)}%`}
+          />
+          <Item
+            icon={Timer}
+            accent="sky"
+            label="Média medição medidores"
+            value={`${d.tempo.medidores.mediaMedicaoDias.toFixed(1)} d`}
+          />
+          <Item
+            icon={Timer}
+            accent="violet"
             label="Média medição analisadores"
             value={`${d.tempo.analisadores.mediaMedicaoDias.toFixed(1)} d`}
           />
-          <Item label="Média ociosidade medidores" value={`${d.tempo.medidores.mediaOciosidadeDias.toFixed(1)} d`} />
           <Item
+            icon={Hourglass}
+            accent="neutral"
+            label="Média ociosidade medidores"
+            value={`${d.tempo.medidores.mediaOciosidadeDias.toFixed(1)} d`}
+          />
+          <Item
+            icon={Hourglass}
+            accent="violet"
             label="Média ociosidade analisadores"
             value={`${d.tempo.analisadores.mediaOciosidadeDias.toFixed(1)} d`}
           />
-          <Item label="Em uso medidores" value={String(d.med.instalado)} />
-          <Item label="Em manutenção medidores" value={String(d.med.manutencao)} />
-          <Item label="Em uso analisadores" value={String(d.an.instalado)} />
-          <Item label="Em manutenção analisadores" value={String(d.an.manutencao)} />
-          <Item label="Média medidores por cliente" value={d.mediaMedPorCliente.toFixed(2)} />
-          <Item label="Ciclos abertos" value={String(d.prazo.totalCiclosAbertos)} />
+          <Item icon={Activity} accent="neon" label="Em uso medidores" value={String(d.med.instalado)} />
+          <Item icon={Wrench} accent="amber" label="Em manutenção medidores" value={String(d.med.manutencao)} />
+          <Item icon={Activity} accent="violet" label="Em uso analisadores" value={String(d.an.instalado)} />
+          <Item icon={Wrench} accent="amber" label="Em manutenção analisadores" value={String(d.an.manutencao)} />
+          <Item
+            icon={Users}
+            accent="sky"
+            label="Média medidores por cliente"
+            value={d.mediaMedPorCliente.toFixed(2)}
+          />
+          <Item
+            icon={GitBranch}
+            accent="neutral"
+            label="Ciclos abertos"
+            value={String(d.prazo.totalCiclosAbertos)}
+          />
         </div>
       </Card>
     </div>

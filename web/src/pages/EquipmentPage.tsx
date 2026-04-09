@@ -1,7 +1,17 @@
 import { Fragment, useMemo, useState } from 'react'
+import {
+  Activity,
+  Boxes,
+  CircleDashed,
+  Gauge,
+  Hourglass,
+  Timer,
+  Wrench,
+} from 'lucide-react'
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { useDashboardData } from '../context/DashboardDataContext'
 import { Card } from '../components/ui/Card'
+import { IndicatorMiniCard } from '../components/ui/IndicatorMiniCard'
 import {
   analisadoresSinteticos,
   capacityMetrics,
@@ -16,17 +26,29 @@ import {
   analyzerDonutSlices,
   ultimoEventoPorId,
 } from '../analytics/metrics'
-import { SegmentedStatusBar } from '../components/charts/SegmentedStatusBar'
+import type { HistoricoTemporalEquipamento, IntervaloTemporalEquipamento } from '../analytics/metrics'
 
-function MiniCard({ label, value, foot }: { label: string; value: string; foot?: string }) {
-  return (
-    <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2">
-      <p className="text-[10px] uppercase tracking-wide text-zinc-400">{label}</p>
-      <p className="mt-1 text-lg font-semibold text-white">{value}</p>
-      {foot ? <p className="text-[11px] text-zinc-500">{foot}</p> : null}
-    </div>
-  )
+function intervalosHistoricoMerged(h: HistoricoTemporalEquipamento): IntervaloTemporalEquipamento[] {
+  return [
+    ...h.intervalosMedicao,
+    ...h.intervalosOciosidade,
+    ...h.intervalosManutencao,
+  ].sort((a, b) => a.inicio.localeCompare(b.inicio))
 }
+
+function intervaloTipoLabel(t: IntervaloTemporalEquipamento['tipo']) {
+  if (t === 'medicao') return 'Medição'
+  if (t === 'manutencao') return 'Manutenção'
+  return 'Ociosidade'
+}
+
+function intervaloTipoClass(t: IntervaloTemporalEquipamento['tipo']) {
+  if (t === 'medicao') return 'text-xpe-neon-dim'
+  if (t === 'manutencao') return 'text-amber-300'
+  return 'text-violet-300'
+}
+import { SegmentedStatusBar } from '../components/charts/SegmentedStatusBar'
+import { AnalyzerUtilizationSection } from '../components/equipment/AnalyzerUtilizationSection'
 
 function previsaoParaEquipamento(
   eventos: Parameters<typeof eventosPorMedidor>[0],
@@ -189,44 +211,63 @@ export function EquipmentPage() {
   return (
     <div className="space-y-5">
       <Card title="Indicadores globais · Medidores" subtitle="Uso, disponibilidade e tempos médios de ciclo">
-        <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-7">
-          <MiniCard label="Quantidade" value={String(globaisTempo.medidores.quantidadeEquipamentos)} />
-          <MiniCard label="Em uso" value={String(globaisTempo.medidores.emUso)} />
-          <MiniCard label="Disponíveis" value={String(globaisTempo.medidores.disponiveis)} />
-          <MiniCard label="Manutenção" value={String(globaisTempo.medidores.manutencao)} />
-          <MiniCard
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8">
+          <IndicatorMiniCard
+            icon={Boxes}
+            accent="neon"
+            label="Quantidade"
+            value={String(globaisTempo.medidores.quantidadeEquipamentos)}
+          />
+          <IndicatorMiniCard
+            icon={Activity}
+            accent="neon"
+            label="Em uso"
+            value={String(globaisTempo.medidores.emUso)}
+          />
+          <IndicatorMiniCard
+            icon={CircleDashed}
+            accent="neutral"
+            label="Disponíveis"
+            value={String(globaisTempo.medidores.disponiveis)}
+          />
+          <IndicatorMiniCard
+            icon={Wrench}
+            accent="amber"
+            label="Manutenção"
+            value={String(globaisTempo.medidores.manutencao)}
+          />
+          <IndicatorMiniCard
+            icon={Timer}
+            accent="sky"
             label="Média medição"
             value={`${globaisTempo.medidores.mediaMedicaoDias.toFixed(1)} d`}
             foot="instalação até desinstalação"
           />
-          <MiniCard
+          <IndicatorMiniCard
+            icon={Hourglass}
+            accent="violet"
             label="Média ociosidade"
             value={`${globaisTempo.medidores.mediaOciosidadeDias.toFixed(1)} d`}
-            foot="desinstalação até próxima instalação"
+            foot="só após 1.ª desinst.; desde 1.ª instalação; manutenção excluída"
           />
-          <MiniCard label="Taxa de uso" value={`${(globaisTempo.medidores.taxaUso * 100).toFixed(1)}%`} />
+          <IndicatorMiniCard
+            icon={Wrench}
+            accent="amber"
+            label="Média manutenção"
+            value={`${globaisTempo.medidores.mediaManutencaoDias.toFixed(1)} d`}
+            foot="fora de medição e ociosidade"
+          />
+          <IndicatorMiniCard
+            icon={Gauge}
+            accent="neon"
+            label="Taxa de uso"
+            value={`${(globaisTempo.medidores.taxaUso * 100).toFixed(1)}%`}
+            foot="medição / (medição + ociosidade)"
+          />
         </div>
       </Card>
 
-      <Card title="Indicadores globais · Analisadores" subtitle="Mesmos KPIs de utilização para analisadores">
-        <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-7">
-          <MiniCard label="Quantidade" value={String(globaisTempo.analisadores.quantidadeEquipamentos)} />
-          <MiniCard label="Em uso" value={String(globaisTempo.analisadores.emUso)} />
-          <MiniCard label="Disponíveis" value={String(globaisTempo.analisadores.disponiveis)} />
-          <MiniCard label="Manutenção" value={String(globaisTempo.analisadores.manutencao)} />
-          <MiniCard
-            label="Média medição"
-            value={`${globaisTempo.analisadores.mediaMedicaoDias.toFixed(1)} d`}
-            foot="instalação até desinstalação"
-          />
-          <MiniCard
-            label="Média ociosidade"
-            value={`${globaisTempo.analisadores.mediaOciosidadeDias.toFixed(1)} d`}
-            foot="desinstalação até próxima instalação"
-          />
-          <MiniCard label="Taxa de uso" value={`${(globaisTempo.analisadores.taxaUso * 100).toFixed(1)}%`} />
-        </div>
-      </Card>
+      <AnalyzerUtilizationSection bundle={bundle} globaisAnalisadores={globaisTempo.analisadores} cap={cap} />
 
       <Card title="Status consolidado de frota" subtitle="Conteúdo migrado da guia Status">
         <div className="grid gap-4 lg:grid-cols-2">
@@ -347,18 +388,13 @@ export function EquipmentPage() {
                           <p className="mb-2 text-[11px] font-medium uppercase text-xpe-muted">
                             Histórico temporal completo (fechado + em andamento)
                           </p>
-                          {!historicoSelecionado ||
-                          historicoSelecionado.intervalosMedicao.length + historicoSelecionado.intervalosOciosidade.length === 0 ? (
-                            <p>Sem ciclos calculados para este ID.</p>
+                          {!historicoSelecionado || intervalosHistoricoMerged(historicoSelecionado).length === 0 ? (
+                            <p>Sem ciclos calculados para este ID (sem 1.ª instalação registada).</p>
                           ) : (
                             <ul className="grid gap-1 sm:grid-cols-2">
-                              {[...historicoSelecionado.intervalosMedicao, ...historicoSelecionado.intervalosOciosidade]
-                                .sort((a, b) => a.inicio.localeCompare(b.inicio))
-                                .map((x, i) => (
+                              {intervalosHistoricoMerged(historicoSelecionado).map((x, i) => (
                                 <li key={i} className="text-xs">
-                                  <span className={x.tipo === 'medicao' ? 'text-xpe-neon-dim' : 'text-violet-300'}>
-                                    {x.tipo === 'medicao' ? 'Medição' : 'Ociosidade'}
-                                  </span>{' '}
+                                  <span className={intervaloTipoClass(x.tipo)}>{intervaloTipoLabel(x.tipo)}</span>{' '}
                                   · {x.inicio.slice(0, 10)} → {x.fim.slice(0, 10)} · {x.duracaoDias.toFixed(1)}d{' '}
                                   {x.aberto ? '(aberto)' : '(fechado)'}
                                 </li>
@@ -419,18 +455,13 @@ export function EquipmentPage() {
                           <p className="mb-2 text-[11px] font-medium uppercase text-xpe-muted">
                             Histórico temporal completo (fechado + em andamento)
                           </p>
-                          {!historicoSelecionado ||
-                          historicoSelecionado.intervalosMedicao.length + historicoSelecionado.intervalosOciosidade.length === 0 ? (
-                            <p>Sem ciclos calculados para este ID.</p>
+                          {!historicoSelecionado || intervalosHistoricoMerged(historicoSelecionado).length === 0 ? (
+                            <p>Sem ciclos calculados para este ID (sem 1.ª instalação registada).</p>
                           ) : (
                             <ul className="grid gap-1 sm:grid-cols-2">
-                              {[...historicoSelecionado.intervalosMedicao, ...historicoSelecionado.intervalosOciosidade]
-                                .sort((a, b) => a.inicio.localeCompare(b.inicio))
-                                .map((x, i) => (
+                              {intervalosHistoricoMerged(historicoSelecionado).map((x, i) => (
                                 <li key={i} className="text-xs">
-                                  <span className={x.tipo === 'medicao' ? 'text-xpe-neon-dim' : 'text-violet-300'}>
-                                    {x.tipo === 'medicao' ? 'Medição' : 'Ociosidade'}
-                                  </span>{' '}
+                                  <span className={intervaloTipoClass(x.tipo)}>{intervaloTipoLabel(x.tipo)}</span>{' '}
                                   · {x.inicio.slice(0, 10)} → {x.fim.slice(0, 10)} · {x.duracaoDias.toFixed(1)}d{' '}
                                   {x.aberto ? '(aberto)' : '(fechado)'}
                                 </li>
@@ -457,10 +488,35 @@ export function EquipmentPage() {
               Estado sintético: <span className="text-white">{byStatus.get(meterId.trim()) ?? '—'}</span>
             </p>
             {timelineMetricas && (
-              <div className="grid gap-2 sm:grid-cols-3">
-                <MiniCard label="Média medição" value={`${timelineMetricas.mediaMedicaoDias.toFixed(1)} d`} />
-                <MiniCard label="Média ociosidade" value={`${timelineMetricas.mediaOciosidadeDias.toFixed(1)} d`} />
-                <MiniCard label="Taxa de uso" value={`${(timelineMetricas.taxaUso * 100).toFixed(1)}%`} />
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+                <IndicatorMiniCard
+                  icon={Timer}
+                  accent="sky"
+                  label="Média medição"
+                  value={`${timelineMetricas.mediaMedicaoDias.toFixed(1)} d`}
+                  foot="até manutenção ou desinstalação"
+                />
+                <IndicatorMiniCard
+                  icon={Wrench}
+                  accent="amber"
+                  label="Média manutenção"
+                  value={`${timelineMetricas.mediaManutencaoDias.toFixed(1)} d`}
+                  foot="fora de medição e ociosidade"
+                />
+                <IndicatorMiniCard
+                  icon={Hourglass}
+                  accent="violet"
+                  label="Média ociosidade"
+                  value={`${timelineMetricas.mediaOciosidadeDias.toFixed(1)} d`}
+                  foot="após 1.ª desinstalação"
+                />
+                <IndicatorMiniCard
+                  icon={Gauge}
+                  accent="neon"
+                  label="Taxa de uso"
+                  value={`${(timelineMetricas.taxaUso * 100).toFixed(1)}%`}
+                  foot="medição / (medição + ociosidade)"
+                />
               </div>
             )}
             <ul className="mt-3 space-y-2 border-l border-xpe-border pl-4">
@@ -496,6 +552,10 @@ export function EquipmentPage() {
                 <p>
                   Ociosidade: {timelineMetricas.ciclosOciosidadeFechados} fechado(s),{' '}
                   {timelineMetricas.ciclosOciosidadeAbertos} aberto(s)
+                </p>
+                <p>
+                  Manutenção: {timelineMetricas.ciclosManutencaoFechados} fechado(s),{' '}
+                  {timelineMetricas.ciclosManutencaoAbertos} aberto(s)
                 </p>
               </div>
             )}

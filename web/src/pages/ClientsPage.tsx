@@ -11,9 +11,27 @@ import {
   periodoMedicaoPorCliente,
 } from '../analytics/metrics'
 
+type FiltroAtivoCliente = 'todos' | 'ativos' | 'inativos'
+type OrdenacaoCliente = 'nome' | 'timeline_recente' | 'timeline_antigo'
+
+function reorderPorClientes<T extends { cliente: string }>(rows: T[], ordemClientes: string[]): T[] {
+  const map = new Map(rows.map((r) => [r.cliente, r]))
+  const out: T[] = []
+  for (const c of ordemClientes) {
+    const row = map.get(c)
+    if (row) out.push(row)
+  }
+  for (const r of rows) {
+    if (!ordemClientes.includes(r.cliente)) out.push(r)
+  }
+  return out
+}
+
 export function ClientsPage() {
   const { bundle, eventosFiltrados, loadState } = useDashboardData()
   const [q, setQ] = useState('')
+  const [filtroAtivo, setFiltroAtivo] = useState<FiltroAtivoCliente>('todos')
+  const [ordenacao, setOrdenacao] = useState<OrdenacaoCliente>('timeline_recente')
   const [expanded, setExpanded] = useState<string | null>(null)
 
   const { porQtd, periodos, comp } = useMemo(() => {
@@ -23,15 +41,42 @@ export function ClientsPage() {
     return { porQtd, periodos, comp }
   }, [eventosFiltrados])
 
+  const periodoPorCliente = useMemo(() => new Map(periodos.map((p) => [p.cliente, p])), [periodos])
+
   const filtered = useMemo(() => {
-    const s = q.trim().toLowerCase()
-    if (!s) return { porQtd, periodos, comp }
-    return {
-      porQtd: porQtd.filter((x) => x.cliente.toLowerCase().includes(s)),
-      periodos: periodos.filter((x) => x.cliente.toLowerCase().includes(s)),
-      comp: comp.filter((x) => x.cliente.toLowerCase().includes(s)),
+    if (!bundle) {
+      return { porQtd: [] as typeof porQtd, periodos: [] as typeof periodos, comp: [] as typeof comp }
     }
-  }, [q, porQtd, periodos, comp])
+    const s = q.trim().toLowerCase()
+    const matchQ = (cliente: string) => !s || cliente.toLowerCase().includes(s)
+    const matchAtivo = (cliente: string) => {
+      const a = clienteEstaAtivo(bundle.eventos, cliente)
+      if (filtroAtivo === 'ativos') return a
+      if (filtroAtivo === 'inativos') return !a
+      return true
+    }
+
+    let pq = porQtd.filter((x) => matchQ(x.cliente) && matchAtivo(x.cliente))
+    let per = periodos.filter((x) => matchQ(x.cliente) && matchAtivo(x.cliente))
+    let co = comp.filter((x) => matchQ(x.cliente) && matchAtivo(x.cliente))
+
+    const tsFim = (c: string) => new Date(periodoPorCliente.get(c)?.fim ?? 0).getTime()
+    const tsIni = (c: string) => new Date(periodoPorCliente.get(c)?.inicio ?? 0).getTime()
+
+    if (ordenacao === 'nome') {
+      pq = [...pq].sort((a, b) => a.cliente.localeCompare(b.cliente, 'pt-BR'))
+    } else if (ordenacao === 'timeline_recente') {
+      pq = [...pq].sort((a, b) => tsFim(b.cliente) - tsFim(a.cliente))
+    } else {
+      pq = [...pq].sort((a, b) => tsIni(a.cliente) - tsIni(b.cliente))
+    }
+
+    const ordem = pq.map((x) => x.cliente)
+    per = reorderPorClientes(per, ordem)
+    co = reorderPorClientes(co, ordem)
+
+    return { porQtd: pq, periodos: per, comp: co }
+  }, [q, porQtd, periodos, comp, bundle, filtroAtivo, ordenacao, periodoPorCliente])
 
   const ativosDetalhe = useMemo(() => {
     if (!bundle || !expanded) return []
@@ -54,7 +99,7 @@ export function ClientsPage() {
     return <div className="py-20 text-center text-xpe-muted">Carregando…</div>
   }
 
-  const barData = porQtd.slice(0, 16).map((x) => {
+  const barData = filtered.porQtd.slice(0, 16).map((x) => {
     const ativo = clienteEstaAtivo(bundle.eventos, x.cliente)
     return {
       nome: x.cliente.slice(0, 18),
@@ -66,13 +111,42 @@ export function ClientsPage() {
   return (
     <div className="space-y-5">
       <Card title="Análise por cliente" subtitle="Barras: verde = slot ativo hoje · roxo = apenas histórico no período">
-        <input
-          type="search"
-          placeholder="Buscar cliente (obra)…"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          className="mb-4 w-full max-w-md rounded-xl border border-xpe-border bg-xpe-bg px-4 py-2 text-sm text-white placeholder:text-zinc-500"
-        />
+        <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-end">
+          <div className="min-w-0 flex-1">
+            <label className="mb-1 block text-[10px] uppercase tracking-wide text-zinc-500">Buscar cliente</label>
+            <input
+              type="search"
+              placeholder="Nome da obra / cliente…"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              className="w-full max-w-md rounded-xl border border-xpe-border bg-xpe-bg px-4 py-2 text-sm text-white placeholder:text-zinc-500"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-[10px] uppercase tracking-wide text-zinc-500">Ativos</label>
+            <select
+              value={filtroAtivo}
+              onChange={(e) => setFiltroAtivo(e.target.value as FiltroAtivoCliente)}
+              className="w-full min-w-[160px] rounded-xl border border-xpe-border bg-xpe-bg px-3 py-2 text-sm text-white"
+            >
+              <option value="todos">Todos</option>
+              <option value="ativos">Só com equipamento ativo</option>
+              <option value="inativos">Só histórico (sem ativo hoje)</option>
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block text-[10px] uppercase tracking-wide text-zinc-500">Ordenar (linha temporal)</label>
+            <select
+              value={ordenacao}
+              onChange={(e) => setOrdenacao(e.target.value as OrdenacaoCliente)}
+              className="w-full min-w-[220px] rounded-xl border border-xpe-border bg-xpe-bg px-3 py-2 text-sm text-white"
+            >
+              <option value="timeline_recente">Última atividade mais recente</option>
+              <option value="timeline_antigo">Primeira atividade mais antiga</option>
+              <option value="nome">Nome (A–Z)</option>
+            </select>
+          </div>
+        </div>
         <BarVolume data={barData} dataKey="total" xKey="nome" color="#a855f7" />
         <p className="mt-2 text-center text-[11px] text-zinc-500">
           Cores por estado global (histórico completo), não só pelo filtro.

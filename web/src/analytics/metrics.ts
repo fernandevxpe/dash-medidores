@@ -1,4 +1,13 @@
-import { addDays, endOfDay, format, getISOWeek, getISOWeekYear, parseISO } from 'date-fns'
+import {
+  addDays,
+  eachDayOfInterval,
+  endOfDay,
+  format,
+  getISOWeek,
+  getISOWeekYear,
+  parseISO,
+  startOfDay,
+} from 'date-fns'
 import type {
   DashboardBundle,
   EventoRow,
@@ -193,6 +202,18 @@ export function statusCountsMedidorDerived(bundle: DashboardBundle): Record<stri
   return medidorStatusDistribuicao(bundle)
 }
 
+/** IDs canónicos (string numérica) usados em agregações de analisador — alinhado a `analisadoresSinteticos`. */
+function analisadorIdsFrota(bundle: DashboardBundle): Set<string> {
+  const totalCat =
+    bundle.frota.totalAnalisadoresOficial && bundle.frota.totalAnalisadoresOficial > 0
+      ? bundle.frota.totalAnalisadoresOficial
+      : 5
+  const idSet = new Set<string>()
+  for (const x of bundle.frota.idsAnalisadoresObservados ?? []) idSet.add(String(parseInt(x, 10)))
+  for (let i = 1; i <= totalCat; i++) idSet.add(String(i))
+  return idSet
+}
+
 export function analisadorStatusDistribuicao(bundle: DashboardBundle): {
   instalado: number
   manutencao: number
@@ -201,13 +222,7 @@ export function analisadorStatusDistribuicao(bundle: DashboardBundle): {
 } {
   const t = Date.now()
   const lastBySlot = lastEventBySlotAtTimestamp(bundle.eventos, t)
-  const totalCat =
-    bundle.frota.totalAnalisadoresOficial && bundle.frota.totalAnalisadoresOficial > 0
-      ? bundle.frota.totalAnalisadoresOficial
-      : 5
-  const idSet = new Set<string>()
-  for (const x of bundle.frota.idsAnalisadoresObservados ?? []) idSet.add(String(parseInt(x, 10)))
-  for (let i = 1; i <= totalCat; i++) idSet.add(String(i))
+  const idSet = analisadorIdsFrota(bundle)
   let instalado = 0
   let manutencao = 0
   let disponivel = 0
@@ -218,6 +233,27 @@ export function analisadorStatusDistribuicao(bundle: DashboardBundle): {
     else disponivel++
   }
   return { instalado, manutencao, disponivel, totalCatalogo: idSet.size }
+}
+
+/** Contexto de frota para o calendário (medidores observados + catálogo de analisadores). */
+export function calendarFleetContext(bundle: DashboardBundle): {
+  medidorIds: string[]
+  analisadorCanonIds: string[]
+  totalAnalisadoresCatalogo: number
+} {
+  const medidorIds = new Set<string>()
+  for (const id of bundle.frota.idsMedidoresObservados ?? []) {
+    if (inferTipoFromIdMedidor(id) === 'medidor') medidorIds.add(id)
+  }
+  for (const e of bundle.eventos) {
+    if (tipoEquipamentoDe(e) === 'medidor') medidorIds.add(e.idMedidor)
+  }
+  const analisadorIds = analisadorIdsFrota(bundle)
+  return {
+    medidorIds: [...medidorIds],
+    analisadorCanonIds: [...analisadorIds],
+    totalAnalisadoresCatalogo: analisadorIds.size,
+  }
 }
 
 export function lastEventByMeter(eventos: EventoRow[]): Map<string, EventoRow> {
@@ -249,10 +285,7 @@ export function medidoresSinteticos(bundle: DashboardBundle): MedidorRow[] {
 
 export function analisadoresSinteticos(bundle: DashboardBundle): MedidorRow[] {
   const lastBySlot = lastEventBySlotAtTimestamp(bundle.eventos, Date.now())
-  const ad = analisadorStatusDistribuicao(bundle)
-  const idSet = new Set<string>()
-  for (const x of bundle.frota.idsAnalisadoresObservados ?? []) idSet.add(String(parseInt(x, 10)))
-  for (let i = 1; i <= ad.totalCatalogo; i++) idSet.add(String(i))
+  const idSet = analisadorIdsFrota(bundle)
   return [...idSet].sort((a, b) => parseInt(a, 10) - parseInt(b, 10)).map((idNum) => ({
     id: `analisador_${idNum}`,
     status: estadoAgregadoAnalisadorId(idNum, lastBySlot),
@@ -408,6 +441,8 @@ export function capacityMetrics(bundle: DashboardBundle) {
     analisadoresLivres: ad.disponivel,
     analisadoresEmUso: analEmCampo,
     pctCapacidadeAnalisador: pctA,
+    /** Soma frota medidores + catálogo analisadores (referência do painel). */
+    totalEquipamentosFrota: totalM + ad.totalCatalogo,
   }
 }
 
@@ -471,6 +506,43 @@ export function ultimasDesinstalacoes(eventos: EventoRow[], n: number) {
     .slice(0, n)
 }
 
+export type AcaoHistoricoEquipamento = 'instalacao' | 'desinstalacao'
+
+export interface LinhaHistoricoAcao {
+  acao: AcaoHistoricoEquipamento
+  data: string
+  idMedidor: string
+  cliente: string | null
+  localizacao: string | null
+  previsaoRemocao: string | null
+}
+
+/** Últimas N instalações e N desinstalações fundidas, ordenadas por data (mais recente primeiro). */
+export function historicoAcoesEquipamentosRecentes(
+  eventos: EventoRow[],
+  diasPadrao: number,
+  nInstalacoes: number,
+  nDesinstalacoes: number,
+): LinhaHistoricoAcao[] {
+  const inst = ultimasInstalacoes(eventos, nInstalacoes, diasPadrao).map((e) => ({
+    acao: 'instalacao' as const,
+    data: e.data,
+    idMedidor: e.idMedidor,
+    cliente: e.cliente,
+    localizacao: e.localizacao,
+    previsaoRemocao: e.previsaoRemocao,
+  }))
+  const des = ultimasDesinstalacoes(eventos, nDesinstalacoes).map((e) => ({
+    acao: 'desinstalacao' as const,
+    data: e.data,
+    idMedidor: e.idMedidor,
+    cliente: e.cliente,
+    localizacao: e.localizacao,
+    previsaoRemocao: null as string | null,
+  }))
+  return [...inst, ...des].sort((a, b) => b.data.localeCompare(a.data))
+}
+
 export function periodoMedicaoPorCliente(eventos: EventoRow[]) {
   const m = new Map<string, { min: number; max: number; dias: Set<string> }>()
   for (const e of eventos) {
@@ -491,12 +563,62 @@ export function periodoMedicaoPorCliente(eventos: EventoRow[]) {
   }))
 }
 
+/** Eventos do equipamento: medidor por id literal; analisador por id canónico (`1` ≡ `analisador_1`). */
+export function eventosRelacionadosAoIdMedidor(eventos: EventoRow[], id: string): EventoRow[] {
+  const canonAn = normalizeAnalisadorId(id)
+  if (canonAn !== null && inferTipoFromIdMedidor(id) === 'analisador') {
+    return eventos.filter(
+      (e) => tipoEquipamentoDe(e) === 'analisador' && normalizeAnalisadorId(e.idMedidor) === canonAn,
+    )
+  }
+  return eventos.filter((e) => e.idMedidor === id)
+}
+
 export function eventosPorMedidor(eventos: EventoRow[], id: string) {
-  return eventos.filter((e) => e.idMedidor === id).sort((a, b) => eventTime(b) - eventTime(a))
+  return eventosRelacionadosAoIdMedidor(eventos, id).sort((a, b) => eventTime(b) - eventTime(a))
+}
+
+/** Instante da última desinstalação registada para o equipamento (qualquer slot). */
+export function ultimaDesinstalacaoTimestamp(eventos: EventoRow[], id: string): number | null {
+  const evs = eventosRelacionadosAoIdMedidor(eventos, id).filter(isDesinstalacao)
+  if (evs.length === 0) return null
+  let max = 0
+  for (const e of evs) max = Math.max(max, eventTime(e))
+  return max > 0 ? max : null
+}
+
+/** Primeira instalação registada (início da “vida operacional” para métricas de ciclo). */
+export function primeiraInstalacaoTimestamp(eventos: EventoRow[], id: string): number | null {
+  const linha = eventosRelacionadosAoIdMedidor(eventos, id)
+  let min: number | null = null
+  for (const e of linha) {
+    if (!isInstalacao(e)) continue
+    const t = eventTime(e)
+    min = min === null ? t : Math.min(min, t)
+  }
+  return min
+}
+
+/** Estado agregado hoje (replay): instalado / manutenção / disponível. */
+export function equipamentoEstadoAgregado(
+  bundle: DashboardBundle,
+  idMedidor: string,
+  agoraMs: number = Date.now(),
+): 'instalado' | 'manutencao' | 'disponivel' {
+  const lastBySlot = lastEventBySlotAtTimestamp(bundle.eventos, agoraMs)
+  const canonAn = normalizeAnalisadorId(idMedidor)
+  if (canonAn !== null && inferTipoFromIdMedidor(idMedidor) === 'analisador') {
+    return estadoAgregadoAnalisadorId(canonAn, lastBySlot)
+  }
+  if (inferTipoFromIdMedidor(idMedidor) === 'medidor') {
+    return estadoAgregadoMedidorId(idMedidor, lastBySlot)
+  }
+  if (canonAn !== null) return estadoAgregadoAnalisadorId(canonAn, lastBySlot)
+  return estadoAgregadoMedidorId(idMedidor, lastBySlot)
 }
 
 export interface IntervaloTemporalEquipamento {
-  tipo: 'medicao' | 'ociosidade'
+  tipo: 'medicao' | 'ociosidade' | 'manutencao'
   aberto: boolean
   inicio: string
   fim: string
@@ -511,15 +633,21 @@ export interface HistoricoTemporalEquipamento {
   tipo: TipoEquipamento
   intervalosMedicao: IntervaloTemporalEquipamento[]
   intervalosOciosidade: IntervaloTemporalEquipamento[]
+  /** Períodos em manutenção em campo: não entram em medição nem em ociosidade nem no denominador da taxa de uso. */
+  intervalosManutencao: IntervaloTemporalEquipamento[]
   mediaMedicaoDias: number
   mediaOciosidadeDias: number
+  mediaManutencaoDias: number
   taxaUso: number
   totalMedicaoMs: number
   totalOciosidadeMs: number
+  totalManutencaoMs: number
   ciclosMedicaoFechados: number
   ciclosOciosidadeFechados: number
   ciclosMedicaoAbertos: number
   ciclosOciosidadeAbertos: number
+  ciclosManutencaoFechados: number
+  ciclosManutencaoAbertos: number
 }
 
 export interface IndicadoresTemporaisGlobais {
@@ -530,8 +658,11 @@ export interface IndicadoresTemporaisGlobais {
   manutencao: number
   totalMedicaoMs: number
   totalOciosidadeMs: number
+  /** Tempo em manutenção em campo (fora de medição e de ociosidade). */
+  totalManutencaoMs: number
   mediaMedicaoDias: number
   mediaOciosidadeDias: number
+  mediaManutencaoDias: number
   taxaUso: number
 }
 
@@ -546,7 +677,7 @@ function mediaDias(intervalos: IntervaloTemporalEquipamento[]): number {
 }
 
 function makeIntervalo(
-  tipo: 'medicao' | 'ociosidade',
+  tipo: 'medicao' | 'ociosidade' | 'manutencao',
   aberto: boolean,
   inicio: EventoRow,
   fim: EventoRow | null,
@@ -573,65 +704,159 @@ export function historicoTemporalPorEquipamento(
   id: string,
   agoraMs: number = Date.now(),
 ): HistoricoTemporalEquipamento {
-  const linha = eventos
-    .filter((e) => e.idMedidor === id)
-    .sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime())
+  const canonAn = normalizeAnalisadorId(id)
+  const displayId =
+    canonAn !== null && inferTipoFromIdMedidor(id) === 'analisador' ? `analisador_${canonAn}` : id
+  const linhaCompleta = eventosRelacionadosAoIdMedidor(eventos, id).sort(
+    (a, b) => new Date(a.data).getTime() - new Date(b.data).getTime(),
+  )
   const agoraIso = new Date(agoraMs).toISOString()
-  const tipo = linha.length > 0 ? tipoEquipamentoDe(linha[linha.length - 1]!) : inferTipoFromIdMedidor(id)
+  const tipo =
+    linhaCompleta.length > 0
+      ? tipoEquipamentoDe(linhaCompleta[linhaCompleta.length - 1]!)
+      : inferTipoFromIdMedidor(id)
+
+  const primeiroInstIdx = linhaCompleta.findIndex(isInstalacao)
+  const linha = primeiroInstIdx < 0 ? [] : linhaCompleta.slice(primeiroInstIdx)
+
   const intervalosMedicao: IntervaloTemporalEquipamento[] = []
   const intervalosOciosidade: IntervaloTemporalEquipamento[] = []
+  const intervalosManutencao: IntervaloTemporalEquipamento[] = []
   let ultimaInstalacao: EventoRow | null = null
   let ultimaDesinstalacao: EventoRow | null = null
+  let ultimaManutInicio: EventoRow | null = null
+
   for (const e of linha) {
     if (isInstalacao(e)) {
       if (ultimaDesinstalacao) {
         intervalosOciosidade.push(makeIntervalo('ociosidade', false, ultimaDesinstalacao, e, agoraIso))
+        ultimaDesinstalacao = null
+      }
+      if (ultimaManutInicio) {
+        intervalosManutencao.push(makeIntervalo('manutencao', false, ultimaManutInicio, e, agoraIso))
+        ultimaManutInicio = null
       }
       ultimaInstalacao = e
-      ultimaDesinstalacao = null
+      continue
+    }
+    if (isManutencao(e)) {
+      if (ultimaInstalacao) {
+        intervalosMedicao.push(makeIntervalo('medicao', false, ultimaInstalacao, e, agoraIso))
+        ultimaInstalacao = null
+      }
+      if (!ultimaManutInicio) ultimaManutInicio = e
       continue
     }
     if (isDesinstalacao(e)) {
-      if (ultimaInstalacao) {
+      if (ultimaManutInicio) {
+        intervalosManutencao.push(makeIntervalo('manutencao', false, ultimaManutInicio, e, agoraIso))
+        ultimaManutInicio = null
+      } else if (ultimaInstalacao) {
         intervalosMedicao.push(makeIntervalo('medicao', false, ultimaInstalacao, e, agoraIso))
+        ultimaInstalacao = null
       }
       ultimaDesinstalacao = e
-      ultimaInstalacao = null
     }
   }
+
   if (ultimaInstalacao) intervalosMedicao.push(makeIntervalo('medicao', true, ultimaInstalacao, null, agoraIso))
+  if (ultimaManutInicio)
+    intervalosManutencao.push(makeIntervalo('manutencao', true, ultimaManutInicio, null, agoraIso))
   if (ultimaDesinstalacao)
     intervalosOciosidade.push(makeIntervalo('ociosidade', true, ultimaDesinstalacao, null, agoraIso))
 
   const totalMedicaoMs = intervalosMedicao.reduce((acc, x) => acc + x.duracaoMs, 0)
   const totalOciosidadeMs = intervalosOciosidade.reduce((acc, x) => acc + x.duracaoMs, 0)
+  const totalManutencaoMs = intervalosManutencao.reduce((acc, x) => acc + x.duracaoMs, 0)
   const denom = totalMedicaoMs + totalOciosidadeMs
   return {
-    id,
+    id: displayId,
     tipo,
     intervalosMedicao,
     intervalosOciosidade,
+    intervalosManutencao,
     mediaMedicaoDias: mediaDias(intervalosMedicao),
     mediaOciosidadeDias: mediaDias(intervalosOciosidade),
+    mediaManutencaoDias: mediaDias(intervalosManutencao),
     taxaUso: denom > 0 ? totalMedicaoMs / denom : 0,
     totalMedicaoMs,
     totalOciosidadeMs,
+    totalManutencaoMs,
     ciclosMedicaoFechados: intervalosMedicao.filter((x) => !x.aberto).length,
     ciclosOciosidadeFechados: intervalosOciosidade.filter((x) => !x.aberto).length,
     ciclosMedicaoAbertos: intervalosMedicao.filter((x) => x.aberto).length,
     ciclosOciosidadeAbertos: intervalosOciosidade.filter((x) => x.aberto).length,
+    ciclosManutencaoFechados: intervalosManutencao.filter((x) => !x.aberto).length,
+    ciclosManutencaoAbertos: intervalosManutencao.filter((x) => x.aberto).length,
   }
+}
+
+export interface EquipamentoDisponivelMetrica {
+  id: string
+  tipo: 'medidor' | 'analisador'
+  /** Última desinstalação conhecida; null se nunca esteve em campo. */
+  disponivelDesdeIso: string | null
+  diasDisponivel: number | null
+  /** Proporção do tempo em medição no histórico (0–100%). */
+  taxaUtilizacaoPct: number
+}
+
+/** Equipamentos com estado disponível hoje: tempo desde última desinstalação e taxa de uso histórica. */
+export function listaEquipamentosDisponiveisComMetricas(
+  bundle: DashboardBundle,
+  agoraMs: number = Date.now(),
+): EquipamentoDisponivelMetrica[] {
+  const out: EquipamentoDisponivelMetrica[] = []
+  for (const m of medidoresSinteticos(bundle)) {
+    if (m.status !== 'disponivel') continue
+    const id = m.id
+    const ts = ultimaDesinstalacaoTimestamp(bundle.eventos, id)
+    const hist = historicoTemporalPorEquipamento(bundle.eventos, id, agoraMs)
+    out.push({
+      id,
+      tipo: 'medidor',
+      disponivelDesdeIso: ts ? new Date(ts).toISOString() : null,
+      diasDisponivel: ts !== null ? (agoraMs - ts) / 86_400_000 : null,
+      taxaUtilizacaoPct: hist.taxaUso * 100,
+    })
+  }
+  for (const m of analisadoresSinteticos(bundle)) {
+    if (m.status !== 'disponivel') continue
+    const id = m.id
+    const ts = ultimaDesinstalacaoTimestamp(bundle.eventos, id)
+    const hist = historicoTemporalPorEquipamento(bundle.eventos, id, agoraMs)
+    out.push({
+      id,
+      tipo: 'analisador',
+      disponivelDesdeIso: ts ? new Date(ts).toISOString() : null,
+      diasDisponivel: ts !== null ? (agoraMs - ts) / 86_400_000 : null,
+      taxaUtilizacaoPct: hist.taxaUso * 100,
+    })
+  }
+  return out.sort((a, b) => {
+    const da = a.diasDisponivel ?? -1
+    const db = b.diasDisponivel ?? -1
+    return db - da
+  })
 }
 
 export function historicosTemporaisDaFrota(
   bundle: DashboardBundle,
   agoraMs: number = Date.now(),
 ): HistoricoTemporalEquipamento[] {
-  const ids = new Set<string>()
-  for (const id of bundle.frota.idsMedidoresObservados ?? []) ids.add(id)
-  for (const idNum of bundle.frota.idsAnalisadoresObservados ?? []) ids.add(`analisador_${parseInt(idNum, 10)}`)
-  for (const e of bundle.eventos) ids.add(e.idMedidor)
-  return [...ids].map((id) => historicoTemporalPorEquipamento(bundle.eventos, id, agoraMs))
+  const medidorIds = new Set<string>()
+  for (const id of bundle.frota.idsMedidoresObservados ?? []) {
+    if (inferTipoFromIdMedidor(id) === 'medidor') medidorIds.add(id)
+  }
+  for (const e of bundle.eventos) {
+    if (tipoEquipamentoDe(e) === 'medidor') medidorIds.add(e.idMedidor)
+  }
+  const analisadorCanon = analisadorIdsFrota(bundle)
+  const hsMed = [...medidorIds].map((id) => historicoTemporalPorEquipamento(bundle.eventos, id, agoraMs))
+  const hsAn = [...analisadorCanon].map((idNum) =>
+    historicoTemporalPorEquipamento(bundle.eventos, `analisador_${idNum}`, agoraMs),
+  )
+  return [...hsMed, ...hsAn]
 }
 
 export function indicadoresTemporaisGlobais(bundle: DashboardBundle): {
@@ -645,6 +870,7 @@ export function indicadoresTemporaisGlobais(bundle: DashboardBundle): {
   const mk = (tipo: 'medidor' | 'analisador', lista: HistoricoTemporalEquipamento[]): IndicadoresTemporaisGlobais => {
     const totalMedicaoMs = lista.reduce((acc, h) => acc + h.totalMedicaoMs, 0)
     const totalOciosidadeMs = lista.reduce((acc, h) => acc + h.totalOciosidadeMs, 0)
+    const totalManutencaoMs = lista.reduce((acc, h) => acc + h.totalManutencaoMs, 0)
     const denom = totalMedicaoMs + totalOciosidadeMs
     return {
       tipo,
@@ -654,10 +880,13 @@ export function indicadoresTemporaisGlobais(bundle: DashboardBundle): {
       manutencao: tipo === 'medidor' ? cap.manutencaoMedidores : cap.analisadoresManutencao,
       totalMedicaoMs,
       totalOciosidadeMs,
+      totalManutencaoMs,
       mediaMedicaoDias:
         lista.length > 0 ? lista.reduce((acc, h) => acc + h.mediaMedicaoDias, 0) / lista.length : 0,
       mediaOciosidadeDias:
         lista.length > 0 ? lista.reduce((acc, h) => acc + h.mediaOciosidadeDias, 0) / lista.length : 0,
+      mediaManutencaoDias:
+        lista.length > 0 ? lista.reduce((acc, h) => acc + h.mediaManutencaoDias, 0) / lista.length : 0,
       taxaUso: denom > 0 ? totalMedicaoMs / denom : 0,
     }
   }
@@ -665,7 +894,7 @@ export function indicadoresTemporaisGlobais(bundle: DashboardBundle): {
 }
 
 export function ultimoEventoPorId(eventos: EventoRow[], id: string): EventoRow | undefined {
-  const evs = eventos.filter((e) => e.idMedidor === id)
+  const evs = eventosRelacionadosAoIdMedidor(eventos, id)
   if (evs.length === 0) return undefined
   return evs.reduce((a, b) => (eventTime(b) > eventTime(a) ? b : a))
 }
@@ -715,6 +944,56 @@ export function medidoresUtilizandoFimDia(eventos: EventoRow[], yyyyMmDd: string
 export function analisadoresUtilizandoFimDia(eventos: EventoRow[], yyyyMmDd: string): number {
   const t = endOfDay(noon(yyyyMmDd)).getTime()
   return analisadoresNoConjuntoDeSlots(activeSlotsAtTimestamp(eventos, t)).size
+}
+
+/** Estado agregado por medidor ao fim do dia (replay). */
+export function medidorDistribuicaoFimDia(
+  eventos: EventoRow[],
+  medidorIds: Iterable<string>,
+  yyyyMmDd: string,
+): { instalado: number; manutencao: number; disponivel: number; total: number } {
+  const t = endOfDay(noon(yyyyMmDd)).getTime()
+  const lastBySlot = lastEventBySlotAtTimestamp(eventos, t)
+  const ids = [...new Set(medidorIds)]
+  let instalado = 0
+  let manutencao = 0
+  let disponivel = 0
+  for (const id of ids) {
+    const s = estadoAgregadoMedidorId(id, lastBySlot)
+    if (s === 'instalado') instalado++
+    else if (s === 'manutencao') manutencao++
+    else disponivel++
+  }
+  return { instalado, manutencao, disponivel, total: ids.length }
+}
+
+/** Estado agregado por analisador (id canónico) ao fim do dia (replay). */
+export function analisadorDistribuicaoFimDia(
+  eventos: EventoRow[],
+  idsCanon: Iterable<string>,
+  yyyyMmDd: string,
+): { instalado: number; manutencao: number; disponivel: number; total: number } {
+  const t = endOfDay(noon(yyyyMmDd)).getTime()
+  const lastBySlot = lastEventBySlotAtTimestamp(eventos, t)
+  const ids = [...new Set(idsCanon)]
+  let instalado = 0
+  let manutencao = 0
+  let disponivel = 0
+  for (const idNum of ids) {
+    const s = estadoAgregadoAnalisadorId(idNum, lastBySlot)
+    if (s === 'instalado') instalado++
+    else if (s === 'manutencao') manutencao++
+    else disponivel++
+  }
+  return { instalado, manutencao, disponivel, total: ids.length }
+}
+
+/** Taxa operacional: em uso (instalado) / (frota − em manutenção), em %. */
+export function utilizacaoOperacionalPercent(instalado: number, manutencao: number, totalFrota: number): number {
+  if (totalFrota <= 0) return 0
+  const denom = totalFrota - manutencao
+  if (denom <= 0) return instalado > 0 ? 100 : 0
+  return Math.min(100, Math.max(0, (instalado / denom) * 100))
 }
 
 export function analisadoresInstalacaoPorDia(eventos: EventoRow[]): Map<string, Set<string>> {
@@ -958,4 +1237,264 @@ export function bucketMesCiclosConcluidosPrazo(bundle: DashboardBundle) {
     else row.fora += 1
   }
   return [...m.values()].sort((a, b) => a.mes.localeCompare(b.mes))
+}
+
+/** Coluna de série diária por analisador (`an_1`, `an_2`, …): 1 em campo, 0 disponível. */
+export function colunaSerieAnalisador(idCanon: string): string {
+  return `an_${idCanon}`
+}
+
+export interface SerieDiaCapacidadeAnalisadores {
+  dia: string
+  totalCatalogo: number
+  emCampoFrota: number
+  instaladosFrota: number
+  manutencaoFrota: number
+  disponiveisFrota: number
+  /** (instalados + manutenção) / catálogo · 100 */
+  pctEmCampoFrota: number
+}
+
+export type SerieDiaAnalisadoresRow = SerieDiaCapacidadeAnalisadores & Record<string, number | string | null>
+
+/**
+ * Uma linha por dia civil: frota agregada + estado em campo por analisador ao fim do dia.
+ * “Em campo” = último evento do slot é instalação ou manutenção (replay `lastEventBySlotAtTimestamp`).
+ * Antes da 1.ª instalação do analisador, a coluna `an_*` fica `null` (equipamento ainda “não existia” operacionalmente).
+ */
+export function serieDiariaAnalisadoresUtilizacao(
+  bundle: DashboardBundle,
+  agoraMs: number = Date.now(),
+): { chavesAnalisador: string[]; rows: SerieDiaAnalisadoresRow[] } {
+  const idSet = analisadorIdsFrota(bundle)
+  const chavesAnalisador = [...idSet].sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
+  const primeiraInstPorId = new Map<string, number | null>()
+  for (const idNum of chavesAnalisador) {
+    primeiraInstPorId.set(
+      idNum,
+      primeiraInstalacaoTimestamp(bundle.eventos, `analisador_${idNum}`),
+    )
+  }
+  const totalCatalogo = chavesAnalisador.length
+  const analEv = bundle.eventos.filter((e) => tipoEquipamentoDe(e) === 'analisador')
+  const minT = analEv.length > 0 ? Math.min(...analEv.map((e) => eventTime(e))) : agoraMs
+  const start = startOfDay(new Date(minT))
+  const end = startOfDay(new Date(agoraMs))
+  const days = eachDayOfInterval({ start, end })
+  const rows: SerieDiaAnalisadoresRow[] = []
+  for (const day of days) {
+    const t = endOfDay(day).getTime()
+    const dayStartMs = startOfDay(day).getTime()
+    const lastBySlot = lastEventBySlotAtTimestamp(bundle.eventos, t)
+    let instaladosFrota = 0
+    let manutencaoFrota = 0
+    let disponiveisFrota = 0
+    const row: SerieDiaAnalisadoresRow = {
+      dia: format(day, 'yyyy-MM-dd'),
+      totalCatalogo,
+      emCampoFrota: 0,
+      instaladosFrota: 0,
+      manutencaoFrota: 0,
+      disponiveisFrota: 0,
+      pctEmCampoFrota: 0,
+    }
+    for (const idNum of chavesAnalisador) {
+      const fi = primeiraInstPorId.get(idNum)
+      if (fi === undefined || fi === null || dayStartMs < startOfDay(new Date(fi)).getTime()) {
+        row[colunaSerieAnalisador(idNum)] = null
+        continue
+      }
+      const s = estadoAgregadoAnalisadorId(idNum, lastBySlot)
+      if (s === 'instalado') {
+        instaladosFrota++
+        row[colunaSerieAnalisador(idNum)] = 1
+      } else if (s === 'manutencao') {
+        manutencaoFrota++
+        row[colunaSerieAnalisador(idNum)] = 1
+      } else {
+        disponiveisFrota++
+        row[colunaSerieAnalisador(idNum)] = 0
+      }
+    }
+    const emCampoFrota = instaladosFrota + manutencaoFrota
+    const noArquivoPorDia = chavesAnalisador.filter((idNum) => {
+      const fi = primeiraInstPorId.get(idNum)
+      return fi != null && dayStartMs >= startOfDay(new Date(fi)).getTime()
+    }).length
+    row.instaladosFrota = instaladosFrota
+    row.manutencaoFrota = manutencaoFrota
+    row.disponiveisFrota = disponiveisFrota
+    row.emCampoFrota = emCampoFrota
+    row.pctEmCampoFrota = noArquivoPorDia > 0 ? (emCampoFrota / noArquivoPorDia) * 100 : 0
+    rows.push(row)
+  }
+  return { chavesAnalisador, rows }
+}
+
+export interface AnalisadorEventoDispersao {
+  ts: number
+  idCanon: string
+  /** Índice 0..n-1 para eixo Y estável */
+  yIndex: number
+  statusExecucao: string
+  cliente: string | null
+  localizacao: string | null
+  dataLabel: string
+}
+
+/** Todos os eventos de analisadores como pontos (tempo × equipamento). */
+export function eventosAnalisadoresDispersao(bundle: DashboardBundle): AnalisadorEventoDispersao[] {
+  const chavesAnalisador = [...analisadorIdsFrota(bundle)].sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
+  const yMap = new Map(chavesAnalisador.map((k, i) => [k, i]))
+  const out: AnalisadorEventoDispersao[] = []
+  for (const e of bundle.eventos) {
+    if (tipoEquipamentoDe(e) !== 'analisador') continue
+    const k = normalizeAnalisadorId(e.idMedidor)
+    if (!k || !yMap.has(k)) continue
+    out.push({
+      ts: eventTime(e),
+      idCanon: k,
+      yIndex: yMap.get(k)!,
+      statusExecucao: e.statusExecucao,
+      cliente: e.cliente ?? null,
+      localizacao: e.localizacao ?? null,
+      dataLabel: e.data,
+    })
+  }
+  return out.sort((a, b) => a.ts - b.ts)
+}
+
+export interface MetricaDetalhadaAnalisador {
+  idCanon: string
+  idDisplay: string
+  /** Início da vida operacional (1.ª instalação). */
+  primeiraInstalacaoIso: string | null
+  ultimoRegistroIso: string | null
+  totalEventos: number
+  /** Soma duração intervalos instalação→manutenção ou →desinstalação (ciclos). */
+  diasMedicaoCiclos: number
+  /** Soma duração 1.ª desinstalação→próxima instalação, etc. (ciclos). */
+  diasOciosidadeCiclos: number
+  /** Tempo em manutenção em campo (fora de medição e ociosidade). */
+  diasManutencaoCiclos: number
+  taxaUsoCiclos: number
+  mediaMedicaoDias: number
+  mediaOciosidadeDias: number
+  mediaManutencaoDias: number
+  ciclosMedicaoFechados: number
+  ciclosMedicaoAbertos: number
+  ciclosOciosidadeFechados: number
+  ciclosOciosidadeAbertos: number
+  ciclosManutencaoFechados: number
+  ciclosManutencaoAbertos: number
+  /** Dias (desde 1.ª instalação até hoje) com estado “em campo” ao fim do dia. */
+  diasEmCampoCalendario: number
+  /** Dias no mesmo período com equipamento disponível ao fim do dia. */
+  diasDisponivelCalendario: number
+  /** diasEmCampoCalendario / (dias desde 1.ª instalação) */
+  pctTempoEmCampoCalendario: number
+}
+
+export function metricasDetalhadasPorAnalisador(
+  bundle: DashboardBundle,
+  agoraMs: number = Date.now(),
+): MetricaDetalhadaAnalisador[] {
+  const { chavesAnalisador, rows } = serieDiariaAnalisadoresUtilizacao(bundle, agoraMs)
+  const lastSeen = new Map<string, number>()
+  const eventCount = new Map<string, number>()
+  for (const e of bundle.eventos) {
+    if (tipoEquipamentoDe(e) !== 'analisador') continue
+    const k = normalizeAnalisadorId(e.idMedidor)
+    if (!k) continue
+    const t = eventTime(e)
+    lastSeen.set(k, Math.max(lastSeen.get(k) ?? 0, t))
+    eventCount.set(k, (eventCount.get(k) ?? 0) + 1)
+  }
+  const out: MetricaDetalhadaAnalisador[] = []
+  for (const idCanon of chavesAnalisador) {
+    const idFull = `analisador_${idCanon}`
+    const hist = historicoTemporalPorEquipamento(bundle.eventos, idFull, agoraMs)
+    const fk = colunaSerieAnalisador(idCanon)
+    const fiTs = primeiraInstalacaoTimestamp(bundle.eventos, idFull)
+    let diasEmCampoCalendario = 0
+    let diasDisponivelCalendario = 0
+    for (const row of rows) {
+      const dayStart = startOfDay(parseISO(row.dia as string)).getTime()
+      if (fiTs === null || dayStart < startOfDay(new Date(fiTs)).getTime()) continue
+      const v = row[fk]
+      if (v === null || v === undefined) continue
+      if (typeof v === 'number' && v >= 1) diasEmCampoCalendario++
+      else if (typeof v === 'number') diasDisponivelCalendario++
+    }
+    const diasVida = diasEmCampoCalendario + diasDisponivelCalendario
+    const la = lastSeen.get(idCanon)
+    out.push({
+      idCanon,
+      idDisplay: idFull,
+      primeiraInstalacaoIso: fiTs !== null ? new Date(fiTs).toISOString() : null,
+      ultimoRegistroIso: la !== undefined ? new Date(la).toISOString() : null,
+      totalEventos: eventCount.get(idCanon) ?? 0,
+      diasMedicaoCiclos: hist.totalMedicaoMs / 86_400_000,
+      diasOciosidadeCiclos: hist.totalOciosidadeMs / 86_400_000,
+      diasManutencaoCiclos: hist.totalManutencaoMs / 86_400_000,
+      taxaUsoCiclos: hist.taxaUso,
+      mediaMedicaoDias: hist.mediaMedicaoDias,
+      mediaOciosidadeDias: hist.mediaOciosidadeDias,
+      mediaManutencaoDias: hist.mediaManutencaoDias,
+      ciclosMedicaoFechados: hist.ciclosMedicaoFechados,
+      ciclosMedicaoAbertos: hist.ciclosMedicaoAbertos,
+      ciclosOciosidadeFechados: hist.ciclosOciosidadeFechados,
+      ciclosOciosidadeAbertos: hist.ciclosOciosidadeAbertos,
+      ciclosManutencaoFechados: hist.ciclosManutencaoFechados,
+      ciclosManutencaoAbertos: hist.ciclosManutencaoAbertos,
+      diasEmCampoCalendario,
+      diasDisponivelCalendario,
+      pctTempoEmCampoCalendario: diasVida > 0 ? (diasEmCampoCalendario / diasVida) * 100 : 0,
+    })
+  }
+  return out
+}
+
+export function totaisAgregadosMetricasAnalisadores(m: MetricaDetalhadaAnalisador[]): {
+  quantidade: number
+  somaDiasMedicaoCiclos: number
+  somaDiasOciosidadeCiclos: number
+  somaDiasManutencaoCiclos: number
+  taxaUsoCiclosPonderada: number
+  mediaTaxaUsoCiclosPorEquipamento: number
+  mediaPctTempoEmCampoCalendario: number
+  somaDiasEmCampoCalendario: number
+  somaDiasDisponivelCalendario: number
+  totalEventos: number
+} {
+  if (m.length === 0) {
+    return {
+      quantidade: 0,
+      somaDiasMedicaoCiclos: 0,
+      somaDiasOciosidadeCiclos: 0,
+      somaDiasManutencaoCiclos: 0,
+      taxaUsoCiclosPonderada: 0,
+      mediaTaxaUsoCiclosPorEquipamento: 0,
+      mediaPctTempoEmCampoCalendario: 0,
+      somaDiasEmCampoCalendario: 0,
+      somaDiasDisponivelCalendario: 0,
+      totalEventos: 0,
+    }
+  }
+  const somaDiasMedicaoCiclos = m.reduce((a, x) => a + x.diasMedicaoCiclos, 0)
+  const somaDiasOciosidadeCiclos = m.reduce((a, x) => a + x.diasOciosidadeCiclos, 0)
+  const somaDiasManutencaoCiclos = m.reduce((a, x) => a + x.diasManutencaoCiclos, 0)
+  const denom = somaDiasMedicaoCiclos + somaDiasOciosidadeCiclos
+  return {
+    quantidade: m.length,
+    somaDiasMedicaoCiclos,
+    somaDiasOciosidadeCiclos,
+    somaDiasManutencaoCiclos,
+    taxaUsoCiclosPonderada: denom > 0 ? somaDiasMedicaoCiclos / denom : 0,
+    mediaTaxaUsoCiclosPorEquipamento: m.reduce((a, x) => a + x.taxaUsoCiclos, 0) / m.length,
+    mediaPctTempoEmCampoCalendario: m.reduce((a, x) => a + x.pctTempoEmCampoCalendario, 0) / m.length,
+    somaDiasEmCampoCalendario: m.reduce((a, x) => a + x.diasEmCampoCalendario, 0),
+    somaDiasDisponivelCalendario: m.reduce((a, x) => a + x.diasDisponivelCalendario, 0),
+    totalEventos: m.reduce((a, x) => a + x.totalEventos, 0),
+  }
 }

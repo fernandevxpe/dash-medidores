@@ -11,17 +11,18 @@ import {
 import { ptBR } from 'date-fns/locale/pt-BR'
 import type { EventoRow } from '../../types/dashboard'
 import {
+  analisadorDistribuicaoFimDia,
   analisadoresDesinstalacaoPorDia,
   analisadoresInstalacaoPorDia,
-  analisadoresUtilizandoFimDia,
   eventosDesinstalacaoNoDia,
   eventosInstalacaoNoDia,
+  medidorDistribuicaoFimDia,
   medidoresDesinstalacaoPorDia,
   medidoresInstalacaoPorDia,
-  medidoresUtilizandoFimDia,
   type LinhaPrevisaoDesinstalacao,
   previsoesDesinstalacaoCiclosAbertos,
   tipoEquipamentoDe,
+  utilizacaoOperacionalPercent,
 } from '../../analytics/metrics'
 
 export type CalendarViewMode = 'junto' | 'medidores' | 'analisadores'
@@ -47,36 +48,71 @@ function matchesPrevisaoTipo(tipo: LinhaPrevisaoDesinstalacao['tipo'], mode: Cal
   return true
 }
 
-function DotStack({
-  color,
-  count,
-  title,
-  size = 'normal',
+function classUtilizacaoCalendario(pct: number): string {
+  if (pct > 90) return 'text-red-400'
+  if (pct >= 75) return 'text-amber-300'
+  return 'text-zinc-100'
+}
+
+function CalendarDotsInstDesPrev({
+  nInst,
+  nDes,
+  prevMed,
+  prevAn,
+  mode,
+  big,
 }: {
-  color: string
-  count: number
-  title: string
-  size?: 'normal' | 'large'
+  nInst: number
+  nDes: number
+  prevMed: number
+  prevAn: number
+  mode: CalendarViewMode
+  big: boolean
 }) {
-  if (count <= 0) return null
-  const maxDots = 5
-  const show = Math.min(count, maxDots)
-  const dot =
-    size === 'large' ? 'h-2 w-2 sm:h-2.5 sm:w-2.5' : 'h-1.5 w-1.5 sm:h-2 sm:w-2'
+  const dot = big
+    ? 'h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-3.5 md:w-3.5 lg:h-4 lg:w-4'
+    : 'h-1.5 w-1.5 sm:h-2 sm:h-2'
+  const txt = big
+    ? 'text-xs font-semibold sm:text-sm md:text-base lg:text-[1.05rem]'
+    : 'text-[7px] font-semibold sm:text-[8px]'
+
+  const showPrevMed = mode !== 'analisadores' && prevMed > 0
+  const showPrevAn = mode !== 'medidores' && prevAn > 0
+
   return (
-    <div className="flex flex-wrap items-center justify-end gap-0.5" title={`${title} (${count})`}>
-      {Array.from({ length: show }).map((_, i) => (
-        <span key={i} className={`rounded-full shadow-sm ${dot}`} style={{ backgroundColor: color }} />
-      ))}
-      {count > show && (
-        <span className="text-[7px] font-semibold tabular-nums text-zinc-400 sm:text-[8px]">+{count - show}</span>
-      )}
+    <div className="flex min-w-0 flex-col items-end gap-0.5">
+      {nInst > 0 ? (
+        <div className="flex items-center justify-end gap-0.5" title={`Instalações (${nInst})`}>
+          <span className={`shrink-0 rounded-full shadow-sm ${dot}`} style={{ backgroundColor: '#22c55e' }} />
+          <span className={`tabular-nums text-emerald-400 ${txt}`}>(+{nInst})</span>
+        </div>
+      ) : null}
+      {nDes > 0 ? (
+        <div className="flex items-center justify-end gap-0.5" title={`Desinstalações (${nDes})`}>
+          <span className={`shrink-0 rounded-full shadow-sm ${dot}`} style={{ backgroundColor: '#a855f7' }} />
+          <span className={`tabular-nums text-xpe-purple ${txt}`}>(-{nDes})</span>
+        </div>
+      ) : null}
+      {showPrevMed || showPrevAn ? (
+        <div
+          className="flex flex-wrap items-center justify-end gap-0.5 text-right"
+          title={`Previsão remoção · ${[showPrevMed ? `${prevMed} med.` : '', showPrevAn ? `${prevAn} anal.` : ''].filter(Boolean).join(' · ')}`}
+        >
+          <span className={`shrink-0 rounded-full shadow-sm ${dot}`} style={{ backgroundColor: '#fbbf24' }} />
+          <span className={`text-amber-200/95 ${txt}`}>
+            {showPrevMed ? `(-${prevMed} medidores)` : ''}
+            {showPrevMed && showPrevAn ? ' ' : ''}
+            {showPrevAn ? `(-${prevAn} analisadores)` : ''}
+          </span>
+        </div>
+      ) : null}
     </div>
   )
 }
 
 export function CalendarOperational({
   eventos,
+  fleet,
   diasMedicao,
   diasExtras,
   onDiasExtrasChange,
@@ -87,6 +123,7 @@ export function CalendarOperational({
   onSelectDay,
 }: {
   eventos: EventoRow[]
+  fleet: { medidorIds: string[]; analisadorCanonIds: string[] }
   diasMedicao: number
   diasExtras: number
   onDiasExtrasChange: (n: number) => void
@@ -157,15 +194,25 @@ export function CalendarOperational({
     [eventos, diasMedicao, diasExtras],
   )
 
-  const contagemPrevPorDia = useMemo(() => {
+  const contagemPrevMedPorDia = useMemo(() => {
     const m = new Map<string, number>()
     for (const p of previsoesLista) {
-      if (!matchesPrevisaoTipo(p.tipo, mode)) continue
+      if (p.tipo !== 'medidor') continue
       if (p.dataPrevista < hojeKey) continue
       m.set(p.dataPrevista, (m.get(p.dataPrevista) ?? 0) + 1)
     }
     return m
-  }, [previsoesLista, hojeKey, mode])
+  }, [previsoesLista, hojeKey])
+
+  const contagemPrevAnPorDia = useMemo(() => {
+    const m = new Map<string, number>()
+    for (const p of previsoesLista) {
+      if (p.tipo !== 'analisador') continue
+      if (p.dataPrevista < hojeKey) continue
+      m.set(p.dataPrevista, (m.get(p.dataPrevista) ?? 0) + 1)
+    }
+    return m
+  }, [previsoesLista, hojeKey])
 
   const previsoesRascunhoLista = useMemo(
     () => previsoesDesinstalacaoCiclosAbertos(eventos, diasMedicao, draftExtras),
@@ -184,12 +231,28 @@ export function CalendarOperational({
     const ml = mDes.get(selectedDayKey)?.size ?? 0
     const an = aInst.get(selectedDayKey)?.size ?? 0
     const al = aDes.get(selectedDayKey)?.size ?? 0
-    const mc = medidoresUtilizandoFimDia(eventos, selectedDayKey)
-    const ac = analisadoresUtilizandoFimDia(eventos, selectedDayKey)
+    const dMed = medidorDistribuicaoFimDia(eventos, fleet.medidorIds, selectedDayKey)
+    const dAn = analisadorDistribuicaoFimDia(eventos, fleet.analisadorCanonIds, selectedDayKey)
     const prevMed = prev.filter((p) => p.tipo === 'medidor').length
     const prevAn = prev.filter((p) => p.tipo === 'analisador').length
-    return { inst, des, prev, prevMed, prevAn, mn, ml, an, al, mc, ac }
-  }, [selectedDayKey, eventos, previsoesRascunhoLista, stats, mode])
+    return {
+      inst,
+      des,
+      prev,
+      prevMed,
+      prevAn,
+      mn,
+      ml,
+      an,
+      al,
+      mc: dMed.instalado,
+      ac: dAn.instalado,
+      mcManut: dMed.manutencao,
+      acManut: dAn.manutencao,
+      mcDisp: dMed.disponivel,
+      acDisp: dAn.disponivel,
+    }
+  }, [selectedDayKey, eventos, previsoesRascunhoLista, stats, mode, fleet])
 
   const days = useMemo(() => {
     const start = startOfMonth(cursor)
@@ -203,13 +266,15 @@ export function CalendarOperational({
 
   const big = variant === 'presentation'
   const cellMinH = big
-    ? 'min-h-[100px] sm:min-h-[118px]'
+    ? 'min-h-[clamp(5.75rem,min(12dvh,10vw),15rem)] lg:min-h-[clamp(6.5rem,13dvh,16rem)] 2xl:min-h-[clamp(7rem,14dvh,18rem)]'
     : mode === 'junto'
       ? 'min-h-[112px] sm:min-h-[128px]'
       : 'min-h-[92px] sm:min-h-[108px]'
+  const calGap = big ? 'gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3' : 'gap-1'
+  const calRootSpace = big ? 'space-y-4 lg:space-y-5 2xl:space-y-6' : 'space-y-4'
 
   return (
-    <div className="space-y-4">
+    <div className={calRootSpace}>
       <div className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center lg:justify-between">
         <div className="flex items-center gap-2">
           <button
@@ -220,7 +285,7 @@ export function CalendarOperational({
             ←
           </button>
           <span
-            className={`min-w-[160px] text-center font-medium capitalize text-white ${big ? 'text-xl' : 'text-sm'}`}
+            className={`min-w-[160px] text-center font-medium capitalize text-white ${big ? 'text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl' : 'text-sm'}`}
           >
             {format(cursor, 'MMMM yyyy', { locale: ptBR })}
           </span>
@@ -268,33 +333,38 @@ export function CalendarOperational({
       <div className={`grid gap-2 text-zinc-400 ${big ? 'sm:grid-cols-2 lg:grid-cols-5 text-sm' : 'text-[11px] sm:grid-cols-2 lg:grid-cols-5'}`}>
         <p>
           <span className="mr-1.5 inline-block h-2 w-2 rounded-full bg-[#22c55e] shadow-[0_0_8px_#22c55e]" />
-          <strong className="text-emerald-300">Instalação</strong> — um ponto por evento (verde).
+          <strong className="text-emerald-300">Instalação</strong> — bolinha e (+N) em verde.
         </p>
         <p>
           <span className="mr-1.5 inline-block h-2 w-2 rounded-full bg-[#a855f7] shadow-[0_0_8px_#a855f7]" />
-          <strong className="text-xpe-purple">Desinstalação</strong> — um ponto por evento (roxo).
+          <strong className="text-xpe-purple">Desinstalação</strong> — bolinha e (−N) em roxo.
         </p>
         <p>
           <span className="mr-1.5 inline-block h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_8px_#fbbf24]" />
-          <strong className="text-amber-200">Previsão</strong> — {diasMedicao}d+extra (útil); pontos conforme a vista (
-          Junto / Med. / Anal.).
+          <strong className="text-amber-200">Previsão</strong> — bolinha e (−N medidores / analisadores); {diasMedicao}
+          d+extra (útil), conforme a vista.
         </p>
         <p className="text-zinc-500">
-          <strong className="text-xpe-neon">Hoje</strong>: borda destacada. Clique no dia: painel com atividades e
-          ajuste de previsão.
+          <strong className="text-xpe-neon">Util.</strong> cor pela taxa em uso / (frota − manutenção): ≥75% amarelo,
+          &gt;90% vermelho.
         </p>
-        <p className="text-zinc-500">Fonte: todos os eventos da planilha exportada.</p>
+        <p className="text-zinc-500">
+          <strong className="text-white">Hoje</strong>: borda neon. Clique no dia: detalhe e ajuste de previsão. Fonte:
+          eventos exportados.
+        </p>
       </div>
 
-      <div className={`grid grid-cols-7 gap-1 text-center uppercase text-xpe-muted ${big ? 'text-sm' : 'text-[10px] sm:text-xs'}`}>
+      <div
+        className={`grid grid-cols-7 ${calGap} text-center uppercase text-xpe-muted ${big ? 'text-xs sm:text-sm md:text-base lg:text-lg' : 'text-[10px] sm:text-xs'}`}
+      >
         {labels.map((l) => (
-          <div key={l} className="py-2 font-medium">
+          <div key={l} className={`font-medium ${big ? 'py-2 md:py-2.5 lg:py-3' : 'py-2'}`}>
             {l}
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-1">
+      <div className={`grid grid-cols-7 ${calGap}`}>
         {Array.from({ length: startWeekday }).map((_, i) => (
           <div key={`e-${i}`} />
         ))}
@@ -305,26 +375,38 @@ export function CalendarOperational({
 
           const nInst = contagemInstPorDia.get(key) ?? 0
           const nDes = contagemDesPorDia.get(key) ?? 0
-          const nPrev = contagemPrevPorDia.get(key) ?? 0
+          const prevMed = contagemPrevMedPorDia.get(key) ?? 0
+          const prevAn = contagemPrevAnPorDia.get(key) ?? 0
 
           const mn = mInst.get(key)?.size ?? 0
           const ml = mDes.get(key)?.size ?? 0
-          const mc = medidoresUtilizandoFimDia(eventos, key)
+          const dMed = medidorDistribuicaoFimDia(eventos, fleet.medidorIds, key)
+          const dAn = analisadorDistribuicaoFimDia(eventos, fleet.analisadorCanonIds, key)
+          const mc = dMed.instalado
+          const ac = dAn.instalado
+          const pctMed = utilizacaoOperacionalPercent(dMed.instalado, dMed.manutencao, dMed.total)
+          const pctAn = utilizacaoOperacionalPercent(dAn.instalado, dAn.manutencao, dAn.total)
+
           const an = aInst.get(key)?.size ?? 0
           const al = aDes.get(key)?.size ?? 0
-          const ac = analisadoresUtilizandoFimDia(eventos, key)
 
           const selected = selectedDayKey === key
 
           const title = (() => {
             const dlabel = format(day, "d 'de' MMMM", { locale: ptBR })
+            const um = Math.round(pctMed)
+            const ua = Math.round(pctAn)
             if (mode === 'medidores') {
-              return [dlabel, `Inst.: ${mn}`, `Util. fim dia: ${mc}`, `Des.: ${ml}`].join(' · ')
+              return [dlabel, `Inst.: ${mn}`, `Em uso: ${mc} · util. ${um}%`, `Des.: ${ml}`].join(' · ')
             }
             if (mode === 'analisadores') {
-              return [dlabel, `Inst.: ${an}`, `Util.: ${ac}`, `Des.: ${al}`].join(' · ')
+              return [dlabel, `Inst.: ${an}`, `Em uso: ${ac} · util. ${ua}%`, `Des.: ${al}`].join(' · ')
             }
-            return [dlabel, `Med. Inst/Util/Des ${mn}/${mc}/${ml}`, `Anal. ${an}/${ac}/${al}`].join(' · ')
+            return [
+              dlabel,
+              `Med. Inst/Em uso/Des ${mn}/${mc}/${ml} (util. ${um}%)`,
+              `Anal. ${an}/${ac}/${al} (util. ${ua}%)`,
+            ].join(' · ')
           })()
 
           return (
@@ -333,7 +415,7 @@ export function CalendarOperational({
               type="button"
               title={title}
               onClick={() => onSelectDay(selected ? null : key)}
-              className={`flex ${cellMinH} flex-col rounded-xl border p-1.5 text-left transition sm:p-2 ${
+              className={`flex ${cellMinH} flex-col rounded-xl border p-1.5 text-left transition sm:p-2 ${big ? 'md:p-2.5 lg:p-3 2xl:p-3.5' : ''} ${
                 muted ? 'opacity-45' : ''
               } ${
                 today
@@ -343,27 +425,34 @@ export function CalendarOperational({
             >
               <div className="flex items-start justify-between gap-1">
                 <span
-                  className={`font-semibold text-zinc-100 ${big ? 'text-lg' : 'text-xs sm:text-sm'} ${today ? 'text-xpe-neon' : ''}`}
+                  className={`font-semibold text-zinc-100 ${big ? 'text-base sm:text-lg md:text-xl lg:text-2xl 2xl:text-3xl' : 'text-xs sm:text-sm'} ${today ? 'text-xpe-neon' : ''}`}
                 >
                   {format(day, 'd')}
                 </span>
-                <div className="flex min-w-0 flex-col items-end gap-0.5">
-                  <DotStack color="#22c55e" count={nInst} title="Instalações" size={big ? 'large' : 'normal'} />
-                  <DotStack color="#a855f7" count={nDes} title="Desinstalações" size={big ? 'large' : 'normal'} />
-                  <DotStack color="#fbbf24" count={nPrev} title="Previsões remoção" size={big ? 'large' : 'normal'} />
-                </div>
+                <CalendarDotsInstDesPrev
+                  nInst={nInst}
+                  nDes={nDes}
+                  prevMed={prevMed}
+                  prevAn={prevAn}
+                  mode={mode}
+                  big={big}
+                />
               </div>
 
               {mode === 'junto' && (
                 <div
-                  className={`mt-1 flex flex-1 flex-col justify-end gap-0.5 leading-tight ${big ? 'text-xs' : 'text-[8px] sm:text-[9px]'}`}
+                  className={`mt-1 flex flex-1 flex-col justify-end gap-0.5 leading-tight ${big ? 'text-xs sm:text-sm md:text-base lg:text-[1.05rem]' : 'text-[8px] sm:text-[9px]'}`}
                 >
-                  <div className="grid grid-cols-[1fr_minmax(0,1.6rem)_minmax(0,1.6rem)] items-center gap-x-0.5 font-semibold uppercase tracking-wide text-zinc-600">
+                  <div
+                    className={`grid items-center gap-x-0.5 font-semibold uppercase tracking-wide text-zinc-600 ${big ? 'grid-cols-[1fr_minmax(0,2.25rem)_minmax(0,2.25rem)] lg:grid-cols-[1fr_minmax(0,2.75rem)_minmax(0,2.75rem)]' : 'grid-cols-[1fr_minmax(0,1.6rem)_minmax(0,1.6rem)]'}`}
+                  >
                     <span />
                     <span className="text-center text-xpe-neon/80">Med.</span>
                     <span className="text-center text-violet-300/90">Anal.</span>
                   </div>
-                  <div className="grid grid-cols-[1fr_minmax(0,1.6rem)_minmax(0,1.6rem)] items-center gap-x-0.5">
+                  <div
+                    className={`grid items-center gap-x-0.5 ${big ? 'grid-cols-[1fr_minmax(0,2.25rem)_minmax(0,2.25rem)] lg:grid-cols-[1fr_minmax(0,2.75rem)_minmax(0,2.75rem)]' : 'grid-cols-[1fr_minmax(0,1.6rem)_minmax(0,1.6rem)]'}`}
+                  >
                     <span className="text-zinc-500">Inst.</span>
                     <span className={`text-center tabular-nums font-semibold ${mn > 0 ? 'text-xpe-neon' : 'text-zinc-600'}`}>
                       {mn}
@@ -372,12 +461,26 @@ export function CalendarOperational({
                       {an}
                     </span>
                   </div>
-                  <div className="grid grid-cols-[1fr_minmax(0,1.6rem)_minmax(0,1.6rem)] items-center gap-x-0.5">
+                  <div
+                    className={`grid items-center gap-x-0.5 ${big ? 'grid-cols-[1fr_minmax(0,2.25rem)_minmax(0,2.25rem)] lg:grid-cols-[1fr_minmax(0,2.75rem)_minmax(0,2.75rem)]' : 'grid-cols-[1fr_minmax(0,1.6rem)_minmax(0,1.6rem)]'}`}
+                  >
                     <span className="text-zinc-500">Util.</span>
-                    <span className="text-center tabular-nums font-semibold text-zinc-100">{mc}</span>
-                    <span className="text-center tabular-nums font-semibold text-violet-200/90">{ac}</span>
+                    <span
+                      className={`text-center tabular-nums font-semibold ${classUtilizacaoCalendario(pctMed)}`}
+                      title={`Utilização ${Math.round(pctMed)}% (em uso / (frota − manutenção))`}
+                    >
+                      {mc}
+                    </span>
+                    <span
+                      className={`text-center tabular-nums font-semibold ${classUtilizacaoCalendario(pctAn)}`}
+                      title={`Utilização ${Math.round(pctAn)}% (em uso / (frota − manutenção))`}
+                    >
+                      {ac}
+                    </span>
                   </div>
-                  <div className="grid grid-cols-[1fr_minmax(0,1.6rem)_minmax(0,1.6rem)] items-center gap-x-0.5">
+                  <div
+                    className={`grid items-center gap-x-0.5 ${big ? 'grid-cols-[1fr_minmax(0,2.25rem)_minmax(0,2.25rem)] lg:grid-cols-[1fr_minmax(0,2.75rem)_minmax(0,2.75rem)]' : 'grid-cols-[1fr_minmax(0,1.6rem)_minmax(0,1.6rem)]'}`}
+                  >
                     <span className="text-zinc-500">Des.</span>
                     <span className={`text-center tabular-nums font-semibold ${ml > 0 ? 'text-xpe-purple' : 'text-zinc-600'}`}>
                       {ml}
@@ -390,14 +493,21 @@ export function CalendarOperational({
               )}
 
               {mode === 'medidores' && (
-                <div className={`mt-1 flex flex-1 flex-col justify-end gap-0.5 leading-tight ${big ? 'text-sm' : 'text-[9px] sm:text-[10px]'}`}>
+                <div
+                  className={`mt-1 flex flex-1 flex-col justify-end gap-0.5 leading-tight ${big ? 'text-sm md:text-base lg:text-lg' : 'text-[9px] sm:text-[10px]'}`}
+                >
                   <div className="flex items-center justify-between gap-1">
                     <span className="text-zinc-500">Inst.</span>
                     <span className={`tabular-nums font-semibold ${mn > 0 ? 'text-xpe-neon' : 'text-zinc-600'}`}>{mn}</span>
                   </div>
                   <div className="flex items-center justify-between gap-1">
                     <span className="text-zinc-500">Util.</span>
-                    <span className="tabular-nums font-semibold text-zinc-100">{mc}</span>
+                    <span
+                      className={`tabular-nums font-semibold ${classUtilizacaoCalendario(pctMed)}`}
+                      title={`Utilização ${Math.round(pctMed)}%`}
+                    >
+                      {mc}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between gap-1">
                     <span className="text-zinc-500">Des.</span>
@@ -407,14 +517,21 @@ export function CalendarOperational({
               )}
 
               {mode === 'analisadores' && (
-                <div className={`mt-1 flex flex-1 flex-col justify-end gap-0.5 leading-tight ${big ? 'text-sm' : 'text-[9px] sm:text-[10px]'}`}>
+                <div
+                  className={`mt-1 flex flex-1 flex-col justify-end gap-0.5 leading-tight ${big ? 'text-sm md:text-base lg:text-lg' : 'text-[9px] sm:text-[10px]'}`}
+                >
                   <div className="flex items-center justify-between gap-1">
                     <span className="text-zinc-500">Inst.</span>
                     <span className={`tabular-nums font-semibold ${an > 0 ? 'text-violet-300' : 'text-zinc-600'}`}>{an}</span>
                   </div>
                   <div className="flex items-center justify-between gap-1">
                     <span className="text-zinc-500">Util.</span>
-                    <span className="tabular-nums font-semibold text-violet-100">{ac}</span>
+                    <span
+                      className={`tabular-nums font-semibold ${classUtilizacaoCalendario(pctAn)}`}
+                      title={`Utilização ${Math.round(pctAn)}%`}
+                    >
+                      {ac}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between gap-1">
                     <span className="text-zinc-500">Des.</span>
@@ -565,18 +682,23 @@ export function CalendarOperational({
                 <div className="lg:col-span-2 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-xs text-zinc-400">
                   {mode === 'junto' && (
                     <>
-                      <strong className="text-zinc-200">Em campo ao fim do dia:</strong> {detalheDia.mc} medidor(es) e{' '}
-                      {detalheDia.ac} analisador(es).
+                      <strong className="text-zinc-200">Medidores ao fim do dia:</strong> {detalheDia.mc} em uso,{' '}
+                      {detalheDia.mcManut} manutenção, {detalheDia.mcDisp} disponível.
+                      <br />
+                      <strong className="text-zinc-200">Analisadores:</strong> {detalheDia.ac} em uso,{' '}
+                      {detalheDia.acManut} manutenção, {detalheDia.acDisp} disponível.
                     </>
                   )}
                   {mode === 'medidores' && (
                     <>
-                      <strong className="text-zinc-200">Medidores em campo ao fim do dia:</strong> {detalheDia.mc}.
+                      <strong className="text-zinc-200">Medidores:</strong> {detalheDia.mc} em uso,{' '}
+                      {detalheDia.mcManut} manutenção, {detalheDia.mcDisp} disponível.
                     </>
                   )}
                   {mode === 'analisadores' && (
                     <>
-                      <strong className="text-zinc-200">Analisadores em campo ao fim do dia:</strong> {detalheDia.ac}.
+                      <strong className="text-zinc-200">Analisadores:</strong> {detalheDia.ac} em uso,{' '}
+                      {detalheDia.acManut} manutenção, {detalheDia.acDisp} disponível.
                     </>
                   )}
                 </div>
