@@ -38,6 +38,7 @@ import {
   unknownLocationShare,
   type CriterioRankingAnalisador,
   type InsightOportunidade,
+  type MetricaDetalhadaAnalisador,
 } from '../analytics/metrics'
 import { Boxes, FlaskConical, Gauge, TrendingDown, TrendingUp } from 'lucide-react'
 
