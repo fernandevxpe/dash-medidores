@@ -224,7 +224,6 @@ export function IndicatorsPage() {
                     ? `${(((d.an.instalado + d.an.manutencao) / d.an.totalCatalogo) * 100).toFixed(1)}%`
                     : '—'
                 }
-                foot="sobre catálogo"
               />
             </div>
           </section>
