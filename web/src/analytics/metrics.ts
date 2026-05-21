@@ -1331,7 +1331,7 @@ export function serieDiariaAnalisadoresUtilizacao(
         continue
       }
       const s = estadoAgregadoAnalisadorId(idNum, lastBySlot)
-      if (s === 'instalado') {
+      if (s === 'instalado' || s === 'alugado') {
         instaladosFrota++
         row[colunaSerieAnalisador(idNum)] = 1
       } else if (s === 'manutencao') {

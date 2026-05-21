@@ -69,6 +69,7 @@ type Props = {
     totalAnalisadoresCatalogo: number
     analisadoresInstalados: number
     analisadoresManutencao: number
+    alugadosAnalisadores: number
     analisadoresLivres: number
   }
 }
@@ -88,8 +89,17 @@ function EstadoAnalisadorBadge({ status }: { status: string }) {
       ? 'border-emerald-500/45 bg-emerald-500/15 text-emerald-300'
       : status === 'manutencao'
         ? 'border-amber-500/45 bg-amber-500/15 text-amber-200'
-        : 'border-violet-500/45 bg-violet-500/15 text-violet-200'
-  const label = status === 'instalado' ? 'Em uso' : status === 'manutencao' ? 'Manutenção' : 'Disponível'
+        : status === 'alugado'
+          ? 'border-sky-500/45 bg-sky-500/15 text-sky-300'
+          : 'border-violet-500/45 bg-violet-500/15 text-violet-200'
+  const label =
+    status === 'instalado'
+      ? 'Em uso'
+      : status === 'manutencao'
+        ? 'Manutenção'
+        : status === 'alugado'
+          ? 'Alugado'
+          : 'Disponível'
   return (
     <span
       className={`inline-block whitespace-nowrap rounded-md border px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide ${cls}`}
@@ -230,7 +240,8 @@ export function AnalyzerUtilizationSection({ bundle, globaisAnalisadores, cap }:
     >
       <p className="mb-3 text-xs text-zinc-500">
         Catálogo: {cap.totalAnalisadoresCatalogo} unidades · Hoje: {cap.analisadoresInstalados} em uso,{' '}
-        {cap.analisadoresManutencao} manutenção, {cap.analisadoresLivres} disponíveis (painel principal).
+        {cap.analisadoresManutencao} manutenção, {cap.alugadosAnalisadores} alugado(s),{' '}
+        {cap.analisadoresLivres} disponíveis (painel principal).
       </p>
 
       <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">Indicadores globais</p>

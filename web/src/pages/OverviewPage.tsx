@@ -62,13 +62,15 @@ export function OverviewPage() {
     const medidorSeg = [
       { key: 'inst', label: 'Em uso (instalado)', value: md.instalado, color: '#39ff9c' },
       { key: 'man', label: 'Manutenção', value: md.manutencao, color: '#fbbf24' },
+      { key: 'alug', label: 'Alugado', value: md.alugado ?? 0, color: '#38bdf8' },
       { key: 'disp', label: 'Disponível', value: md.disponivel, color: '#a855f7' },
     ]
     const anal = analyzerDonutSlices(bundle)
     const analSeg = [
       { key: 'u', label: 'Em uso', value: anal[0]?.value ?? 0, color: '#39ff9c' },
       { key: 'm', label: 'Manutenção', value: anal[1]?.value ?? 0, color: '#fbbf24' },
-      { key: 'l', label: 'Disponível', value: anal[2]?.value ?? 0, color: '#64748b' },
+      { key: 'al', label: 'Alugado', value: anal[2]?.value ?? 0, color: '#38bdf8' },
+      { key: 'l', label: 'Disponível', value: anal[3]?.value ?? 0, color: '#64748b' },
     ]
     const mesDual = bucketMonthInstalacaoDesinstalacao(eventosFiltrados)
     const diaDual = bucketDayInstalacaoDesinstalacao(eventosFiltrados)
@@ -189,8 +191,8 @@ export function OverviewPage() {
         />
       </div>
 
-      {/* Medidores: uso / manutenção / disponível com denominador */}
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+      {/* Medidores: uso / manutenção / alugado / disponível com denominador */}
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <KpiTile
           icon={Activity}
           label="Medidores · em uso"
@@ -205,6 +207,12 @@ export function OverviewPage() {
           hint={`${pct(cap.manutencaoMedidores, cap.totalMedidores)}% da frota`}
         />
         <KpiTile
+          icon={Layers}
+          label="Medidores · alugados"
+          value={`${cap.alugadosMedidores} / ${cap.totalMedidores}`}
+          hint={`${pct(cap.alugadosMedidores, cap.totalMedidores)}% da frota`}
+        />
+        <KpiTile
           icon={CircleDashed}
           label="Medidores · disponíveis"
           value={`${cap.disponiveis} / ${cap.totalMedidores}`}
@@ -213,7 +221,7 @@ export function OverviewPage() {
       </div>
 
       {/* Analisadores */}
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <KpiTile
           icon={Activity}
           label="Analisadores · em uso"
@@ -226,6 +234,12 @@ export function OverviewPage() {
           label="Analisadores · manutenção"
           value={`${cap.analisadoresManutencao} / ${cap.totalAnalisadoresCatalogo}`}
           hint={`${pct(cap.analisadoresManutencao, cap.totalAnalisadoresCatalogo)}% do catálogo`}
+        />
+        <KpiTile
+          icon={Layers}
+          label="Analisadores · alugados"
+          value={`${cap.alugadosAnalisadores} / ${cap.totalAnalisadoresCatalogo}`}
+          hint={`${pct(cap.alugadosAnalisadores, cap.totalAnalisadoresCatalogo)}% do catálogo`}
         />
         <KpiTile
           icon={CircleDashed}
