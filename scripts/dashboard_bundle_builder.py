@@ -70,6 +70,10 @@ def normalizar_status_exec(raw: object) -> str | None:
         return "manutencao"
     if "INSTALA" in s:
         return "instalacao"
+    if "ALUGAD" in s:
+        return "alugado"
+    if "DISPONI" in s:
+        return "disponivel"
     return None
 
 

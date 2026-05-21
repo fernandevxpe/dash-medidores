@@ -41,9 +41,17 @@ export function isManutencao(e: EventoRow): boolean {
   return e.statusExecucao === 'manutencao'
 }
 
-/** Slot ainda “em campo”: último evento é instalação ou manutenção. */
+export function isDisponivel(e: EventoRow): boolean {
+  return e.statusExecucao === 'disponivel'
+}
+
+export function isAlugado(e: EventoRow): boolean {
+  return e.statusExecucao === 'alugado'
+}
+
+/** Slot ainda “em campo”: último evento é instalação, manutenção ou alugado. */
 export function slotEmCampoUltimoEvento(e: EventoRow): boolean {
-  return isInstalacao(e) || isManutencao(e)
+  return isInstalacao(e) || isManutencao(e) || isAlugado(e)
 }
 
 export function inferTipoFromIdMedidor(id: string): TipoEquipamento {
@@ -142,27 +150,31 @@ export function analisadoresEmCampoAgora(eventos: EventoRow[]): Set<string> {
 function estadoAgregadoMedidorId(
   idMedidor: string,
   lastBySlot: Map<string, EventoRow>,
-): 'disponivel' | 'instalado' | 'manutencao' {
+): 'disponivel' | 'instalado' | 'manutencao' | 'alugado' {
   let manut = false
   let inst = false
+  let alugado = false
   for (const [sk, e] of lastBySlot) {
     const { idMedidor: mid } = parseSlotKey(sk)
     if (mid !== idMedidor) continue
     if (!slotEmCampoUltimoEvento(e)) continue
     if (isManutencao(e)) manut = true
     else if (isInstalacao(e)) inst = true
+    else if (isAlugado(e)) alugado = true
   }
   if (manut) return 'manutencao'
   if (inst) return 'instalado'
+  if (alugado) return 'alugado'
   return 'disponivel'
 }
 
 function estadoAgregadoAnalisadorId(
   idNum: string,
   lastBySlot: Map<string, EventoRow>,
-): 'disponivel' | 'instalado' | 'manutencao' {
+): 'disponivel' | 'instalado' | 'manutencao' | 'alugado' {
   let manut = false
   let inst = false
+  let alugado = false
   for (const [sk, e] of lastBySlot) {
     const { idMedidor } = parseSlotKey(sk)
     const k = normalizeAnalisadorId(idMedidor)
@@ -170,9 +182,11 @@ function estadoAgregadoAnalisadorId(
     if (!slotEmCampoUltimoEvento(e)) continue
     if (isManutencao(e)) manut = true
     else if (isInstalacao(e)) inst = true
+    else if (isAlugado(e)) alugado = true
   }
   if (manut) return 'manutencao'
   if (inst) return 'instalado'
+  if (alugado) return 'alugado'
   return 'disponivel'
 }
 
@@ -188,13 +202,15 @@ export function medidorStatusDistribuicao(bundle: DashboardBundle): Record<strin
   let instalado = 0
   let manutencao = 0
   let disponivel = 0
+  let alugado = 0
   for (const id of ids) {
     const s = estadoAgregadoMedidorId(id, lastBySlot)
     if (s === 'instalado') instalado++
     else if (s === 'manutencao') manutencao++
+    else if (s === 'alugado') alugado++
     else disponivel++
   }
-  return { instalado, manutencao, disponivel }
+  return { instalado, manutencao, disponivel, alugado }
 }
 
 /** Compatível com telas que esperam chaves de status (soma = total da frota). */
@@ -218,6 +234,7 @@ export function analisadorStatusDistribuicao(bundle: DashboardBundle): {
   instalado: number
   manutencao: number
   disponivel: number
+  alugado: number
   totalCatalogo: number
 } {
   const t = Date.now()
@@ -226,13 +243,15 @@ export function analisadorStatusDistribuicao(bundle: DashboardBundle): {
   let instalado = 0
   let manutencao = 0
   let disponivel = 0
+  let alugado = 0
   for (const idNum of idSet) {
     const s = estadoAgregadoAnalisadorId(idNum, lastBySlot)
     if (s === 'instalado') instalado++
     else if (s === 'manutencao') manutencao++
+    else if (s === 'alugado') alugado++
     else disponivel++
   }
-  return { instalado, manutencao, disponivel, totalCatalogo: idSet.size }
+  return { instalado, manutencao, disponivel, alugado, totalCatalogo: idSet.size }
 }
 
 /** Contexto de frota para o calendário (medidores observados + catálogo de analisadores). */
@@ -417,19 +436,22 @@ export function capacityMetrics(bundle: DashboardBundle) {
       : new Set(eventos.filter((e) => tipoEquipamentoDe(e) === 'medidor').map((e) => e.idMedidor)).size
 
   const md = medidorStatusDistribuicao(bundle)
-  const instaladosCampo = md.instalado + md.manutencao
+  const alugadosMedidores = md.alugado ?? 0
+  const instaladosCampo = md.instalado + md.manutencao + alugadosMedidores
   const pctM = totalM > 0 ? (instaladosCampo / totalM) * 100 : 0
   const pctMInst = totalM > 0 ? (md.instalado / totalM) * 100 : 0
   const pctMManut = totalM > 0 ? (md.manutencao / totalM) * 100 : 0
 
   const ad = analisadorStatusDistribuicao(bundle)
-  const analEmCampo = ad.instalado + ad.manutencao
+  const alugadosAnalisadores = ad.alugado ?? 0
+  const analEmCampo = ad.instalado + ad.manutencao + alugadosAnalisadores
   const pctA = ad.totalCatalogo > 0 ? (analEmCampo / ad.totalCatalogo) * 100 : 0
 
   return {
     totalMedidores: totalM,
     instalados: md.instalado,
     manutencaoMedidores: md.manutencao,
+    alugadosMedidores,
     disponiveis: md.disponivel,
     instaladosCampo,
     pctCapacidadeMedidor: pctM,
@@ -438,6 +460,7 @@ export function capacityMetrics(bundle: DashboardBundle) {
     totalAnalisadoresCatalogo: ad.totalCatalogo,
     analisadoresInstalados: ad.instalado,
     analisadoresManutencao: ad.manutencao,
+    alugadosAnalisadores,
     analisadoresLivres: ad.disponivel,
     analisadoresEmUso: analEmCampo,
     pctCapacidadeAnalisador: pctA,
@@ -451,6 +474,7 @@ export function analyzerDonutSlices(bundle: DashboardBundle) {
   return [
     { name: 'Em uso', value: ad.instalado },
     { name: 'Manutenção', value: ad.manutencao },
+    { name: 'Alugado', value: ad.alugado },
     { name: 'Livres', value: ad.disponivel },
   ]
 }
@@ -604,7 +628,7 @@ export function equipamentoEstadoAgregado(
   bundle: DashboardBundle,
   idMedidor: string,
   agoraMs: number = Date.now(),
-): 'instalado' | 'manutencao' | 'disponivel' {
+): 'instalado' | 'manutencao' | 'disponivel' | 'alugado' {
   const lastBySlot = lastEventBySlotAtTimestamp(bundle.eventos, agoraMs)
   const canonAn = normalizeAnalisadorId(idMedidor)
   if (canonAn !== null && inferTipoFromIdMedidor(idMedidor) === 'analisador') {
@@ -656,6 +680,7 @@ export interface IndicadoresTemporaisGlobais {
   emUso: number
   disponiveis: number
   manutencao: number
+  alugado: number
   totalMedicaoMs: number
   totalOciosidadeMs: number
   /** Tempo em manutenção em campo (fora de medição e de ociosidade). */
@@ -727,7 +752,7 @@ export function historicoTemporalPorEquipamento(
   let ultimaManutInicio: EventoRow | null = null
 
   for (const e of linha) {
-    if (isInstalacao(e)) {
+    if (isInstalacao(e) || isAlugado(e)) {
       if (ultimaDesinstalacao) {
         intervalosOciosidade.push(makeIntervalo('ociosidade', false, ultimaDesinstalacao, e, agoraIso))
         ultimaDesinstalacao = null
@@ -747,7 +772,7 @@ export function historicoTemporalPorEquipamento(
       if (!ultimaManutInicio) ultimaManutInicio = e
       continue
     }
-    if (isDesinstalacao(e)) {
+    if (isDesinstalacao(e) || isDisponivel(e)) {
       if (ultimaManutInicio) {
         intervalosManutencao.push(makeIntervalo('manutencao', false, ultimaManutInicio, e, agoraIso))
         ultimaManutInicio = null
@@ -878,6 +903,7 @@ export function indicadoresTemporaisGlobais(bundle: DashboardBundle): {
       emUso: tipo === 'medidor' ? cap.instalados : cap.analisadoresInstalados,
       disponiveis: tipo === 'medidor' ? cap.disponiveis : cap.analisadoresLivres,
       manutencao: tipo === 'medidor' ? cap.manutencaoMedidores : cap.analisadoresManutencao,
+      alugado: tipo === 'medidor' ? cap.alugadosMedidores : cap.alugadosAnalisadores,
       totalMedicaoMs,
       totalOciosidadeMs,
       totalManutencaoMs,
@@ -1044,11 +1070,11 @@ export function ciclosMedicao(
     list.sort((a, b) => eventTime(a) - eventTime(b))
     let aberto: EventoRow | null = null
     for (const e of list) {
-      if (isInstalacao(e)) {
+      if (isInstalacao(e) || isAlugado(e)) {
         aberto = e
       } else if (isManutencao(e)) {
         /* ciclo continua */
-      } else if (isDesinstalacao(e)) {
+      } else if (isDesinstalacao(e) || isDisponivel(e)) {
         if (aberto) {
           const dur = diffDiasEntre(aberto.data, e.data)
           const { idMedidor, localizacao } = parseSlotKey(sk)

@@ -105,9 +105,17 @@ function EstadoBadge({ status }: { status: string }) {
       ? 'bg-xpe-neon/15 text-xpe-neon'
       : status === 'manutencao'
         ? 'bg-amber-500/20 text-amber-200'
-        : 'bg-xpe-purple/20 text-xpe-purple'
+        : status === 'alugado'
+          ? 'bg-sky-500/20 text-sky-300'
+          : 'bg-xpe-purple/20 text-xpe-purple'
   const label =
-    status === 'instalado' ? 'em uso' : status === 'manutencao' ? 'manutenção' : 'disponível'
+    status === 'instalado'
+      ? 'em uso'
+      : status === 'manutencao'
+        ? 'manutenção'
+        : status === 'alugado'
+          ? 'alugado'
+          : 'disponível'
   return (
     <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase ${cls}`}>{label}</span>
   )
@@ -115,7 +123,17 @@ function EstadoBadge({ status }: { status: string }) {
 
 function UltimoEventoLabel({ s }: { s: string | null }) {
   const t =
-    s === 'instalacao' ? 'Inst.' : s === 'manutencao' ? 'Manut.' : s === 'desinstalacao' ? 'Desinst.' : '—'
+    s === 'instalacao'
+      ? 'Inst.'
+      : s === 'manutencao'
+        ? 'Manut.'
+        : s === 'desinstalacao'
+          ? 'Desinst.'
+          : s === 'alugado'
+            ? 'Alugado'
+            : s === 'disponivel'
+              ? 'Disponível'
+              : '—'
   return <span className="text-[10px] uppercase text-zinc-400">{t}</span>
 }
 
@@ -212,6 +230,7 @@ export function EquipmentPage() {
     return [
       { name: 'Em uso', value: d.instalado, fill: '#39ff9c' },
       { name: 'Manutenção', value: d.manutencao, fill: '#fbbf24' },
+      { name: 'Alugado', value: d.alugado ?? 0, fill: '#38bdf8' },
       { name: 'Disponível', value: d.disponivel, fill: '#a855f7' },
     ]
   }, [bundle])
@@ -221,7 +240,8 @@ export function EquipmentPage() {
     return [
       { name: 'Em uso', value: a[0]?.value ?? 0, fill: '#39ff9c' },
       { name: 'Manutenção', value: a[1]?.value ?? 0, fill: '#fbbf24' },
-      { name: 'Disponível', value: a[2]?.value ?? 0, fill: '#64748b' },
+      { name: 'Alugado', value: a[2]?.value ?? 0, fill: '#38bdf8' },
+      { name: 'Disponível', value: a[3]?.value ?? 0, fill: '#64748b' },
     ]
   }, [bundle])
   const medSeg = useMemo(
@@ -280,6 +300,12 @@ export function EquipmentPage() {
             accent="amber"
             label="Manutenção"
             value={String(globaisTempo.medidores.manutencao)}
+          />
+          <IndicatorMiniCard
+            icon={Boxes}
+            accent="sky"
+            label="Alugados"
+            value={String(globaisTempo.medidores.alugado)}
           />
           <IndicatorMiniCard
             icon={Percent}
@@ -595,11 +621,13 @@ export function EquipmentPage() {
                 <li key={i} className="relative text-sm">
                   <span
                     className={`absolute -left-[21px] top-1.5 h-2 w-2 rounded-full shadow ${
-                      e.statusExecucao === 'desinstalacao'
+                      e.statusExecucao === 'desinstalacao' || e.statusExecucao === 'disponivel'
                         ? 'bg-xpe-purple shadow-[0_0_10px_#a855f7]'
                         : e.statusExecucao === 'manutencao'
                           ? 'bg-amber-400 shadow-[0_0_10px_#fbbf24]'
-                          : 'bg-xpe-neon shadow-[0_0_10px_#39ff9c]'
+                          : e.statusExecucao === 'alugado'
+                            ? 'bg-sky-400 shadow-[0_0_10px_#38bdf8]'
+                            : 'bg-xpe-neon shadow-[0_0_10px_#39ff9c]'
                     }`}
                   />
                   <p className="font-mono text-xs text-xpe-neon-dim">{e.data}</p>

@@ -16,7 +16,7 @@ export interface MedidorRow {
   status: string
 }
 
-export type StatusExecucao = 'instalacao' | 'manutencao' | 'desinstalacao'
+export type StatusExecucao = 'instalacao' | 'manutencao' | 'desinstalacao' | 'disponivel' | 'alugado'
 
 /** Ciclo de medição por slot (instalação → … → desinstalação ou ainda aberto). */
 export interface MedicaoCiclo {
