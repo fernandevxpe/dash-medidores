@@ -57,6 +57,8 @@ function normalizarStatusExec(raw: unknown): StatusExecucao | null {
   if (t.includes('DESINST') || t === 'DESINSTALAÇÃO') return 'desinstalacao'
   if (t.includes('MANUT')) return 'manutencao'
   if (t.includes('INSTALA')) return 'instalacao'
+  if (t.includes('ALUGAD')) return 'alugado'
+  if (t.includes('DISPONI')) return 'disponivel'
   return null
 }
 

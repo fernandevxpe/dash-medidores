@@ -1,7 +1,7 @@
 /** Tipos mínimos da API (evita importar `src/` no bundle serverless da Vercel). */
 export type TipoEquipamento = 'medidor' | 'analisador' | 'desconhecido'
 
-export type StatusExecucao = 'instalacao' | 'manutencao' | 'desinstalacao'
+export type StatusExecucao = 'instalacao' | 'manutencao' | 'desinstalacao' | 'disponivel' | 'alugado'
 
 export interface DashboardConfig {
   diasMedicaoPadrao: number
