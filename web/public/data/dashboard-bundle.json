@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-05-25T15:32:28Z",
+  "geradoEm": "2026-05-25T17:20:46Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -299,6 +299,16 @@
       "localizacao": "CDM4",
       "codigoAnalisador": "04",
       "cliente": "Charmant Sud",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f84",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-02-27T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Charmant Nord",
       "instalador": null
     },
     {
@@ -779,6 +789,16 @@
       "localizacao": "CDM8",
       "codigoAnalisador": "08",
       "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f84",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-09T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Charmant Nord",
       "instalador": null
     },
     {
