@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-05-25T17:20:46Z",
+  "geradoEm": "2026-05-25T18:55:39Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -985,9 +985,99 @@
       "idMedidor": "ANALISADOR_02",
       "tipoEquipamento": "analisador",
       "statusExecucao": "desinstalacao",
-      "data": "2026-03-17T00:00:00",
+      "data": "2026-03-16T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-16T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfff8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-16T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c81b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-16T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e1c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-16T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-16T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-16T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-16T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-16T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Soleil Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f3c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-03-16T00:00:00",
+      "localizacao": "CDM8",
+      "codigoAnalisador": "08",
       "cliente": "Soleil Le Parc",
       "instalador": null
     },
@@ -1034,16 +1124,6 @@
     {
       "idMedidor": "xp000000a0a3b37bc504",
       "tipoEquipamento": "medidor",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-03-17T00:00:00",
-      "localizacao": "COND",
-      "codigoAnalisador": "COND",
-      "cliente": "Soleil Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37bc504",
-      "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
       "data": "2026-03-17T00:00:00",
       "localizacao": "COND",
@@ -1059,16 +1139,6 @@
       "localizacao": "CDM7",
       "codigoAnalisador": "07",
       "cliente": "Brise Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37bfff8",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-03-17T00:00:00",
-      "localizacao": "CDM1",
-      "codigoAnalisador": "01",
-      "cliente": "Soleil Le Parc",
       "instalador": null
     },
     {
@@ -1114,16 +1184,6 @@
     {
       "idMedidor": "xp000000a0a3b37c81b8",
       "tipoEquipamento": "medidor",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-03-17T00:00:00",
-      "localizacao": "CDM6",
-      "codigoAnalisador": "06",
-      "cliente": "Soleil Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37c81b8",
-      "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
       "data": "2026-03-17T00:00:00",
       "localizacao": "CDM7",
@@ -1164,31 +1224,11 @@
     {
       "idMedidor": "xp000000a0a3b37d1e1c",
       "tipoEquipamento": "medidor",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-03-17T00:00:00",
-      "localizacao": "CDM4",
-      "codigoAnalisador": "04",
-      "cliente": "Soleil Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37d1e1c",
-      "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
       "data": "2026-03-17T00:00:00",
       "localizacao": "CDM6",
       "codigoAnalisador": "06",
       "cliente": "Torre Rosee No Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37d216c",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-03-17T00:00:00",
-      "localizacao": "CDM3",
-      "codigoAnalisador": "03",
-      "cliente": "Soleil Le Parc",
       "instalador": null
     },
     {
@@ -1204,31 +1244,11 @@
     {
       "idMedidor": "xp000000a0a3b37d6d74",
       "tipoEquipamento": "medidor",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-03-17T00:00:00",
-      "localizacao": "CDM2",
-      "codigoAnalisador": "02",
-      "cliente": "Soleil Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37d6d74",
-      "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
       "data": "2026-03-17T00:00:00",
       "localizacao": "CDM3",
       "codigoAnalisador": "03",
       "cliente": "Torre Rosee No Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37dc0ac",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-03-17T00:00:00",
-      "localizacao": "CDM5",
-      "codigoAnalisador": "05",
-      "cliente": "Soleil Le Parc",
       "instalador": null
     },
     {
@@ -1254,31 +1274,11 @@
     {
       "idMedidor": "xp000000fcb467237f20",
       "tipoEquipamento": "medidor",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-03-17T00:00:00",
-      "localizacao": "CDM7",
-      "codigoAnalisador": "07",
-      "cliente": "Soleil Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000fcb467237f20",
-      "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
       "data": "2026-03-17T00:00:00",
       "localizacao": "CDM4",
       "codigoAnalisador": "04",
       "cliente": "Torre Rosee No Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000fcb467237f3c",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-03-17T00:00:00",
-      "localizacao": "CDM8",
-      "codigoAnalisador": "08",
-      "cliente": "Soleil Le Parc",
       "instalador": null
     },
     {
@@ -3739,6 +3739,16 @@
       "localizacao": "XPE",
       "codigoAnalisador": "XPE",
       "cliente": "XPE",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cb0d4",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-05-25T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Hilson de Azevedo Mota",
       "instalador": null
     }
   ],
