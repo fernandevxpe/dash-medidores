@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-05-27T19:30:33Z",
+  "geradoEm": "2026-05-27T21:22:22Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -3749,6 +3749,36 @@
       "localizacao": "CDM1",
       "codigoAnalisador": "01",
       "cliente": "Hilson de Azevedo Mota",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bae38",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-27T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Santorini",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dbfd0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-27T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Santorini",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-27T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Santorini",
       "instalador": null
     }
   ],
