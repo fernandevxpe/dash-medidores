@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-05-28T18:23:50Z",
+  "geradoEm": "2026-05-28T20:41:23Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -3772,6 +3772,36 @@
       "instalador": null
     },
     {
+      "idMedidor": "ANALISADOR_03",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Santorini",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_04",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Tamarineira Prince",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_05",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "disponivel",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "XPE",
+      "codigoAnalisador": "XPE",
+      "cliente": "XPE",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37b7bd8",
       "tipoEquipamento": "medidor",
       "statusExecucao": "desinstalacao",
@@ -3779,6 +3809,36 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Villa Pasargada",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b7bd8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Tamarineira Prince",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b7bd8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Tamarineira Prince",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b865c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Tamarineira Prince",
       "instalador": null
     },
     {
@@ -3802,6 +3862,26 @@
       "instalador": null
     },
     {
+      "idMedidor": "xp000000a0a3b37b9ddc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Tamarineira Prince",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b9ddc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Tamarineira Prince",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37bc504",
       "tipoEquipamento": "medidor",
       "statusExecucao": "desinstalacao",
@@ -3812,12 +3892,62 @@
       "instalador": null
     },
     {
+      "idMedidor": "xp000000a0a3b37bd964",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Tamarineira Prince",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37c2218",
       "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
       "data": "2026-05-28T00:00:00",
       "localizacao": "COND",
       "codigoAnalisador": "COND",
+      "cliente": "Tamarineira Prince",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d0aa4",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Tamarineira Prince",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e1c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Tamarineira Prince",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Tamarineira Prince",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d31dc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
       "cliente": "Tamarineira Prince",
       "instalador": null
     },
