@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-05-28T08:15:37Z",
+  "geradoEm": "2026-05-28T11:52:33Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -2222,16 +2222,6 @@
       "instalador": null
     },
     {
-      "idMedidor": "xp000000fcb467237f20",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "instalacao",
-      "data": "2026-04-09T00:00:00",
-      "localizacao": "CDM3",
-      "codigoAnalisador": "03",
-      "cliente": "Entrega XPE Nord Le Parc",
-      "instalador": null
-    },
-    {
       "idMedidor": "ANALISADOR_02",
       "tipoEquipamento": "analisador",
       "statusExecucao": "desinstalacao",
@@ -2469,16 +2459,6 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Condomínio Do Edifício Lucilo Maranhão",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37d0aa4",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-04-17T00:00:00",
-      "localizacao": "CDM2",
-      "codigoAnalisador": "02",
-      "cliente": "Belize",
       "instalador": null
     },
     {
@@ -3779,6 +3759,16 @@
       "localizacao": "CDM2",
       "codigoAnalisador": "02",
       "cliente": "Santorini",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b9ddc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Cap D'Antibes",
       "instalador": null
     }
   ],
