@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-05-29T16:59:20Z",
+  "geradoEm": "2026-05-29T19:37:08Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -3732,6 +3732,16 @@
       "instalador": null
     },
     {
+      "idMedidor": "ANALISADOR_03",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-27T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Santorini",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37bae38",
       "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
@@ -3769,16 +3779,6 @@
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
       "cliente": "Villa Pasargada",
-      "instalador": null
-    },
-    {
-      "idMedidor": "ANALISADOR_03",
-      "tipoEquipamento": "analisador",
-      "statusExecucao": "instalacao",
-      "data": "2026-05-28T00:00:00",
-      "localizacao": "GERAL",
-      "codigoAnalisador": "GERAL",
-      "cliente": "Santorini",
       "instalador": null
     },
     {
@@ -3959,6 +3959,46 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Villa Pasargada",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_05",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-29T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Príncipe Navarra",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-29T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Príncipe Navarra",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cb0d4",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-29T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Príncipe Navarra",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f84",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-29T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Príncipe Navarra",
       "instalador": null
     }
   ],
