@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-05-30T16:32:07Z",
+  "geradoEm": "2026-05-30T17:40:11Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -1852,6 +1852,16 @@
       "instalador": null
     },
     {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-04-02T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Jardin Sud Le Parc",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37bfff8",
       "tipoEquipamento": "medidor",
       "statusExecucao": "desinstalacao",
@@ -2239,6 +2249,16 @@
       "localizacao": "XPE",
       "codigoAnalisador": "XPE",
       "cliente": "XPE",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-04-10T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Jardin Sud Le Parc",
       "instalador": null
     },
     {
@@ -3999,6 +4019,56 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Príncipe Navarra",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_01",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "disponivel",
+      "data": "2026-05-30T00:00:00",
+      "localizacao": "XPE",
+      "codigoAnalisador": "XPE",
+      "cliente": "XPE",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_01",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-30T00:00:00",
+      "localizacao": null,
+      "codigoAnalisador": null,
+      "cliente": "Jardim Botânico",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_01",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-30T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Jardins Do Rosarinho",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_01",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-30T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Mansão Vista Alegre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_01",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-30T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Residencial Bela Vista",
       "instalador": null
     }
   ],
