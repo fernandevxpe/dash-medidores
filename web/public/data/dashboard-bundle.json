@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-06-01T18:30:11Z",
+  "geradoEm": "2026-06-01T21:51:09Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -1464,96 +1464,6 @@
     {
       "idMedidor": "ANALISADOR_02",
       "tipoEquipamento": "analisador",
-      "statusExecucao": "instalacao",
-      "data": "2026-03-25T00:00:00",
-      "localizacao": "GERAL",
-      "codigoAnalisador": "GERAL",
-      "cliente": "Jardin Nord Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37bc504",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "instalacao",
-      "data": "2026-03-25T00:00:00",
-      "localizacao": "COND",
-      "codigoAnalisador": "COND",
-      "cliente": "Jardin Nord Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37bfff8",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "instalacao",
-      "data": "2026-03-25T00:00:00",
-      "localizacao": "CDM6",
-      "codigoAnalisador": "06",
-      "cliente": "Jardin Nord Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37cafe0",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "instalacao",
-      "data": "2026-03-25T00:00:00",
-      "localizacao": "CDM5",
-      "codigoAnalisador": "05",
-      "cliente": "Jardin Nord Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37d1e1c",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "instalacao",
-      "data": "2026-03-25T00:00:00",
-      "localizacao": "CDM2",
-      "codigoAnalisador": "02",
-      "cliente": "Jardin Nord Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37d216c",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "instalacao",
-      "data": "2026-03-25T00:00:00",
-      "localizacao": "CDM1",
-      "codigoAnalisador": "01",
-      "cliente": "Jardin Nord Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37d6d74",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "instalacao",
-      "data": "2026-03-25T00:00:00",
-      "localizacao": "CDM7",
-      "codigoAnalisador": "07",
-      "cliente": "Jardin Nord Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000a0a3b37dc0ac",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "instalacao",
-      "data": "2026-03-25T00:00:00",
-      "localizacao": "CDM4",
-      "codigoAnalisador": "04",
-      "cliente": "Jardin Nord Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "xp000000fcb467237f20",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "instalacao",
-      "data": "2026-03-25T00:00:00",
-      "localizacao": "CDM3",
-      "codigoAnalisador": "03",
-      "cliente": "Jardin Nord Le Parc",
-      "instalador": null
-    },
-    {
-      "idMedidor": "ANALISADOR_02",
-      "tipoEquipamento": "analisador",
       "statusExecucao": "desinstalacao",
       "data": "2026-03-26T00:00:00",
       "localizacao": "GERAL",
@@ -1662,6 +1572,16 @@
       "instalador": null
     },
     {
+      "idMedidor": "ANALISADOR_02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jardin Nord Le Parc",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37b865c",
       "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
@@ -1669,6 +1589,16 @@
       "localizacao": "CDM3",
       "codigoAnalisador": "03",
       "cliente": "Condomínio Jardim Das Orquídeas",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Jardin Nord Le Parc",
       "instalador": null
     },
     {
@@ -1682,6 +1612,16 @@
       "instalador": null
     },
     {
+      "idMedidor": "xp000000a0a3b37bfff8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "CDM6",
+      "codigoAnalisador": "06",
+      "cliente": "Jardin Nord Le Parc",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37c2218",
       "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
@@ -1692,6 +1632,16 @@
       "instalador": null
     },
     {
+      "idMedidor": "xp000000a0a3b37cafe0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "CDM5",
+      "codigoAnalisador": "05",
+      "cliente": "Jardin Nord Le Parc",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37cb0d4",
       "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
@@ -1699,6 +1649,26 @@
       "localizacao": "CDM6",
       "codigoAnalisador": "06",
       "cliente": "Condomínio Jardim Das Orquídeas",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e1c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Jardin Nord Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Jardin Nord Le Parc",
       "instalador": null
     },
     {
@@ -1722,6 +1692,26 @@
       "instalador": null
     },
     {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "CDM7",
+      "codigoAnalisador": "07",
+      "cliente": "Jardin Nord Le Parc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Jardin Nord Le Parc",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000fcb467237ecc",
       "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
@@ -1729,6 +1719,16 @@
       "localizacao": "CDM1",
       "codigoAnalisador": "01",
       "cliente": "Condomínio Jardim Das Orquídeas",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-03-27T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Jardin Nord Le Parc",
       "instalador": null
     },
     {
@@ -4019,16 +4019,6 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Príncipe Navarra",
-      "instalador": null
-    },
-    {
-      "idMedidor": "ANALISADOR_01",
-      "tipoEquipamento": "analisador",
-      "statusExecucao": "disponivel",
-      "data": "2026-05-30T00:00:00",
-      "localizacao": "XPE",
-      "codigoAnalisador": "XPE",
-      "cliente": "XPE",
       "instalador": null
     },
     {
