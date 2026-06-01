@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-06-01T12:46:51Z",
+  "geradoEm": "2026-06-01T18:30:11Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -4029,6 +4029,66 @@
       "localizacao": "XPE",
       "codigoAnalisador": "XPE",
       "cliente": "XPE",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-05-31T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Ilha Millos",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-01T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Empresarial Casa Forte",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c11f8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-01T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Empresarial Casa Forte",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cf8b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-01T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Empresarial Casa Forte",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237ecc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-01T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Empresarial Casa Forte",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-01T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Empresarial Casa Forte",
       "instalador": null
     }
   ],
