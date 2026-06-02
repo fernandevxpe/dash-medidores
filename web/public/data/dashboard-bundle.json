@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-06-02T15:02:50Z",
+  "geradoEm": "2026-06-02T18:51:01Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -4078,6 +4078,16 @@
       "data": "2026-06-01T00:00:00",
       "localizacao": "CDM1",
       "codigoAnalisador": "01",
+      "cliente": "Empresarial Casa Forte",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-02T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
       "cliente": "Empresarial Casa Forte",
       "instalador": null
     }
