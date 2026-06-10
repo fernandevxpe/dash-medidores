@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-06-10T21:53:13Z",
+  "geradoEm": "2026-06-10T23:21:00Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -4338,6 +4338,16 @@
       "data": "2026-06-10T00:00:00",
       "localizacao": "CDM2",
       "codigoAnalisador": "02",
+      "cliente": "Jardim Do Mar",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-10T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
       "cliente": "Jardim Mar",
       "instalador": null
     },
