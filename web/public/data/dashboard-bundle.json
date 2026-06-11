@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-06-11T14:55:13Z",
+  "geradoEm": "2026-06-11T18:12:07Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -4312,13 +4312,23 @@
       "instalador": null
     },
     {
-      "idMedidor": "ANALISADOR_01",
+      "idMedidor": "ANALISADOR_04",
       "tipoEquipamento": "analisador",
       "statusExecucao": "instalacao",
       "data": "2026-06-10T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
-      "cliente": "Ordens de Serviço",
+      "cliente": "Jardim Do Mar",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_05",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-10T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jardim Do Mar",
       "instalador": null
     },
     {
@@ -4358,7 +4368,7 @@
       "data": "2026-06-10T00:00:00",
       "localizacao": "CDM3",
       "codigoAnalisador": "03",
-      "cliente": "Jardim Mar",
+      "cliente": "Jardim Do Mar",
       "instalador": null
     },
     {
@@ -4379,6 +4389,26 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Jardim Do Mar",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-11T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Maria Julia E Maria Da Graça",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f84",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-11T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Maria Julia E Maria Graça",
       "instalador": null
     }
   ],
