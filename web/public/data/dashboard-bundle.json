@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-06-13T06:07:44Z",
+  "geradoEm": "2026-06-13T09:32:34Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -4538,7 +4538,17 @@
       "data": "2026-06-11T00:00:00",
       "localizacao": "COND",
       "codigoAnalisador": "COND",
-      "cliente": "Maria Julia E Maria Graça",
+      "cliente": "Maria Julia E Maria Da Graça",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f3c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "disponivel",
+      "data": "2026-06-13T00:00:00",
+      "localizacao": "XPE",
+      "codigoAnalisador": "XPE",
+      "cliente": "XPE",
       "instalador": null
     }
   ],
