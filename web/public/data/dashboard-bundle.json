@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-06-16T21:45:24Z",
+  "geradoEm": "2026-06-16T23:12:52Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -4608,6 +4608,16 @@
       "data": "2026-06-16T00:00:00",
       "localizacao": "CDM3",
       "codigoAnalisador": "03",
+      "cliente": "Alameda Dos Flamboyants",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d0aa4",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-16T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
       "cliente": "Alameda Dos Flamboyants",
       "instalador": null
     }
