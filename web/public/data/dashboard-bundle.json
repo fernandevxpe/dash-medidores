@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-06-16T23:12:52Z",
+  "geradoEm": "2026-06-17T01:42:52Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -4599,6 +4599,46 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Sagarana",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_03",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-16T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Alameda Dos Flamboyants",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b7bd8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-16T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Alameda Dos Flamboyants",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b9ddc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-16T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Alameda Dos Flamboyants",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bd964",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-16T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Alameda Dos Flamboyants",
       "instalador": null
     },
     {
