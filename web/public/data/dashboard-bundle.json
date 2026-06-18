@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-06-18T06:30:02Z",
+  "geradoEm": "2026-06-18T19:41:54Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -4428,7 +4428,7 @@
       "data": "2026-06-10T00:00:00",
       "localizacao": "CDM3",
       "codigoAnalisador": "03",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 3 e 4",
       "instalador": null
     },
     {
@@ -4438,7 +4438,7 @@
       "data": "2026-06-10T00:00:00",
       "localizacao": "COND",
       "codigoAnalisador": "COND",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 3 e 4",
       "instalador": null
     },
     {
@@ -4448,7 +4448,7 @@
       "data": "2026-06-10T00:00:00",
       "localizacao": "COND",
       "codigoAnalisador": "COND",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 1 e 2",
       "instalador": null
     },
     {
@@ -4659,6 +4659,106 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Alameda Dos Flamboyants",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_04",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-18T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jardim Do Mar",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_05",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-18T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jardim Do Mar",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_05",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-18T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jardim Do Mar",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c11f8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-18T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Jardim Do Mar",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cb0d4",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-18T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Jardim Do Mar",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cf8b8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-18T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Jardim Do Mar",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-18T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Jardim Do Mar Torres 3 e 4",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237ecc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-18T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Jardim Do Mar Torres 3 e 4",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-18T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Jardim Do Mar Torres 1 e 2",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-06-18T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jardim Do Mar",
       "instalador": null
     }
   ],
