@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-06-19T02:19:09Z",
+  "geradoEm": "2026-06-19T07:32:58Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -4378,7 +4378,7 @@
       "data": "2026-06-10T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 3 e 4",
       "instalador": null
     },
     {
@@ -4388,7 +4388,7 @@
       "data": "2026-06-10T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 1 e2",
       "instalador": null
     },
     {
@@ -4398,7 +4398,7 @@
       "data": "2026-06-10T00:00:00",
       "localizacao": "CDM4",
       "codigoAnalisador": "04",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 3 e 4",
       "instalador": null
     },
     {
@@ -4408,7 +4408,7 @@
       "data": "2026-06-10T00:00:00",
       "localizacao": "CDM1",
       "codigoAnalisador": "01",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 1 e 2",
       "instalador": null
     },
     {
@@ -4418,7 +4418,7 @@
       "data": "2026-06-10T00:00:00",
       "localizacao": "CDM2",
       "codigoAnalisador": "02",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 1 e 2",
       "instalador": null
     },
     {
@@ -4668,7 +4668,7 @@
       "data": "2026-06-18T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 3 e 4",
       "instalador": null
     },
     {
@@ -4678,7 +4678,7 @@
       "data": "2026-06-18T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 1 e 2",
       "instalador": null
     },
     {
@@ -4688,7 +4688,7 @@
       "data": "2026-06-18T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 1 e 2",
       "instalador": null
     },
     {
@@ -4698,7 +4698,7 @@
       "data": "2026-06-18T00:00:00",
       "localizacao": "CDM4",
       "codigoAnalisador": "04",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 3 e 4",
       "instalador": null
     },
     {
@@ -4708,7 +4708,7 @@
       "data": "2026-06-18T00:00:00",
       "localizacao": "CDM1",
       "codigoAnalisador": "01",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 1 e 2",
       "instalador": null
     },
     {
@@ -4718,7 +4718,7 @@
       "data": "2026-06-18T00:00:00",
       "localizacao": "CDM2",
       "codigoAnalisador": "02",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 1 e 2",
       "instalador": null
     },
     {
@@ -4758,7 +4758,7 @@
       "data": "2026-06-18T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
-      "cliente": "Jardim Do Mar",
+      "cliente": "Jardim Do Mar Torres 1 e 2",
       "instalador": null
     }
   ],
