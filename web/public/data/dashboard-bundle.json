@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-06-24T15:54:17Z",
+  "geradoEm": "2026-06-25T17:03:27Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -4759,6 +4759,96 @@
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
       "cliente": "Jardim Do Mar Torres 1 e 2",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-24T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Maria Julia E Maria Da Graça",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b865c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-24T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Saint Sebastien",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bae38",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-24T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Saint Sebastien",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-24T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Saint Sebastien",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e1c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-24T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Saint Sebastien",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-24T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Saint Sebastien",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-24T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Saint Sebastien",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d31dc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-24T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Saint Sebastien",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f84",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-06-24T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Maria Julia E Maria Da Graça",
       "instalador": null
     }
   ],
