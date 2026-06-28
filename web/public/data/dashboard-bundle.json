@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-06-28T01:35:46Z",
+  "geradoEm": "2026-06-28T06:00:27Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -3638,7 +3638,7 @@
       "data": "2026-05-20T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
-      "cliente": "Villa Pasargada",
+      "cliente": "Villa Pasargada Torre 1",
       "instalador": null
     },
     {
@@ -3668,7 +3668,7 @@
       "data": "2026-05-20T00:00:00",
       "localizacao": "COND",
       "codigoAnalisador": "COND",
-      "cliente": "Villa Pasargada",
+      "cliente": "Villa Pasargada Torre 2",
       "instalador": null
     },
     {
@@ -3688,7 +3688,7 @@
       "data": "2026-05-20T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
-      "cliente": "Villa Pasargada",
+      "cliente": "Villa Pasargada Torre 1",
       "instalador": null
     },
     {
@@ -3699,6 +3699,16 @@
       "localizacao": "CDM1",
       "codigoAnalisador": "01",
       "cliente": "La Maison",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d0aa4",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-05-20T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Villa Pasargada Torre 2",
       "instalador": null
     },
     {
@@ -3718,7 +3728,7 @@
       "data": "2026-05-20T00:00:00",
       "localizacao": "COND",
       "codigoAnalisador": "COND",
-      "cliente": "Villa Pasargada",
+      "cliente": "Villa Pasargada Torre 1",
       "instalador": null
     },
     {
@@ -3808,7 +3818,17 @@
       "data": "2026-05-28T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
-      "cliente": "Villa Pasargada",
+      "cliente": "Villa Pasargada Torre 1",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Villa Pasargada Torre 1",
       "instalador": null
     },
     {
@@ -3838,7 +3858,7 @@
       "data": "2026-05-28T00:00:00",
       "localizacao": "COND",
       "codigoAnalisador": "COND",
-      "cliente": "Villa Pasargada",
+      "cliente": "Villa Pasargada Torre 2",
       "instalador": null
     },
     {
@@ -3898,7 +3918,7 @@
       "data": "2026-05-28T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
-      "cliente": "Villa Pasargada",
+      "cliente": "Villa Pasargada Torre 1",
       "instalador": null
     },
     {
@@ -3968,7 +3988,7 @@
       "data": "2026-05-28T00:00:00",
       "localizacao": "COND",
       "codigoAnalisador": "COND",
-      "cliente": "Villa Pasargada",
+      "cliente": "Villa Pasargada Torre 1",
       "instalador": null
     },
     {
