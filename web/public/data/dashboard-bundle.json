@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-10T19:04:47Z",
+  "geradoEm": "2026-07-10T20:39:59Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -4919,6 +4919,76 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Alameda Dos Flamboyants",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_03",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-10T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b7bd8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-10T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b9ddc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-10T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bae38",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-10T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-10T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-10T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-10T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Cine Torre",
       "instalador": null
     }
   ],
