@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-10T13:19:56Z",
+  "geradoEm": "2026-07-10T15:41:36Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -3822,16 +3822,6 @@
       "instalador": null
     },
     {
-      "idMedidor": "ANALISADOR_02",
-      "tipoEquipamento": "analisador",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-05-28T00:00:00",
-      "localizacao": "GERAL",
-      "codigoAnalisador": "GERAL",
-      "cliente": "Villa Pasargada Torre 1",
-      "instalador": null
-    },
-    {
       "idMedidor": "ANALISADOR_04",
       "tipoEquipamento": "analisador",
       "statusExecucao": "instalacao",
@@ -3939,6 +3929,16 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Tamarineira Prince",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d0aa4",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-05-28T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Villa Pasargada Torre 1",
       "instalador": null
     },
     {
@@ -4919,6 +4919,126 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Alameda Dos Flamboyants",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_04",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-06T00:00:00",
+      "localizacao": null,
+      "codigoAnalisador": null,
+      "cliente": null,
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b7bd8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-07T00:00:00",
+      "localizacao": null,
+      "codigoAnalisador": null,
+      "cliente": null,
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b9ddc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-07T00:00:00",
+      "localizacao": null,
+      "codigoAnalisador": null,
+      "cliente": null,
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bae38",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-07T00:00:00",
+      "localizacao": null,
+      "codigoAnalisador": null,
+      "cliente": null,
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-07T00:00:00",
+      "localizacao": null,
+      "codigoAnalisador": null,
+      "cliente": null,
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-07T00:00:00",
+      "localizacao": null,
+      "codigoAnalisador": null,
+      "cliente": null,
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-07T00:00:00",
+      "localizacao": null,
+      "codigoAnalisador": null,
+      "cliente": null,
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_04",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-10T00:00:00",
+      "localizacao": null,
+      "codigoAnalisador": null,
+      "cliente": null,
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_04",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-10T00:00:00",
+      "localizacao": null,
+      "codigoAnalisador": null,
+      "cliente": null,
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b865c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-10T00:00:00",
+      "localizacao": null,
+      "codigoAnalisador": null,
+      "cliente": null,
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c2218",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-10T00:00:00",
+      "localizacao": null,
+      "codigoAnalisador": null,
+      "cliente": null,
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237ecc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-10T00:00:00",
+      "localizacao": null,
+      "codigoAnalisador": null,
+      "cliente": null,
       "instalador": null
     }
   ],
