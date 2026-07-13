@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-13T22:28:33Z",
+  "geradoEm": "2026-07-13T23:27:16Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -5108,6 +5108,16 @@
       "data": "2026-07-13T00:00:00",
       "localizacao": "CDM2",
       "codigoAnalisador": "02",
+      "cliente": "Jardins de Boa Viagem",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-13T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
       "cliente": "Jardins de Boa Viagem",
       "instalador": null
     },
