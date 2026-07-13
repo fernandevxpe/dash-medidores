@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-13T13:04:07Z",
+  "geradoEm": "2026-07-13T15:48:58Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -21,6 +21,26 @@
     "regraEventos": "Coluna Status_execucao: INSTALAÇÃO / MANUTENÇÃO / DESINSTALAÇÃO"
   },
   "eventos": [
+    {
+      "idMedidor": "xp000000a0a3b37b9ddc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2025-09-14T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "The Plaza",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b9ddc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2025-09-22T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "The Plaza",
+      "instalador": null
+    },
     {
       "idMedidor": "ANALISADOR_03",
       "tipoEquipamento": "analisador",
@@ -4999,16 +5019,6 @@
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
       "cliente": "Cine Torre",
-      "instalador": null
-    },
-    {
-      "idMedidor": "ANALISADOR_04",
-      "tipoEquipamento": "analisador",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-07-10T00:00:00",
-      "localizacao": null,
-      "codigoAnalisador": null,
-      "cliente": null,
       "instalador": null
     },
     {
