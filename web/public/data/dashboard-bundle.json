@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-13T21:26:46Z",
+  "geradoEm": "2026-07-13T22:28:33Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -5059,6 +5059,66 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Antonio de Albuquerque Galvão",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-13T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jardins de Boa Viagem",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b8c28",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-13T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jardins de Boa Viagem",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c11f8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-13T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Jardins de Boa Viagem",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cb0d4",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-13T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Jardins de Boa Viagem",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cffdc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-13T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Jardins de Boa Viagem",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-13T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Jardins de Boa Viagem",
       "instalador": null
     }
   ],
