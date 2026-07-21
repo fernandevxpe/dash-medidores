@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-21T17:57:55Z",
+  "geradoEm": "2026-07-21T19:40:46Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -4428,7 +4428,7 @@
       "data": "2026-06-10T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
-      "cliente": "Jardim Do Mar Torres 1 e2",
+      "cliente": "Jardim Do Mar Torres 1 e 2",
       "instalador": null
     },
     {
@@ -5159,6 +5159,16 @@
       "localizacao": "CDM2",
       "codigoAnalisador": "02",
       "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-21T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jardins de Boa Viagem",
       "instalador": null
     }
   ],
