@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-22T17:57:01Z",
+  "geradoEm": "2026-07-22T19:26:20Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -5169,6 +5169,16 @@
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
       "cliente": "Jardins de Boa Viagem",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_04",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-22T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Antonio de Albuquerque Galvão",
       "instalador": null
     }
   ],
