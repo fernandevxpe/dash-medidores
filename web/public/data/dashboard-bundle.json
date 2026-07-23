@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-23T01:14:51Z",
+  "geradoEm": "2026-07-23T04:38:36Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -5032,6 +5032,16 @@
       "instalador": null
     },
     {
+      "idMedidor": "xp000000a0a3b37b865c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-10T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Antonio de Albuquerque Galvão",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37bd3c8",
       "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
@@ -5134,16 +5144,6 @@
     {
       "idMedidor": "ANALISADOR_03",
       "tipoEquipamento": "analisador",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-07-15T00:00:00",
-      "localizacao": "GERAL",
-      "codigoAnalisador": "GERAL",
-      "cliente": "Cine Torre",
-      "instalador": null
-    },
-    {
-      "idMedidor": "ANALISADOR_03",
-      "tipoEquipamento": "analisador",
       "statusExecucao": "manutencao",
       "data": "2026-07-15T00:00:00",
       "localizacao": "XPE",
@@ -5152,20 +5152,10 @@
       "instalador": null
     },
     {
-      "idMedidor": "xp000000a0a3b37b7bd8",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-07-17T00:00:00",
-      "localizacao": "CDM2",
-      "codigoAnalisador": "02",
-      "cliente": "Cine Torre",
-      "instalador": null
-    },
-    {
       "idMedidor": "ANALISADOR_02",
       "tipoEquipamento": "analisador",
       "statusExecucao": "desinstalacao",
-      "data": "2026-07-21T00:00:00",
+      "data": "2026-07-22T00:00:00",
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
       "cliente": "Jardins de Boa Viagem",
@@ -5179,6 +5169,196 @@
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
       "cliente": "Antonio de Albuquerque Galvão",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b865c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-22T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Antonio de Albuquerque Galvão",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b8c28",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-22T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jardins de Boa Viagem",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bd3c8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-22T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Antonio de Albuquerque Galvão",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c11f8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-22T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Jardins de Boa Viagem",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c2218",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-22T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Antonio de Albuquerque Galvão",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cb0d4",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-22T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Jardins de Boa Viagem",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cffdc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-22T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Jardins de Boa Viagem",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d1e74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-22T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Jardins de Boa Viagem",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-22T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Jardins de Boa Viagem",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237ecc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-22T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Antonio de Albuquerque Galvão",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_03",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-23T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_05",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-23T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jardim Do Mar Torres 1 e 2",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b7bd8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-23T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b9ddc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-23T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
+      "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bae38",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-23T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-23T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-23T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d6d74",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-23T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Cine Torre",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-07-23T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jardim Do Mar Torres 1 e 2",
       "instalador": null
     }
   ],
