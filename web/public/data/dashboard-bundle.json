@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-24T14:40:04Z",
+  "geradoEm": "2026-07-24T17:48:26Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -5359,6 +5359,26 @@
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
       "cliente": "Jardim Do Mar Torres 1 e 2",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b7bd8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-24T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Palacio de Queluz",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-24T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Palacio de Queluz",
       "instalador": null
     },
     {
