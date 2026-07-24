@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-24T17:48:26Z",
+  "geradoEm": "2026-07-24T19:05:20Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -5372,6 +5372,16 @@
       "instalador": null
     },
     {
+      "idMedidor": "xp000000a0a3b37b865c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-24T00:00:00",
+      "localizacao": "CDM4",
+      "codigoAnalisador": "04",
+      "cliente": "Mirante",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37bc504",
       "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
@@ -5379,6 +5389,26 @@
       "localizacao": "CDM2",
       "codigoAnalisador": "02",
       "cliente": "Palacio de Queluz",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c2218",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-24T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Mirante",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c22c0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-07-24T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Mirante",
       "instalador": null
     },
     {
