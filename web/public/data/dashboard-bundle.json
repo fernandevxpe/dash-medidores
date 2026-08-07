@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-08-07T19:15:20Z",
+  "geradoEm": "2026-08-07T20:02:17Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -5539,6 +5539,26 @@
       "localizacao": "CDM3",
       "codigoAnalisador": "03",
       "cliente": "Palacio de Queluz",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-08-07T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Mirante",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f20",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-07T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Mirante",
       "instalador": null
     }
   ],
