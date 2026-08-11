@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-08-11T16:36:39Z",
+  "geradoEm": "2026-08-11T17:36:43Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -5622,6 +5622,16 @@
       "instalador": null
     },
     {
+      "idMedidor": "xp000000a0a3b37b765c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-11T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Porto das Rochas",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37bfce0",
       "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
@@ -5633,10 +5643,11 @@
     }
   ],
   "frota": {
-    "totalMedidoresObservados": 41,
+    "totalMedidoresObservados": 42,
     "totalAnalisadoresOficial": 5,
     "idsMedidoresObservados": [
       "xp000000a0a3b37b714c",
+      "xp000000a0a3b37b765c",
       "xp000000a0a3b37b7798",
       "xp000000a0a3b37b7bd8",
       "xp000000a0a3b37b865c",
