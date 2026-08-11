@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-08-11T14:42:30Z",
+  "geradoEm": "2026-08-11T15:41:03Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -5612,13 +5612,23 @@
       "instalador": null
     },
     {
-      "idMedidor": "xp000000fcb467237f20",
+      "idMedidor": "ANALISADOR_05",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-11T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Porto das Rochas",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfce0",
       "tipoEquipamento": "medidor",
-      "statusExecucao": "desinstalacao",
-      "data": "2026-08-10T00:00:00",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-11T00:00:00",
       "localizacao": "COND",
       "codigoAnalisador": "COND",
-      "cliente": "Mirante",
+      "cliente": "Porto das Rochas",
       "instalador": null
     }
   ],
