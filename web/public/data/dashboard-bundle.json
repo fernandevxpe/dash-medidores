@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-08-12T18:33:58Z",
+  "geradoEm": "2026-08-12T19:43:29Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -5639,6 +5639,36 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Porto das Rochas",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_04",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-12T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Rio Laje",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37c0128",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-12T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Rio Laje",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cafe0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-12T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Rio Laje",
       "instalador": null
     }
   ],
