@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-08-13T18:36:21Z",
+  "geradoEm": "2026-08-13T19:41:27Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -5692,6 +5692,16 @@
       "instalador": null
     },
     {
+      "idMedidor": "ANALISADOR_02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-13T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Varanda do Bosque",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37b7798",
       "tipoEquipamento": "medidor",
       "statusExecucao": "instalacao",
@@ -5708,6 +5718,36 @@
       "data": "2026-08-13T00:00:00",
       "localizacao": "COND",
       "codigoAnalisador": "COND",
+      "cliente": "Varanda do Bosque",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bc504",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-13T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Varanda do Bosque",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bd964",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-13T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Varanda do Bosque",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37bfff8",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-13T00:00:00",
+      "localizacao": "CDM3",
+      "codigoAnalisador": "03",
       "cliente": "Varanda do Bosque",
       "instalador": null
     }
