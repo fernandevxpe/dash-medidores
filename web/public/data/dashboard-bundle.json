@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-08-13T17:38:41Z",
+  "geradoEm": "2026-08-13T18:36:21Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -2972,16 +2972,6 @@
       "instalador": null
     },
     {
-      "idMedidor": "xp000000fcb467237f84",
-      "tipoEquipamento": "medidor",
-      "statusExecucao": "instalacao",
-      "data": "2026-04-28T00:00:00",
-      "localizacao": "CDM4",
-      "codigoAnalisador": "04",
-      "cliente": "Jardins Da Ilha Torre A",
-      "instalador": null
-    },
-    {
       "idMedidor": "ANALISADOR_05",
       "tipoEquipamento": "analisador",
       "statusExecucao": "desinstalacao",
@@ -5699,6 +5689,26 @@
       "localizacao": "CDM1",
       "codigoAnalisador": "01",
       "cliente": "Rio Laje",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b7798",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-13T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Varanda do Bosque",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37b8c28",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-13T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Varanda do Bosque",
       "instalador": null
     }
   ],
