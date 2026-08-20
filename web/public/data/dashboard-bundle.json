@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-08-20T19:06:13Z",
+  "geradoEm": "2026-08-20T19:41:53Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -5802,6 +5802,16 @@
       "instalador": null
     },
     {
+      "idMedidor": "xp000000a0a3b37c0128",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-20T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Saint Guilherme",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37cafe0",
       "tipoEquipamento": "medidor",
       "statusExecucao": "desinstalacao",
@@ -5809,6 +5819,16 @@
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
       "cliente": "Rio Laje",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cafe0",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-20T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Saint Guilherme",
       "instalador": null
     },
     {
@@ -5822,6 +5842,16 @@
       "instalador": null
     },
     {
+      "idMedidor": "xp000000a0a3b37d1174",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-20T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Saint Guilherme",
+      "instalador": null
+    },
+    {
       "idMedidor": "xp000000a0a3b37d216c",
       "tipoEquipamento": "medidor",
       "statusExecucao": "desinstalacao",
@@ -5829,6 +5859,16 @@
       "localizacao": "CDM1",
       "codigoAnalisador": "01",
       "cliente": "Rio Laje",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d216c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-20T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Saint Guilherme",
       "instalador": null
     }
   ],
