@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-08-25T17:07:17Z",
+  "geradoEm": "2026-08-25T18:14:39Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -5949,6 +5949,26 @@
       "localizacao": "COND",
       "codigoAnalisador": "COND",
       "cliente": "Mirante",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-25T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Joana D'Arc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f3c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-08-25T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Joana D'Arc",
       "instalador": null
     }
   ],
