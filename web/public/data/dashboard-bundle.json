@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-09-03T14:03:52Z",
+  "geradoEm": "2026-09-03T17:48:41Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -6099,6 +6099,46 @@
       "localizacao": "CDM2",
       "codigoAnalisador": "02",
       "cliente": "Luar dos Corais",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37cffdc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-09-03T00:00:00",
+      "localizacao": "CDM1",
+      "codigoAnalisador": "01",
+      "cliente": "Joana D'Arc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d31dc",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-09-03T00:00:00",
+      "localizacao": "CDM2",
+      "codigoAnalisador": "02",
+      "cliente": "Joana D'Arc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37dc0ac",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-09-03T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Joana D'Arc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000fcb467237f3c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "desinstalacao",
+      "data": "2026-09-03T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Joana D'Arc",
       "instalador": null
     }
   ],
