@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-09-04T17:00:08Z",
+  "geradoEm": "2026-09-04T19:24:58Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -6139,6 +6139,16 @@
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
       "cliente": "Joana D'Arc",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_05",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-09-04T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Antonio de Albuquerque Galvão",
       "instalador": null
     }
   ],
