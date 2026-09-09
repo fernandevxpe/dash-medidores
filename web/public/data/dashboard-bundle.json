@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-09-09T17:46:47Z",
+  "geradoEm": "2026-09-09T20:02:54Z",
   "fontePlanilha": "Google Sheets (1b__ZMvv…)",
   "config": {
     "diasMedicaoPadrao": 8,
@@ -6149,6 +6149,36 @@
       "localizacao": "GERAL",
       "codigoAnalisador": "GERAL",
       "cliente": "Antonio de Albuquerque Galvão",
+      "instalador": null
+    },
+    {
+      "idMedidor": "ANALISADOR_02",
+      "tipoEquipamento": "analisador",
+      "statusExecucao": "instalacao",
+      "data": "2026-09-09T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jose Eleuterio de Loredo",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37ca004",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-09-09T00:00:00",
+      "localizacao": "GERAL",
+      "codigoAnalisador": "GERAL",
+      "cliente": "Jose Eleuterio de Loredo",
+      "instalador": null
+    },
+    {
+      "idMedidor": "xp000000a0a3b37d134c",
+      "tipoEquipamento": "medidor",
+      "statusExecucao": "instalacao",
+      "data": "2026-09-09T00:00:00",
+      "localizacao": "COND",
+      "codigoAnalisador": "COND",
+      "cliente": "Jose Eleuterio de Loredo",
       "instalador": null
     }
   ],
